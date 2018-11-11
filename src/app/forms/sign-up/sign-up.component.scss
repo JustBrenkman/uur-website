@@ -2,3 +2,13 @@
   display: flex;
   flex-direction: column;
 }
+.fullWidth {
+  width: 100%;
+}
+
+input[type=text] {
+  all: initial;
+  * {
+    all: unset;
+  }
+}

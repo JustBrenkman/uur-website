@@ -12,29 +12,26 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class SchoolsService {
-  private heroesUrl = 'https://www.timpanogos-tech.com/scripts/schools';
+  // private server = 'https://www.timpanogos-tech.com';
+  private server = 'http://127.0.0.1:5000/';
+  private heroesUrl = this.server + '/scripts/schools';
+  private schoolsimple = this.server + '/scripts/api/schools/simple';
+  private registerURL = this.server + '/scripts/api/register';
   constructor(private http: HttpClient) { }
   serverData: JSON;
-  school: School;
-
-  getSchool(): Observable<School> {
-    // this.http.get('https://www.timpanogos-tech.com/scripts/schools').subscribe((school: School) => this.school = {
-    //   abr: school['abr'],
-    //   name: school['name']
-    // });
-    return this.http.get<School>('https://www.timpanogos-tech.com/scripts/schools').pipe(catchError(this.handleError));
-  }
 
   getTest(): void {
     this.http.get('https://www.timpanogos-tech.com/scripts/schools').pipe(catchError(this.handleError))
       .subscribe((data: JSON) => {this.serverData = data as JSON;
-        console.log(this.serverData);
       });
   }
 
   getSchools() {
-    console.log('Retrieving schools');
-    return this.http.get<School[]>(this.heroesUrl).pipe(catchError(this.handleError));
+    return this.http.get<School[]>(this.schoolsimple).pipe(catchError(this.handleError));
+  }
+
+  register(data) {
+    return this.http.post(this.registerURL, JSON.stringify(data)).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

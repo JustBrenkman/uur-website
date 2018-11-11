@@ -15,45 +15,81 @@
           <mdb-card-body class="px-lg-5 pt-0">
 
             <!-- Default form register -->
-            <form class="text-center p-5">
-
+            <form (ngSubmit)="onSubmit()" class="text-center p-5">
               <div class="form-row mb-4">
                 <div class="col">
                   <!-- First name -->
-                  <div class="md-form">
-                    <input type="text" id="defaultRegisterFormFirstName" class="form-control" mdbInputDirective>
-                    <label for="defaultRegisterFormFirstName">First name</label>
-                  </div>
+                  <!--<div class="md-form">-->
+                    <!--<input type="text" id="defaultRegisterFormFirstName" [(ngModel)]="firstName" name="firstName" class="form-control">-->
+                    <!--<label for="defaultRegisterFormFirstName">First name</label>-->
+                  <!--</div>-->
+                  <mat-form-field class="fullWidth">
+                    <input matInput placeholder="First Name" [formControl]="firtNameFC" [errorStateMatcher]="emailErrorMatcher">
+                    <mat-hint></mat-hint>
+                    <mat-error *ngIf="firtNameFC.hasError('required')">
+                      First name is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
                 </div>
                 <div class="col">
                   <!-- Last name -->
-                  <div class="md-form">
-                    <input type="text" id="defaultRegisterFormLastName" class="form-control" mdbInputDirective>
-                    <label for="defaultRegisterFormLastName">Last name</label>
-                  </div>
+                  <!--<div class="md-form">-->
+                    <!--<input type="text" id="defaultRegisterFormLastName" [(gnModel)]="lastName" name="lastName" class="form-control">-->
+                    <!--<label for="defaultRegisterFormLastName">Last name</label>-->
+                  <!--</div>-->
+                  <mat-form-field class="fullWidth">
+                    <input matInput placeholder="Last Name" [formControl]="lastNameFC" [errorStateMatcher]="emailErrorMatcher">
+                    <mat-hint></mat-hint>
+                    <mat-error *ngIf="lastNameFC.hasError('required')">
+                      Last name is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
                 </div>
               </div>
 
               <!-- E-mail -->
-              <div class="md-form">
-                <input type="email" id="defaultRegisterFormEmail" class="form-control" mdbInputDirective>
-                <label for="defaultRegisterFormEmail">E-mail</label>
-              </div>
+              <!--<div class="md-form">-->
+                <!--<input type="email" [(gnModel)]="email" id="defaultRegisterFormEmail" class="form-control">-->
+                <!--<label for="defaultRegisterFormEmail">E-mail</label>-->
+              <!--</div>-->
+              <mat-form-field class="fullWidth">
+                <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="emailErrorMatcher" name="email">
+                <mat-hint></mat-hint>
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                  Email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
               <!-- Password -->
-              <div class="md-form">
-                <input type="password" id="defaultRegisterFormPassword" class="form-control" aria-describedby="defaultRegisterFormPasswordHelpBlock" mdbInputDirective>
-                <label for="defaultRegisterFormPassword">Password</label>
-                <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">At least 8 characters and 1 digit</small>
-              </div>
+              <!--<div class="md-form">-->
+                <!--<input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" id="defaultRegisterFormPassword" class="form-control" aria-describedby="defaultRegisterFormPasswordHelpBlock">-->
+                <!--<label for="defaultRegisterFormPassword">Password</label>-->
+                <!--<small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">At least 8 characters and 1 digit</small>-->
+              <!--</div>-->
+              <mat-form-field class="fullWidth md-form">
+                <input matInput placeholder="Password" type="password" [formControl]="passwordFC" [errorStateMatcher]="emailErrorMatcher">
+                <mat-hint>At least 8 characters and 1 digit</mat-hint>
+                <mat-error *ngIf="passwordFC.hasError('minLength') && !passwordFC.hasError('required')">
+                  Please enter a password that is 8 or more characters
+                </mat-error>
+                <mat-error *ngIf="passwordFC.hasError('required')">
+                  Password is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
 
-               <mat-form-field class="col-stretch">
-                 <mat-select placeholder="School" [required]="true">
+              <mat-form-field class="col-stretch">
+                 <mat-select placeholder="School" [formControl]="schoolFC">
                    <mat-option>Select a school</mat-option>
                    <div *ngIf="schools">
                      <mat-option *ngFor="let on of schools" [value]="on.abr">{{on.name}}</mat-option>
                    </div>
                    <!--<mat-option [value]="data.abr">{{data.name}}</mat-option>-->
                  </mat-select>
+                <mat-error *ngIf="passwordFC.hasError('required')">
+                  Please select the school you are representing
+                </mat-error>
                </mat-form-field>
 
               <!--/Dropdown primary-->
