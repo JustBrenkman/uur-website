@@ -12,8 +12,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class SchoolsService {
-  // private server = 'https://www.timpanogos-tech.com';
-  private server = 'http://127.0.0.1:5000/';
+  private server = 'https://www.timpanogos-tech.com';
+  // private server = 'http://127.0.0.1:5000/';
   private heroesUrl = this.server + '/scripts/schools';
   private schoolsimple = this.server + '/scripts/api/schools/simple';
   private registerURL = this.server + '/scripts/api/register';
