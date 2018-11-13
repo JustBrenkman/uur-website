@@ -19,10 +19,18 @@ import {
   MatButtonModule,
   MatInputModule,
   ShowOnDirtyErrorStateMatcher,
-  ErrorStateMatcher
+  ErrorStateMatcher,
+  MatMenuModule,
+  MatToolbarModule,
+  MatButtonToggleModule,
+  MatDividerModule,
+  MatRadioModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
+import { LoginViewComponent } from './views/login-view/login-view.component';
+import { RegisterViewComponent } from './views/register-view/register-view.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +40,8 @@ import {HttpClientModule} from '@angular/common/http';
     SignUpComponent,
     LandingComponent,
     DashboardComponent,
+    LoginViewComponent,
+    RegisterViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +53,12 @@ import {HttpClientModule} from '@angular/common/http';
     MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatButtonToggleModule,
+    MatRadioModule,
+    MatDividerModule,
+    MatSnackBarModule,
     HttpClientModule,
     AppRoutingModule,
   ],

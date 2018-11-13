@@ -5,6 +5,8 @@ import {SchoolsService} from './schools.service';
 import {School} from './school';
 import {ErrorStateMatcher} from '@angular/material';
 
+import {MatSnackBar} from '@angular/material';
+
 export interface Data {
   abr: string;
   name: string;
@@ -27,6 +29,7 @@ export class SignUpComponent implements OnInit {
   schools: School[];
   data: Data;
   response: JSON;
+  roles: string[] = ['Teacher', 'Student'];
 
   emailFormControl = new FormControl('', [
     Validators.email,
@@ -45,14 +48,19 @@ export class SignUpComponent implements OnInit {
   schoolFC = new FormControl('', [
     Validators.required
   ]);
+  roleFC = new FormControl('', [
+    Validators.required
+  ]);
+
 
   constructor(
-    private schoolService: SchoolsService) { }
+    private schoolService: SchoolsService, public snackBar: MatSnackBar) { }
 
   emailErrorMatcher = new EmailErrorMatcher();
 
   ngOnInit() {
     this.getSchools();
+    this.roleFC.setValue('Teacher');
   }
 
   getSchools(): void {
@@ -65,6 +73,11 @@ export class SignUpComponent implements OnInit {
     this.schoolService.register(data).subscribe((rep: JSON) => {
       this.response = rep;
       console.log(this.response['result']);
+      if (this.response['result'] !== 'success') {
+        this.snackBar.open('Unable to create user, user already exits', 'Ok');
+      } else {
+        this.snackBar.open('Successfully register', 'Dismiss', {duration: 2000});
+      }
     });
   }
 
@@ -99,9 +112,11 @@ export class SignUpComponent implements OnInit {
       console.log('School: Invalid');
     }
 
+    console.log('Role: ' + this.roleFC.value);
+
     if (this.emailFormControl.valid && this.passwordFC.valid && this.firtNameFC.valid && this.lastNameFC.valid && this.schoolFC.valid) {
       this.register({email: this.emailFormControl.value, password: this.passwordFC.value, firstName: this.firtNameFC.value,
-        lastName: this.lastNameFC.value, school: this.schoolFC.value});
+        lastName: this.lastNameFC.value, school: this.schoolFC.value, role: this.roleFC.value});
     }
   }
 }

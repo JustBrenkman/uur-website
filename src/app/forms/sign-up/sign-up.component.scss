@@ -12,3 +12,9 @@ input[type=text] {
     all: unset;
   }
 }
+
+.radio-group-vertical {
+  display: inline-flex;
+  flex-direction: column;
+  align-content: flex-start;
+}

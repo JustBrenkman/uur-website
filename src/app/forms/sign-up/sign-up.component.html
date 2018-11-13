@@ -68,7 +68,7 @@
                 <!--<label for="defaultRegisterFormPassword">Password</label>-->
                 <!--<small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">At least 8 characters and 1 digit</small>-->
               <!--</div>-->
-              <mat-form-field class="fullWidth md-form">
+              <mat-form-field class="fullWidth">
                 <input matInput placeholder="Password" type="password" [formControl]="passwordFC" [errorStateMatcher]="emailErrorMatcher">
                 <mat-hint>At least 8 characters and 1 digit</mat-hint>
                 <mat-error *ngIf="passwordFC.hasError('minLength') && !passwordFC.hasError('required')">
@@ -91,6 +91,15 @@
                   Please select the school you are representing
                 </mat-error>
                </mat-form-field>
+
+              <div class="col-stretch">
+                <h5 class="align-baseline">
+                  Role:
+                </h5>
+                <mat-radio-group class="radio-group-vertical" [formControl]="roleFC">
+                  <mat-radio-button *ngFor="let role of roles" [value]="role">{{role}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
 
               <!--/Dropdown primary-->
               <small id="defaultRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
