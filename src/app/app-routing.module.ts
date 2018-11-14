@@ -8,7 +8,7 @@ import {LoginViewComponent} from './views/login-view/login-view.component';
 import {RegisterViewComponent} from './views/register-view/register-view.component';
 
 const routes: Routes = [
-  {path: '', component: LandingComponent},
+  {path: '', component: LoginViewComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'login', component: LoginViewComponent},
   {path: 'register', component: RegisterViewComponent}

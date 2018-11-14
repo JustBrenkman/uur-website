@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NavigationComponent } from './navigation/navigation.component';
+// import { NavigationComponent } from './navigation/navigation.component';
 import { LoginComponent } from './forms/login/login.component';
 import { SignUpComponent } from './forms/sign-up/sign-up.component';
 import { LandingComponent } from './views/landing/landing.component';
@@ -31,11 +31,12 @@ import {
 import {HttpClientModule} from '@angular/common/http';
 import { LoginViewComponent } from './views/login-view/login-view.component';
 import { RegisterViewComponent } from './views/register-view/register-view.component';
+import {AuthenticateService} from './services/authenticate.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent,
+    // NavigationComponent,
     LoginComponent,
     SignUpComponent,
     LandingComponent,
@@ -64,9 +65,10 @@ import { RegisterViewComponent } from './views/register-view/register-view.compo
   ],
   exports: [],
   providers: [
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher,},
+    AuthenticateService
   ],
-  bootstrap: [AppComponent, NavigationComponent],
+  bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })
 export class AppModule { }

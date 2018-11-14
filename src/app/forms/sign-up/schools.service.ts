@@ -12,8 +12,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class SchoolsService {
-  private server = 'https://www.timpanogos-tech.com';
-  // private server = 'http://127.0.0.1:5000/';
+  // private server = 'https://www.timpanogos-tech.com';
+  private server = 'http://127.0.0.1:5000/';
   private heroesUrl = this.server + '/scripts/schools';
   private schoolsimple = this.server + '/scripts/api/schools/simple';
   private registerURL = this.server + '/scripts/api/register';
@@ -27,10 +27,12 @@ export class SchoolsService {
   }
 
   getSchools() {
+    console.log(this.schoolsimple);
     return this.http.get<School[]>(this.schoolsimple).pipe(catchError(this.handleError));
   }
 
   register(data) {
+    console.log(this.registerURL);
     return this.http.post(this.registerURL, JSON.stringify(data)).pipe(catchError(this.handleError));
   }
 

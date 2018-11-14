@@ -75,6 +75,7 @@ export class SignUpComponent implements OnInit {
       console.log(this.response['result']);
       if (this.response['result'] !== 'success') {
         this.snackBar.open('Unable to create user, user already exits', 'Ok');
+        console.log('Auth token: ' + this.response['auth_token']);
       } else {
         this.snackBar.open('Successfully register', 'Dismiss', {duration: 2000});
       }
