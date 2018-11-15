@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {School} from './school';
-import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material';
+import {throwError} from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
@@ -12,12 +13,12 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class SchoolsService {
-  // private server = 'https://www.timpanogos-tech.com';
-  private server = 'http://127.0.0.1:5000/';
+  private server = 'https://www.timpanogos-tech.com';
+  // private server = 'http://127.0.0.1:5000/';
   private heroesUrl = this.server + '/scripts/schools';
   private schoolsimple = this.server + '/scripts/api/schools/simple';
   private registerURL = this.server + '/scripts/api/register';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public snackBar: MatSnackBar) { }
   serverData: JSON;
 
   getTest(): void {
@@ -47,6 +48,7 @@ export class SchoolsService {
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
     }
+    this.snackBar.open('An Error occurred with the server, please try again later');
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');

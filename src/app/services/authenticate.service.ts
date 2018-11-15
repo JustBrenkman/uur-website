@@ -3,6 +3,7 @@ import {User} from '../models/user';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {empty, throwError} from 'rxjs';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
@@ -12,14 +13,14 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthenticateService {
-  private serverURL = 'http://127.0.0.1:5000/';
-  // private serverURL = 'https://www.timpanogos-tech.com';
+  // private serverURL = 'http://127.0.0.1:5000/';
+  private serverURL = 'https://www.timpanogos-tech.com';
   private loginURL = this.serverURL + '/scripts/api/login';
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
   private auth_token: JSON;
   private isLoggedIn = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public jwt: JwtHelperService) { }
 
   // This function will log in the user
   login(user: User, callback: (success: boolean) => void) {
@@ -36,6 +37,15 @@ export class AuthenticateService {
         callback(false);
       }
     });
+  }
+
+  // Checks to see if we have an item that is stored in the local storage
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem('auth_token');
+    if (!token) { // Need to check if the token has been set first
+      return false; // If the token hasn't been set that means we are not logged in
+    }
+    return !this.jwt.isTokenExpired(token);
   }
 
   isloggedin(): boolean {

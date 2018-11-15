@@ -3,7 +3,7 @@ import {AuthenticateService} from '../../services/authenticate.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher, MatSnackBar} from '@angular/material';
 import {User} from '../../models/user';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 export class EmailErrorMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -30,11 +30,13 @@ export class LoginComponent implements OnInit {
 
   emailErrorMatcher = new EmailErrorMatcher();
   response: JSON;
+  returnUrl: string;
 
-  constructor(private auth: AuthenticateService, public snackBar: MatSnackBar, private router: Router) { }
+  constructor(private auth: AuthenticateService, public snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     // console.log(this.auth.test());
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   onLoggedIn(success: boolean) {
@@ -55,7 +57,7 @@ export class LoginComponent implements OnInit {
       this.auth.login(user, (success) => {
         if (success) {
           this.snackBar.open('Successfully logged you in', 'Ok', {duration: 2000});
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl(this.returnUrl);
         } else {
           this.snackBar.open('Failed to log you in, check your email and password', 'Ok', {duration: 2000});
         }

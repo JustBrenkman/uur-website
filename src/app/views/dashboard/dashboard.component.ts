@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MatIcon} from '@angular/material';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,4 +13,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
+  logout() {
+    localStorage.removeItem('auth_token');
+    console.log('Logging out');
+  }
 }
