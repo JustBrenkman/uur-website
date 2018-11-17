@@ -14,12 +14,15 @@ const httpOptions = {
 })
 export class AuthenticateService {
   // private serverURL = 'http://127.0.0.1:5000/';
-  private serverURL = 'https://www.timpanogos-tech.com';
-  private loginURL = this.serverURL + '/scripts/api/login';
+  // private serverURL = 'https://www.timpanogos-tech.com/scripts';
+  private serverURL = 'https://uur.byu.edu';
+  private loginURL = this.serverURL + '/api/login';
+  private registerURL = this.serverURL + '/api/register';
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
   private auth_token: JSON;
   private isLoggedIn = false;
 
+  // This constructor sets up some stuff for us
   constructor(private http: HttpClient, public jwt: JwtHelperService) { }
 
   // This function will log in the user
@@ -48,8 +51,10 @@ export class AuthenticateService {
     return !this.jwt.isTokenExpired(token);
   }
 
-  isloggedin(): boolean {
-    return this.isLoggedIn;
+  // This will attempt to register a new user TODO replace data with user type
+  register(data) {
+    console.log(this.registerURL);
+    return this.http.post(this.registerURL, JSON.stringify(data)).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -2,10 +2,12 @@ import {Component, OnInit, Optional} from '@angular/core';
 import {FormControl, Validators, NgForm, FormGroupDirective, FormGroup} from '@angular/forms';
 
 import {SchoolsService} from './schools.service';
-import {School} from './school';
+import {School} from '../../models/school';
 import {ErrorStateMatcher} from '@angular/material';
 
 import {MatSnackBar} from '@angular/material';
+import {AuthenticateService} from '../../services/authenticate.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 export interface Data {
   abr: string;
@@ -54,13 +56,19 @@ export class SignUpComponent implements OnInit {
 
 
   constructor(
-    private schoolService: SchoolsService, public snackBar: MatSnackBar) { }
+    private schoolService: SchoolsService,
+    public snackBar: MatSnackBar,
+    private authService: AuthenticateService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   emailErrorMatcher = new EmailErrorMatcher();
+  returnUrl: string;
 
   ngOnInit() {
     this.getSchools();
     this.roleFC.setValue('Teacher');
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   getSchools(): void {
@@ -70,14 +78,15 @@ export class SignUpComponent implements OnInit {
   }
 
   register(data) {
-    this.schoolService.register(data).subscribe((rep: JSON) => {
+    this.authService.register(data).subscribe((rep: JSON) => {
       this.response = rep;
       console.log(this.response['result']);
-      if (this.response['result'] !== 'success') {
+      if (this.response['result'] === 'success' || this.response['result'] === 'Success') {
+        this.snackBar.open('Successfully register', 'Dismiss', {duration: 2000});
+        this.router.navigateByUrl(this.returnUrl);
+      } else {
         this.snackBar.open('Unable to create user, user already exits', 'Ok');
         console.log('Auth token: ' + this.response['auth_token']);
-      } else {
-        this.snackBar.open('Successfully register', 'Dismiss', {duration: 2000});
       }
     });
   }

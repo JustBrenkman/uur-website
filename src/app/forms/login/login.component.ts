@@ -3,7 +3,7 @@ import {AuthenticateService} from '../../services/authenticate.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher, MatSnackBar} from '@angular/material';
 import {User} from '../../models/user';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterStateSnapshot} from '@angular/router';
 
 export class EmailErrorMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -32,20 +32,17 @@ export class LoginComponent implements OnInit {
   response: JSON;
   returnUrl: string;
 
-  constructor(private auth: AuthenticateService, public snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) { }
+  constructor(private auth: AuthenticateService,
+              public snackBar: MatSnackBar,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // console.log(this.auth.test());
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  onLoggedIn(success: boolean) {
-    if (success) {
-      // console.log('Callback');
-      this.snackBar.open('Successfully logged you in');
-    } else {
-      this.snackBar.open('Failed to log you in, check your email and password');
-    }
+  goToRegister() {
+    this.router.navigate(['register'], {queryParams: {returnUrl: ''}});
   }
 
   login() {

@@ -26,13 +26,18 @@ import {
   MatDividerModule,
   MatRadioModule,
   MatSnackBarModule,
-  MatIconModule
+  MatIconModule,
+  MatSidenavModule,
+  MatGridListModule,
+  MatListModule
 } from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
 import { LoginViewComponent } from './views/login-view/login-view.component';
 import { RegisterViewComponent } from './views/register-view/register-view.component';
 import {AuthenticateService} from './services/authenticate.service';
+import { DashboardMainComponent } from './views/dashboard-main/dashboard-main.component';
+import { UsersComponent } from './views/users/users.component';
 
 export function getToken() {
   return localStorage.getItem('auth_token');
@@ -48,6 +53,8 @@ export function getToken() {
     DashboardComponent,
     LoginViewComponent,
     RegisterViewComponent,
+    DashboardMainComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +73,9 @@ export function getToken() {
     MatDividerModule,
     MatSnackBarModule,
     MatIconModule,
+    MatSidenavModule,
+    MatGridListModule,
+    MatListModule,
     HttpClientModule,
     AppRoutingModule,
     JwtModule.forRoot({
