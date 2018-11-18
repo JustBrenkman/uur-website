@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.expand = true;
+    this.expand = false;
   }
 
   ngOnDestroy() {

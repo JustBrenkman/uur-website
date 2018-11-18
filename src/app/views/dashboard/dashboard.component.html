@@ -1,38 +1,32 @@
-
-
-<!--<mat-sidenav-container [style.marginTop.px]="mobileQuery.matches ? 56 : 0">-->
-  <!--<mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"-->
-               <!--[fixedInViewport]="mobileQuery.matches"-->
-               <!--fixedTopGap="56"></mat-sidenav>-->
-  <!--<mat-nav-list>-->
-    <!--<button mat-button>Yeah</button>-->
-  <!--</mat-nav-list>-->
-
-  <!--<mat-sidenav-content>-->
-    <!--<p>A pile of random crap</p>-->
-  <!--</mat-sidenav-content>-->
-<!--</mat-sidenav-container>-->
-
 <mat-sidenav-container style="height: 100%"
-  [style.marginTop.px]="mobileQuery.matches ? 56 : 0" autosize>
+  [style.marginTop.px]="mobileQuery.matches ? 0 : 0" autosize>
   <!-- [mode]="mobileQuery.matches ? 'over' : 'side'" -->
   <mat-sidenav #snav [mode]="'side'" opened
-               [fixedInViewport]="mobileQuery.matches" [fixedTopGap]="56">
+               [fixedInViewport]="mobileQuery.matches">
     <mat-nav-list>
         <mat-list role="list">
           <mat-list-item [routerLink]="['v1']">
             <h2><mat-icon>dashboard</mat-icon> <div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Dashboard</div></h2>
           </mat-list-item>
             <!--<mat-divider></mat-divider>-->
-          <mat-list-item [routerLink]="['adduser']">
+          <mat-list-item [routerLink]="['users']">
             <h2><mat-icon>group</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Users</div></h2>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['judges']">
+            <h2><mat-icon>gavel</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Judges</div> </h2>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['competition']">
+            <h2><mat-icon>timeline</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Competition</div> </h2>
+          </mat-list-item>
+          <mat-list-item [routerLink]="['schools']">
+            <h2><mat-icon>school</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Schools</div> </h2>
           </mat-list-item>
         </mat-list>
     </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar class="d-flex">
+    <mat-toolbar class="d-flex" color="primary">
       <button mat-icon-button (click)="expand = !expand">
           <mat-icon *ngIf="!expand">keyboard_arrow_right</mat-icon>
           <mat-icon *ngIf="expand">keyboard_arrow_left</mat-icon>

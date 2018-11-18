@@ -1,7 +1,7 @@
 import {Component, OnInit, Optional} from '@angular/core';
 import {FormControl, Validators, NgForm, FormGroupDirective, FormGroup} from '@angular/forms';
 
-import {SchoolsService} from './schools.service';
+import {SchoolsService} from '../../services/schools.service';
 import {School} from '../../models/school';
 import {ErrorStateMatcher} from '@angular/material';
 

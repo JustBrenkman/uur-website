@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
   emailErrorMatcher = new EmailErrorMatcher();
   response: JSON;
   returnUrl: string;
+  loggingIn = false;
 
   constructor(private auth: AuthenticateService,
               public snackBar: MatSnackBar,
@@ -51,6 +52,7 @@ export class LoginComponent implements OnInit {
         email: this.emailFormControl.value,
         password: this.passwordFC.value
       };
+      this.loggingIn = true;
       this.auth.login(user, (success) => {
         if (success) {
           this.snackBar.open('Successfully logged you in', 'Ok', {duration: 2000});
@@ -58,6 +60,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.snackBar.open('Failed to log you in, check your email and password', 'Ok', {duration: 2000});
         }
+        this.loggingIn = false;
       });
     }
   }

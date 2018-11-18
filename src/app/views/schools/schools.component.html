@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row d-flex flex-column pt-2">
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+    <mat-card>
+      <mat-card-title>
+        School Abr
+        <div class="d-inline justify-content-end">
+          <button mat-icon-button (click)="getSchools()"><mat-icon>refresh</mat-icon></button>
+        </div>
+      </mat-card-title>
+      <mat-card-content>
+
+        <mat-form-field class="stretch">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> School Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="abr">
+            <mat-header-cell *matHeaderCellDef> Abbreviation </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.abr}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
