@@ -13,19 +13,12 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class SchoolsService {
-  private server = 'https://www.timpanogos-tech.com';
+  private server = 'https://uur.byu.edu/';
+  // private server = 'https://www.timpanogos-tech.com/scripts/';
   // private server = 'http://127.0.0.1:5000/';
-  private heroesUrl = this.server + '/scripts/schools';
-  private schoolsimple = this.server + '/scripts/api/schools/simple';
-  private registerURL = this.server + '/scripts/api/register';
+  private schoolsimple = this.server + 'api/schools/simple';
+  private registerURL = this.server + 'api/register';
   constructor(private http: HttpClient, public snackBar: MatSnackBar) { }
-  serverData: JSON;
-
-  getTest(): void {
-    this.http.get('https://www.timpanogos-tech.com/scripts/schools').pipe(catchError(this.handleError))
-      .subscribe((data: JSON) => {this.serverData = data as JSON;
-      });
-  }
 
   getSchools() {
     console.log(this.schoolsimple);

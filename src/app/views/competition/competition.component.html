@@ -11,6 +11,11 @@
           </div>
         </div>
       </mat-card-content>
+      <mat-card-footer class="d-flex">
+        <button mat-button (click)="connectToSocket()">Connect</button>
+        <span class="spacer align-content-end"></span>
+        <button mat-button color="primary">Status: {{socket.status}}</button>
+      </mat-card-footer>
     </mat-card>
   </div>
 </div>

@@ -3,16 +3,16 @@
   <div class="row justify-content-sm-center">
     <div class="col-sm-">
       <div style="height: 75vh">
-        <mdb-card>
+        <mat-card>
 
-          <mdb-card-header class="info-color white-text text-center py-4">
-            <h5>
+          <mat-card-header>
+            <mat-card-title>
               <strong>Sign up</strong>
-            </h5>
-          </mdb-card-header>
+            </mat-card-title>
+          </mat-card-header>
 
           <!--Card content-->
-          <mdb-card-body class="px-lg-5 pt-0">
+          <mat-card-content class="px-lg-5 pt-0">
 
             <!-- Default form register -->
             <form (ngSubmit)="onSubmit()" class="text-center">
@@ -108,10 +108,11 @@
 
 
               <!-- Sign up button -->
-              <button mdbBtn color="info" block="true" class="my-4" type="submit" mdbWavesEffect>Sign Up</button>
+                <button mat-raised-button color="primary" class="my-4 stretch" type="submit">Sign Up</button>
               <!--<button mat-raised-button color="primary">Sign in</button>-->
 
 
+              <p></p>
               <a type="button" class="light-blue-text mx-2">
                 <mdb-icon icon="facebook"></mdb-icon>
               </a>
@@ -141,9 +142,9 @@
             </form>
             <!-- Default form register -->
 
-          </mdb-card-body>
+          </mat-card-content>
 
-        </mdb-card>
+        </mat-card>
       </div>
     </div>
   </div>

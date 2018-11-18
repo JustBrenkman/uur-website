@@ -2,17 +2,17 @@
 <div class="container">
   <div class="row justify-content-sm-center">
     <div class="col-sm-">
-      <div style="height: 50vh">
-        <mdb-card>
+      <!--<div style="height: 50vh">-->
+        <mat-card>
 
-          <mdb-card-header class="secondary-color white-text text-center py-4">
-            <h5>
+          <mat-card-header>
+            <mat-card-title>
               <strong>Sign in</strong>
-            </h5>
-          </mdb-card-header>
+            </mat-card-title>
+          </mat-card-header>
 
           <!--Card content-->
-          <mdb-card-body class="px-lg-5 pt-0">
+          <mat-card-content class="px-lg-5 pt-2">
 
             <!-- Default form login -->
             <form (ngSubmit)="login()" class="text-center">
@@ -60,7 +60,7 @@
                 </div>
 
                 <!-- Sign in button -->
-                <button mat-raised-button color="accent" class="my-4" type="submit" [disabled]="loggingIn">Sign in</button>
+                <button mat-raised-button color="primary" class="my-4 stretch" type="submit" [disabled]="loggingIn">Sign in</button>
 
                 <!-- Register -->
                 <p>Not a member?
@@ -90,11 +90,11 @@
 
             </form>
 
-          </mdb-card-body>
+          </mat-card-content>
 
-        </mdb-card>
+        </mat-card>
       </div>
-    </div>
+    <!--</div>-->
   </div>
 </div>
 <!-- Material form register -->
