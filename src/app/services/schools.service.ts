@@ -14,6 +14,7 @@ const httpOptions = {
 })
 export class SchoolsService {
   private server = 'https://uur.byu.edu/';
+  // private server = 'http://localhost:5000/';
   // private server = 'https://www.timpanogos-tech.com/scripts/';
   // private server = 'http://127.0.0.1:5000/';
   private schoolsimple = this.server + 'api/schools/simple';

@@ -3,7 +3,6 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Observable, throwError} from 'rxjs';
 import * as socketIo from 'socket.io-client';
-import {st} from '@angular/core/src/render3';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
@@ -27,8 +26,8 @@ export enum Status {
 export class SocketService implements OnInit {
 
   private socket;
-  private serverURL = 'https://uur.byu.edu';
-  // private serverURL = 'http://localhost:5000';
+  // private serverURL = 'https://uur.byu.edu';
+  private serverURL = 'http://localhost:5000';
 
   constructor(private http: HttpClient, public jwt: JwtHelperService) { }
 
@@ -44,11 +43,20 @@ export class SocketService implements OnInit {
     this.onEvent(Event.CONNECTED).subscribe(() => {
       this.status = Status.CONNECTED;
     });
+    this.onEvent(Event.DISCONNECTED).subscribe(() => {
+      this.status = Status.DISCONNECTED;
+    });
   }
 
   public onEvent(event: Event): Observable<any> {
     return new Observable<Event>(observer => {
       this.socket.on(event, () => observer.next());
+    });
+  }
+
+  public onMessageRecieved(): Observable<any> {
+    return new Observable<string>(observer => {
+      this.socket.on('message', (data: string) => observer.next(data));
     });
   }
 
@@ -66,5 +74,10 @@ export class SocketService implements OnInit {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
+  }
+
+  disconnect() {
+    this.socket.disconnect();
+    this.status = Status.DISCONNECTED;
   }
 }
