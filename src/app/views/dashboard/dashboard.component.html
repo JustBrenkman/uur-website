@@ -9,17 +9,35 @@
             <h2><mat-icon>dashboard</mat-icon> <div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Dashboard</div></h2>
           </mat-list-item>
             <!--<mat-divider></mat-divider>-->
-          <mat-list-item [routerLink]="['users']">
-            <h2><mat-icon>group</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Users</div></h2>
-          </mat-list-item>
-          <mat-list-item [routerLink]="['judges']">
-            <h2><mat-icon>gavel</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Judges</div> </h2>
-          </mat-list-item>
-          <mat-list-item [routerLink]="['competition']">
-            <h2><mat-icon>timeline</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Competition</div> </h2>
-          </mat-list-item>
-          <mat-list-item [routerLink]="['schools']">
-            <h2><mat-icon>school</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Schools</div> </h2>
+          <div *ngIf="privilegeGuard('admin')">
+            <mat-list-item [routerLink]="['users']">
+              <h2><mat-icon>group</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Users</div></h2>
+            </mat-list-item>
+            <mat-list-item [routerLink]="['judges']">
+              <h2><mat-icon>gavel</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Judges</div> </h2>
+            </mat-list-item>
+            <mat-list-item [routerLink]="['schools']">
+              <h2><mat-icon>school</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Schools</div> </h2>
+            </mat-list-item>
+          </div>
+
+          <div *ngIf="privilegeGuard('member')">
+            <mat-divider></mat-divider>
+            <mat-list-item [routerLink]="['teams']">
+              <h2><mat-icon>list</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Teams</div></h2>
+            </mat-list-item>
+          </div>
+
+          <div *ngIf="privilegeGuard('viewer')">
+            <mat-divider></mat-divider>
+            <mat-list-item [routerLink]="['competition']">
+              <h2><mat-icon>timeline</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Competition</div> </h2>
+            </mat-list-item>
+          </div>
+
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <h2><mat-icon>settings</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Settings</div></h2>
           </mat-list-item>
         </mat-list>
     </mat-nav-list>

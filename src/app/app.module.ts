@@ -46,6 +46,8 @@ import { JudgesComponent } from './views/judges/judges.component';
 import { CompetitionComponent } from './views/competition/competition.component';
 import { SchoolsComponent } from './views/schools/schools.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import { AddUserFormComponent } from './forms/add-user-form/add-user-form.component';
+import { TeamsComponent } from './views/teams/teams.component';
 
 export function getToken() {
   return localStorage.getItem('auth_token');
@@ -66,6 +68,8 @@ export function getToken() {
     JudgesComponent,
     CompetitionComponent,
     SchoolsComponent,
+    AddUserFormComponent,
+    TeamsComponent,
   ],
   imports: [
     BrowserModule,

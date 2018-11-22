@@ -12,6 +12,8 @@ import {UsersComponent} from './views/users/users.component';
 import {JudgesComponent} from './views/judges/judges.component';
 import {CompetitionComponent} from './views/competition/competition.component';
 import {SchoolsComponent} from './views/schools/schools.component';
+import {TeamsComponent} from './views/teams/teams.component';
+import {RolePrivilegeGuard} from './services/role-privilege-guard.service';
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -21,10 +23,11 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'v1', pathMatch: 'full'},
       {path: 'v1', component: DashboardMainComponent, canActivate: [AuthenticationGuard]},
-      {path: 'users', component: UsersComponent, canActivate: [AuthenticationGuard]},
-      {path: 'judges', component: JudgesComponent, canActivate: [AuthenticationGuard]},
+      {path: 'users', component: UsersComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'admin'}},
+      {path: 'judges', component: JudgesComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'admin', role: 'Other'}},
       {path: 'competition', component: CompetitionComponent, canActivate: [AuthenticationGuard]},
-      {path: 'schools', component: SchoolsComponent, canActivate: [AuthenticationGuard]},
+      {path: 'schools', component: SchoolsComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'admin'}},
+      {path: 'teams', component: TeamsComponent, canActivate: [AuthenticationGuard]},
       {path: '404', redirectTo: 'v1'}
     ]
   },

@@ -4,6 +4,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {empty, throwError} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import decode from 'jwt-decode';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
@@ -13,9 +14,9 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthenticateService {
-  // private serverURL = 'http://127.0.0.1:5000/';
+  private serverURL = 'http://127.0.0.1:5000';
   // private serverURL = 'https://www.timpanogos-tech.com/scripts';
-  private serverURL = 'https://uur.byu.edu';
+  // private serverURL = 'https://uur.byu.edu';
   private loginURL = this.serverURL + '/api/login';
   private registerURL = this.serverURL + '/api/register';
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
@@ -49,6 +50,18 @@ export class AuthenticateService {
       return false; // If the token hasn't been set that means we are not logged in
     }
     return !this.jwt.isTokenExpired(token);
+  }
+
+  public getRole(): string {
+    const token = localStorage.getItem('auth_token');
+    const payload = decode(token);
+    return payload.sub['role'];
+  }
+
+  public getPrivilege(): string {
+    const token = localStorage.getItem('auth_token');
+    const payload = decode(token);
+    return payload.sub['privilege'];
   }
 
   // This will attempt to register a new user TODO replace data with user type

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ChangeDetectorRef, OnDestroy} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
+import {RolePrivilegeGuard} from '../../services/role-privilege-guard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   _mobileQueryListener: () => void;
   expand: boolean;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public roleGuard: RolePrivilegeGuard) {
     this.mobileQuery = media.matchMedia('(max-width: 600px');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -34,5 +35,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   toggleSidebar() {
     console.log('Toggling sidebar');
+  }
+
+  privilegeGuard(role: string): boolean {
+    return this.roleGuard.privilegeGuard(role);
   }
 }
