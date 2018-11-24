@@ -1,38 +1,144 @@
 <div class="container">
-  <div class="row d-flex flex-column pt-2">
-    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-    <mat-card>
-      <mat-card-title>
-        School Abbreviation
-        <div class="d-inline justify-content-end">
-          <button mat-icon-button (click)="getSchools()"><mat-icon>refresh</mat-icon></button>
-        </div>
-      </mat-card-title>
-      <mat-card-content>
+  <div class="row d-flex pt-2">
+    <div class="p-2 flex-grow-1">
+      <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+      <mat-card>
+        <mat-card-title>
+          School Abbreviation
+          <div class="d-inline justify-content-end">
+            <button mat-icon-button (click)="getSchools()"><mat-icon>refresh</mat-icon></button>
+          </div>
+        </mat-card-title>
+        <mat-card-content>
+          <mat-form-field class="stretch">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
 
-        <mat-form-field class="stretch">
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-        </mat-form-field>
+          <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef> School Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            </ng-container>
 
-        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-          <!-- Name Column -->
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> School Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-          </ng-container>
+            <!-- Weight Column -->
+            <ng-container matColumnDef="abr">
+              <mat-header-cell *matHeaderCellDef> Abbreviation </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.abr}} </mat-cell>
+            </ng-container>
 
-          <!-- Weight Column -->
-          <ng-container matColumnDef="abr">
-            <mat-header-cell *matHeaderCellDef> Abbreviation </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.abr}} </mat-cell>
-          </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </mat-card-content>
+        <mat-card-footer>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </mat-card-footer>
+      </mat-card>
+    </div>
 
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <div class="p-2 ">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            Quick Glance
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-action-list>
+            <button mat-list-item ><mat-icon>schools</mat-icon> <span class="p-2"># of Schools {{SCHOOLSFULL.length}}</span></button>
+          </mat-action-list>
+          <app-chart></app-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-      </mat-card-content>
-    </mat-card>
+  <div class="row d-flex pt-2">
+    <div class="col">
+      <mat-progress-bar *ngIf="isSchoolsFullLoading" mode="indeterminate"></mat-progress-bar>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            Schools
+          </mat-card-title>
+          <div class="d-inline justify-content-end">
+            <button mat-icon-button (click)="getSchoolsFull()"><mat-icon>refresh</mat-icon></button>
+          </div>
+          <mat-form-field class="stretch">
+            <input matInput (keyup)="applyFilterSchoolsFull($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]="schoolsSource" class="mat-elevation-z8" style="width: 100%;">
+            <ng-container matColumnDef="timestamp">
+              <th mat-header-cell *matHeaderCellDef>Time Stamp</th>
+              <td mat-cell *matCellDef="let element">{{element.timestamp}}</td>
+            </ng-container>
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>Id</th>
+              <td mat-cell *matCellDef="let element">{{element.id}}</td>
+            </ng-container>
+            <ng-container matColumnDef="school_name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td  mat-cell *matCellDef="let element">{{element.school_name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="address">
+              <th mat-header-cell *matHeaderCellDef>Address</th>
+              <td mat-cell *matCellDef="let element">{{element.address}}</td>
+            </ng-container>
+            <ng-container matColumnDef="city">
+              <th mat-header-cell *matHeaderCellDef>City</th>
+              <td mat-cell *matCellDef="let element">{{element.city}}</td>
+            </ng-container>
+            <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef>State</th>
+            <td mat-cell *matCellDef="let element">{{element.zipcode}}</td>
+            </ng-container>
+            <ng-container matColumnDef="zipcode">
+              <th mat-header-cell *matHeaderCellDef>Zip Code</th>
+              <td mat-cell *matCellDef="let element">{{element.zipcode}}</td>
+            </ng-container>
+            <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef>Phone</th>
+              <td mat-cell *matCellDef="let element">{{element.phone}}</td>
+            </ng-container>
+            <ng-container matColumnDef="district">
+            <th mat-header-cell *matHeaderCellDef>District</th>
+            <td mat-cell *matCellDef="let element">{{element.district}}</td>
+            </ng-container>
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                              [checked]="selection.hasValue() && isAllSelected()"
+                              [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="$event ? selection.toggle(row) : null"
+                              [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let row">
+                <button mat-icon-button><mat-icon>edit</mat-icon></button>
+                <button mat-icon-button><mat-icon>remove</mat-icon></button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="schoolsFullDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: schoolsFullDisplayedColumns;"></tr>
+          </table>
+        </mat-card-content>
+        <mat-card-footer>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </mat-card-footer>
+      </mat-card>
+    </div>
   </div>
 </div>

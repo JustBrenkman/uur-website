@@ -1,3 +1,95 @@
-<p>
-  add-user-form works!
-</p>
+<!-- Material form login -->
+<h1 mat-dialog-title>Add User</h1>
+<div class="container">
+  <div class="row justify-content-sm-center">
+    <div class="col-sm-">
+      <div mat-dialog-content>
+        <!-- Default form register -->
+        <form (ngSubmit)="onSubmit()" class="text-center" autocomplete="off">
+          <div class="form-row mb-4">
+            <div class="col">
+              <mat-form-field class="fullWidth">
+                <input matInput placeholder="First Name" [formControl]="firtNameFC" [errorStateMatcher]="emailErrorMatcher">
+                <mat-hint></mat-hint>
+                <mat-error *ngIf="firtNameFC.hasError('required')">
+                  First name is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+
+              <mat-form-field class="fullWidth">
+                <input matInput placeholder="Last Name" [formControl]="lastNameFC" [errorStateMatcher]="emailErrorMatcher">
+                <mat-hint></mat-hint>
+                <mat-error *ngIf="lastNameFC.hasError('required')">
+                  Last name is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <mat-form-field class="fullWidth">
+            <input name="email" type="hidden">
+            <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="emailErrorMatcher" name="email-entry">
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth">
+            <input name="password" type="hidden">
+            <input matInput placeholder="Password" [formControl]="passwordFC" [errorStateMatcher]="emailErrorMatcher" name="password-entry">
+            <mat-hint>At least 8 characters and 1 digit</mat-hint>
+            <mat-error *ngIf="passwordFC.hasError('minLength') && !passwordFC.hasError('required')">
+              Please enter a password that is 8 or more characters
+            </mat-error>
+            <mat-error *ngIf="passwordFC.hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-stretch">
+            <mat-select placeholder="School" [formControl]="schoolFC">
+              <mat-option>Select a school</mat-option>
+              <div *ngIf="schools">
+                <mat-option *ngFor="let on of schools" [value]="on.abr">{{on.name}}</mat-option>
+              </div>
+              <!--<mat-option [value]="data.abr">{{data.name}}</mat-option>-->
+            </mat-select>
+            <mat-error *ngIf="passwordFC.hasError('required')">
+              Please select the school you are representing
+            </mat-error>
+          </mat-form-field>
+
+          <div class="row">
+            <div class="col">
+              <mat-form-field>
+                <mat-select placeholder="Role" [formControl]="roleFC">
+                  <mat-option *ngFor="let role of roles" [value]="role">{{role}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <mat-select placeholder="Privileges" [formControl]="privFC">
+                  <mat-option *ngFor="let priv of privileges" [value]="priv">{{priv}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <p></p>
+        </form>
+        <!-- Default form register -->
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-stroked-button type="submit" color="primary" cdkFocusInitial>Add User</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Material form login -->

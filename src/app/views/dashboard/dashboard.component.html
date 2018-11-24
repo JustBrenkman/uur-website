@@ -5,38 +5,41 @@
                [fixedInViewport]="mobileQuery.matches">
     <mat-nav-list>
         <mat-list role="list">
-          <mat-list-item [routerLink]="['v1']">
+          <mat-list-item [routerLink]="['v1']" matTooltip="Dashboard" [matTooltipPosition]="'after'">
             <h2><mat-icon>dashboard</mat-icon> <div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Dashboard</div></h2>
           </mat-list-item>
             <!--<mat-divider></mat-divider>-->
           <div *ngIf="privilegeGuard('admin')">
-            <mat-list-item [routerLink]="['users']">
+            <mat-list-item [routerLink]="['users']" matTooltip="Users" [matTooltipPosition]="'after'">
               <h2><mat-icon>group</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Users</div></h2>
             </mat-list-item>
-            <mat-list-item [routerLink]="['judges']">
+            <mat-list-item [routerLink]="['judges']" matTooltip="Judges" [matTooltipPosition]="'after'">
               <h2><mat-icon>gavel</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Judges</div> </h2>
             </mat-list-item>
-            <mat-list-item [routerLink]="['schools']">
+            <mat-list-item [routerLink]="['schools']" matTooltip="Schools" [matTooltipPosition]="'after'">
               <h2><mat-icon>school</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Schools</div> </h2>
             </mat-list-item>
           </div>
 
           <div *ngIf="privilegeGuard('member')">
             <mat-divider></mat-divider>
-            <mat-list-item [routerLink]="['teams']">
+            <mat-list-item [routerLink]="['teams']" matTooltip="Teams" [matTooltipPosition]="'after'">
               <h2><mat-icon>list</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Teams</div></h2>
             </mat-list-item>
           </div>
 
           <div *ngIf="privilegeGuard('viewer')">
             <mat-divider></mat-divider>
-            <mat-list-item [routerLink]="['competition']">
+            <mat-list-item [routerLink]="['competition']" matTooltip="Competition" [matTooltipPosition]="'after'">
               <h2><mat-icon>timeline</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Competition</div> </h2>
+            </mat-list-item>
+            <mat-list-item [routerLink]="['tutorials']" matTooltip="Tutorials" [matTooltipPosition]="'after'">
+              <h2><mat-icon>book</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Tutorials</div> </h2>
             </mat-list-item>
           </div>
 
           <mat-divider></mat-divider>
-          <mat-list-item>
+          <mat-list-item matTooltip="Settings" [matTooltipPosition]="'after'">
             <h2><mat-icon>settings</mat-icon><div *ngIf="!mobileQuery.matches && expand" class="d-inline"> Settings</div></h2>
           </mat-list-item>
         </mat-list>
@@ -45,13 +48,61 @@
 
   <mat-sidenav-content>
     <mat-toolbar class="d-flex" color="primary">
-      <button mat-icon-button (click)="expand = !expand">
-          <mat-icon *ngIf="!expand">keyboard_arrow_right</mat-icon>
-          <mat-icon *ngIf="expand">keyboard_arrow_left</mat-icon>
+      <button *ngIf="!mobileQuery.matches" mat-icon-button (click)="expand = !expand">
+        <mat-icon *ngIf="!expand" matTooltip="Expand the dashboard" [matTooltipPosition]="'below'">keyboard_arrow_right</mat-icon>
+        <mat-icon *ngIf="expand" matTooltip="Collapse" [matTooltipPosition]="'below'">keyboard_arrow_left</mat-icon>
       </button>
+
+      <div *ngIf="dashboard === DASHBOARD.V1">
+        <button mat-button [matMenuTriggerFor]="menu" matTooltip="Menu" [matTooltipPosition]="'below'"><mat-icon>dashboard</mat-icon><span> Dashboard</span></button>
+        <mat-menu #menu="matMenu">
+        </mat-menu>
+      </div>
+      <div *ngIf="dashboard === DASHBOARD.TEAMS">
+        <button mat-button [matMenuTriggerFor]="menu" matTooltip="Menu" [matTooltipPosition]="'below'"><mat-icon>list</mat-icon><span> Teams</span></button>
+        <mat-menu #menu="matMenu">
+        </mat-menu>
+      </div>
+      <div *ngIf="dashboard === DASHBOARD.COMPETITION">
+        <button mat-button [matMenuTriggerFor]="menu" matTooltip="Menu" [matTooltipPosition]="'below'"><mat-icon>timeline</mat-icon><span> Competition</span></button>
+        <mat-menu #menu="matMenu">
+        </mat-menu>
+      </div>
+      <div *ngIf="dashboard === DASHBOARD.SCHOOLS">
+        <button mat-button [matMenuTriggerFor]="menu" matTooltip="Menu" [matTooltipPosition]="'below'"><mat-icon>school</mat-icon><span> Schools</span></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openAddSchoolDialog()"><mat-icon>add_circle_outline</mat-icon><span>Register School</span></button>
+          <button mat-menu-item (click)="openRemoveSchoolDialog()"><mat-icon>remove_circle_outline</mat-icon><span>Remove School</span></button>
+        </mat-menu>
+      </div>
+      <div *ngIf="dashboard === DASHBOARD.JUDGES">
+        <button mat-button [matMenuTriggerFor]="menu" matTooltip="Menu" [matTooltipPosition]="'below'"><mat-icon>gavel</mat-icon><span> Judges</span></button>
+        <mat-menu #menu="matMenu">
+        </mat-menu>
+      </div>
+      <div *ngIf="dashboard === DASHBOARD.USERS">
+        <button mat-button [matMenuTriggerFor]="menu" matTooltip="Menu" [matTooltipPosition]="'below'"><mat-icon>group</mat-icon><span> Users</span></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openAddUserDialog()"><mat-icon>person_add</mat-icon><span>Add User</span></button>
+          <button mat-menu-item (click)="openRemoveUserDialog()"><mat-icon>remove_circle_outline</mat-icon><span>Remove User</span></button>
+        </mat-menu>
+      </div>
+
+
       <span></span>
-      <button class="ml-auto" mat-button (click)="logout()">Log out <mat-icon>lock</mat-icon></button>
+      <div class="ml-auto">
+        <button mat-icon-button matTooltip="Profile" [matTooltipPosition]="'below'"><mat-icon>person</mat-icon></button>
+        <button mat-icon-button matTooltip="Notifications" [matTooltipPosition]="'below'" [matMenuTriggerFor]="notMenu"><mat-icon matBadge="22" matBadgeColor="accent">notifications</mat-icon></button>
+
+        <mat-menu #notMenu="matMenu">
+          <button mat-menu-item (click)="openAddUserDialog()"><mat-icon>list</mat-icon><span>Notifications will appear here</span></button>
+        </mat-menu>
+
+        <button class="ml-auto" mat-button (click)="logout()" matTooltip="Logout" [matTooltipPosition]="'below'">Log out <mat-icon>lock</mat-icon></button>
+      </div>
     </mat-toolbar>
+
     <router-outlet></router-outlet>
+
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -13,6 +13,11 @@ import { LandingComponent } from './views/landing/landing.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import {NgxMaskModule} from 'ngx-mask';
+import {A11yModule} from '@angular/cdk/a11y';
+
+import {ChartsModule} from 'ng2-charts';
+
 import {
   MatSelectModule,
   MatCheckboxModule,
@@ -33,7 +38,11 @@ import {
   MatCardModule,
   MatTableModule,
   MatPaginatorModule,
-  MatProgressBarModule
+  MatDialogModule,
+  MatProgressBarModule,
+  MatTooltipModule,
+  MatBadgeModule,
+  MAT_DIALOG_DEFAULT_OPTIONS, MatDialogRef, MAT_DIALOG_DATA
 } from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
@@ -48,6 +57,9 @@ import { SchoolsComponent } from './views/schools/schools.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import { AddUserFormComponent } from './forms/add-user-form/add-user-form.component';
 import { TeamsComponent } from './views/teams/teams.component';
+import { TutorialsComponent } from './views/tutorials/tutorials.component';
+import { ChartComponent } from './components/chart/chart.component';
+import { RegisterSchoolDialogComponent } from './forms/register-school-dialog/register-school-dialog.component';
 
 export function getToken() {
   return localStorage.getItem('auth_token');
@@ -70,6 +82,9 @@ export function getToken() {
     SchoolsComponent,
     AddUserFormComponent,
     TeamsComponent,
+    TutorialsComponent,
+    ChartComponent,
+    RegisterSchoolDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,6 +110,12 @@ export function getToken() {
     MatTableModule,
     MatPaginatorModule,
     MatProgressBarModule,
+    MatDialogModule,
+    MatTooltipModule,
+    MatBadgeModule,
+    NgxMaskModule.forRoot(),
+    A11yModule,
+    ChartsModule,
     HttpClientModule,
     AppRoutingModule,
     JwtModule.forRoot({
@@ -109,9 +130,13 @@ export function getToken() {
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     AuthenticateService,
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} },
   ],
   bootstrap: [AppComponent],
-  schemas: [ NO_ERRORS_SCHEMA ]
+  schemas: [ NO_ERRORS_SCHEMA ],
+  entryComponents: [AddUserFormComponent, RegisterSchoolDialogComponent]
 })
 export class AppModule { }

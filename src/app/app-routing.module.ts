@@ -14,6 +14,7 @@ import {CompetitionComponent} from './views/competition/competition.component';
 import {SchoolsComponent} from './views/schools/schools.component';
 import {TeamsComponent} from './views/teams/teams.component';
 import {RolePrivilegeGuard} from './services/role-privilege-guard.service';
+import {TutorialsComponent} from './views/tutorials/tutorials.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -27,7 +28,8 @@ const routes: Routes = [
       {path: 'judges', component: JudgesComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'admin', role: 'Other'}},
       {path: 'competition', component: CompetitionComponent, canActivate: [AuthenticationGuard]},
       {path: 'schools', component: SchoolsComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'admin'}},
-      {path: 'teams', component: TeamsComponent, canActivate: [AuthenticationGuard]},
+      {path: 'teams', component: TeamsComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'member', role: 'Teacher'}},
+      {path: 'tutorials', component: TutorialsComponent, canActivate: [AuthenticationGuard]},
       {path: '404', redirectTo: 'v1'}
     ]
   },

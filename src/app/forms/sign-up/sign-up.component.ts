@@ -1,13 +1,14 @@
-import {Component, OnInit, Optional} from '@angular/core';
+import {Component, Inject, OnInit, Optional} from '@angular/core';
 import {FormControl, Validators, NgForm, FormGroupDirective, FormGroup} from '@angular/forms';
 
 import {SchoolsService} from '../../services/schools.service';
 import {School} from '../../models/school';
-import {ErrorStateMatcher} from '@angular/material';
+import {ErrorStateMatcher, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 import {MatSnackBar} from '@angular/material';
 import {AuthenticateService} from '../../services/authenticate.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {UserAdd} from '../../models/user';
 
 export interface Data {
   abr: string;

@@ -20,8 +20,8 @@
                 <div class="col">
                   <!-- First name -->
                   <!--<div class="md-form">-->
-                    <!--<input type="text" id="defaultRegisterFormFirstName" [(ngModel)]="firstName" name="firstName" class="form-control">-->
-                    <!--<label for="defaultRegisterFormFirstName">First name</label>-->
+                  <!--<input type="text" id="defaultRegisterFormFirstName" [(ngModel)]="firstName" name="firstName" class="form-control">-->
+                  <!--<label for="defaultRegisterFormFirstName">First name</label>-->
                   <!--</div>-->
                   <mat-form-field class="fullWidth">
                     <input matInput placeholder="First Name" [formControl]="firtNameFC" [errorStateMatcher]="emailErrorMatcher">
@@ -34,8 +34,8 @@
                 <div class="col">
                   <!-- Last name -->
                   <!--<div class="md-form">-->
-                    <!--<input type="text" id="defaultRegisterFormLastName" [(gnModel)]="lastName" name="lastName" class="form-control">-->
-                    <!--<label for="defaultRegisterFormLastName">Last name</label>-->
+                  <!--<input type="text" id="defaultRegisterFormLastName" [(gnModel)]="lastName" name="lastName" class="form-control">-->
+                  <!--<label for="defaultRegisterFormLastName">Last name</label>-->
                   <!--</div>-->
                   <mat-form-field class="fullWidth">
                     <input matInput placeholder="Last Name" [formControl]="lastNameFC" [errorStateMatcher]="emailErrorMatcher">
@@ -49,8 +49,8 @@
 
               <!-- E-mail -->
               <!--<div class="md-form">-->
-                <!--<input type="email" [(gnModel)]="email" id="defaultRegisterFormEmail" class="form-control">-->
-                <!--<label for="defaultRegisterFormEmail">E-mail</label>-->
+              <!--<input type="email" [(gnModel)]="email" id="defaultRegisterFormEmail" class="form-control">-->
+              <!--<label for="defaultRegisterFormEmail">E-mail</label>-->
               <!--</div>-->
               <mat-form-field class="fullWidth">
                 <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="emailErrorMatcher" name="email">
@@ -64,9 +64,9 @@
               </mat-form-field>
               <!-- Password -->
               <!--<div class="md-form">-->
-                <!--<input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" id="defaultRegisterFormPassword" class="form-control" aria-describedby="defaultRegisterFormPasswordHelpBlock">-->
-                <!--<label for="defaultRegisterFormPassword">Password</label>-->
-                <!--<small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">At least 8 characters and 1 digit</small>-->
+              <!--<input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" id="defaultRegisterFormPassword" class="form-control" aria-describedby="defaultRegisterFormPasswordHelpBlock">-->
+              <!--<label for="defaultRegisterFormPassword">Password</label>-->
+              <!--<small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">At least 8 characters and 1 digit</small>-->
               <!--</div>-->
               <mat-form-field class="fullWidth">
                 <input matInput placeholder="Password" type="password" [formControl]="passwordFC" [errorStateMatcher]="emailErrorMatcher">
@@ -80,17 +80,17 @@
               </mat-form-field>
 
               <mat-form-field class="col-stretch">
-                 <mat-select placeholder="School" [formControl]="schoolFC">
-                   <mat-option>Select a school</mat-option>
-                   <div *ngIf="schools">
-                     <mat-option *ngFor="let on of schools" [value]="on.abr">{{on.name}}</mat-option>
-                   </div>
-                   <!--<mat-option [value]="data.abr">{{data.name}}</mat-option>-->
-                 </mat-select>
+                <mat-select placeholder="School" [formControl]="schoolFC">
+                  <mat-option>Select a school</mat-option>
+                  <div *ngIf="schools">
+                    <mat-option *ngFor="let on of schools" [value]="on.abr">{{on.name}}</mat-option>
+                  </div>
+                  <!--<mat-option [value]="data.abr">{{data.name}}</mat-option>-->
+                </mat-select>
                 <mat-error *ngIf="passwordFC.hasError('required')">
                   Please select the school you are representing
                 </mat-error>
-               </mat-form-field>
+              </mat-form-field>
 
               <div class="col-stretch">
                 <h5 class="align-baseline">
@@ -108,7 +108,7 @@
 
 
               <!-- Sign up button -->
-                <button mat-raised-button color="primary" class="my-4 stretch" type="submit">Sign Up</button>
+              <button mat-raised-button color="primary" class="my-4 stretch" type="submit">Sign Up</button>
               <!--<button mat-raised-button color="primary">Sign in</button>-->
 
 
@@ -149,4 +149,3 @@
     </div>
   </div>
 </div>
-<!-- Material form login -->

@@ -1,0 +1,116 @@
+<!-- Material form login -->
+<h1 mat-dialog-title>Register School</h1>
+<div class="container">
+  <div class="row justify-content-sm-center">
+    <div class="col-sm-">
+      <div mat-dialog-content>
+        <!-- Default form register -->
+        <form (ngSubmit)="registerSchool()" class="text-center" autocomplete="off">
+          <!--School Name-->
+          <div class="form-row mb-4">
+            <mat-form-field style="width: 100%;">
+              <input matInput placeholder="Name of School" [formControl]="nameFC" [errorStateMatcher]="errorMatcher" name="schoolName">
+              <mat-hint></mat-hint>
+              <mat-error *ngIf="nameFC.hasError('required')">
+                Name of School is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!--District-->
+          <div class="form-row mb-4">
+            <mat-form-field class="fullWidth">
+              <input matInput placeholder="District" [formControl]="districtFC" [errorStateMatcher]="errorMatcher" name="district">
+              <mat-error *ngIf="districtFC.hasError('required')">
+                District is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!--Phone-->
+          <div class="form-row mb-4">
+            <div class="col">
+              <mat-form-field>
+                <input matInput placeholder="Phone Number" [formControl]="phoneFC" [errorStateMatcher]="errorMatcher" name="phone" prefix="+1 " mask="(000) 000-0000" [showMaskTyped] = "true">
+                <mat-error *ngIf="phoneFC.hasError('required')">
+                  Phone number is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <!--Abbreviation-->
+            <mat-form-field>
+              <input matInput placeholder="Abr." [formControl]="abr" [errorStateMatcher]="errorMatcher" name="abr" mask="SSS">
+              <mat-hint>
+                2-3 Letters all caps
+              </mat-hint>
+              <mat-error *ngIf="abr.hasError('required')">
+                Please input abbreviation
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!--School Address-->
+          <div class="form-row mb-4">
+            <mat-form-field class="fullWidth">
+              <input name="email" type="hidden">
+              <input matInput placeholder="Address" [formControl]="addressFC" [errorStateMatcher]="errorMatcher" name="address">
+              <mat-hint></mat-hint>
+              <mat-error *ngIf="!addressFC.hasError('required')">
+                Please enter an address
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!--City-->
+          <div class="form-row mb-4">
+            <mat-form-field class="fullWidth">
+              <input name="password" type="hidden">
+              <input matInput placeholder="City" [formControl]="cityFC" [errorStateMatcher]="errorMatcher" name="password-entry">
+              <mat-hint>At least 8 characters and 1 digit</mat-hint>
+              <mat-error *ngIf="cityFC.hasError('required')">
+                City is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!--State-->
+          <div class="form-row mb-4">
+            <div class="col">
+              <mat-form-field>
+                <mat-select placeholder="State" [formControl]="stateFC">
+                  <div *ngIf="STATES">
+                    <mat-option *ngFor="let on of STATES" [value]="on.abr">{{on.state}}</mat-option>
+                  </div>
+                  <!--<mat-option [value]="data.abr">{{data.name}}</mat-option>-->
+                </mat-select>
+                <mat-error *ngIf="stateFC.hasError('required')">
+                  State is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <!--Zip code-->
+            <div class="col">
+              <!--Zip code-->
+              <mat-form-field>
+                <input matInput placeholder="Zip Code" [formControl]="zipcodeFC" [errorStateMatcher]="errorMatcher" name="zipcode" mask="00000">
+                <!--<mat-hint>At least 8 characters and 1 digit</mat-hint>-->
+                <mat-error *ngIf="zipcodeFC.hasError('required')">
+                  Zip code is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <p></p>
+        </form>
+        <!-- Default form register -->
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]>Cancel</button>
+        <button mat-stroked-button type="submit" (click)="registerSchool()" color="primary" >Register</button>
+      </div>
+    </div>
+  </div>
+</div>

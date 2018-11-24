@@ -14,13 +14,13 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthenticateService {
-  private serverURL = 'http://127.0.0.1:5000';
+  // private serverURL = 'http://127.0.0.1:5000';
   // private serverURL = 'https://www.timpanogos-tech.com/scripts';
-  // private serverURL = 'https://uur.byu.edu';
+  private serverURL = 'https://uur.byu.edu';
   private loginURL = this.serverURL + '/api/login';
   private registerURL = this.serverURL + '/api/register';
+  private addUserURL = this.serverURL + '/api/add_user';
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
-  private auth_token: JSON;
   private isLoggedIn = false;
 
   // This constructor sets up some stuff for us
@@ -68,6 +68,12 @@ export class AuthenticateService {
   register(data) {
     console.log(this.registerURL);
     return this.http.post(this.registerURL, JSON.stringify(data)).pipe(catchError(this.handleError));
+  }
+
+  addUser(data) {
+    console.log(this.addUserURL);
+    console.log(data);
+    return this.http.post(this.addUserURL, JSON.stringify(data)).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
