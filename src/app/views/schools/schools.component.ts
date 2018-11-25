@@ -17,7 +17,8 @@ import {SelectionModel} from '@angular/cdk/collections';
 export class SchoolsComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'abr'];
-  schoolsFullDisplayedColumns: string[] = ['select', 'timestamp', 'id', 'school_name', 'address', 'city', 'state', 'zipcode', 'phone', 'district', 'actions'];
+  schoolsFullDisplayedColumns: string[] = ['timestamp', 'id', 'school_name', 'address', 'city', 'state',
+    'zipcode', 'phone', 'district', 'actions'];
   dataSource: MatTableDataSource<School>;
   schoolsSource: MatTableDataSource<SchoolFull>;
   SCHOOLS: School[] = [];

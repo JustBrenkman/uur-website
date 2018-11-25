@@ -13,6 +13,8 @@
           <!--<mat-form-field class="stretch">-->
             <!--<input matInput (keyup)="applyFilterSchoolsFull($event.target.value)" placeholder="Filter">-->
           <!--</mat-form-field>-->
+          <span style="width: 100%;"></span>
+          <button mat-icon-button *ngIf="selection.hasValue() || displayActions" [disabled]="!selection.hasValue()" (click)="openEmailDialog()"><mat-icon>email</mat-icon></button>
         </mat-card-header>
         <mat-card-content>
           <table mat-table [dataSource]="usersDataSource" class="mat-elevation-z8" style="width: 100% !important; overflow: auto">
@@ -48,21 +50,23 @@
               <th mat-header-cell *matHeaderCellDef>Privilege</th>
               <td mat-cell *matCellDef="let element">{{element.privilege}}</td>
             </ng-container>
-            <!-- Checkbox Column -->
-            <!--<ng-container matColumnDef="select">-->
-              <!--<th mat-header-cell *matHeaderCellDef>-->
-                <!--<mat-checkbox (change)="$event ? masterToggle() : null"-->
-                              <!--[checked]="selection.hasValue() && isAllSelected()"-->
-                              <!--[indeterminate]="selection.hasValue() && !isAllSelected()">-->
-                <!--</mat-checkbox>-->
-              <!--</th>-->
-              <!--<td mat-cell *matCellDef="let row">-->
-                <!--<mat-checkbox (click)="$event.stopPropagation()"-->
-                              <!--(change)="$event ? selection.toggle(row) : null"-->
-                              <!--[checked]="selection.isSelected(row)">-->
-                <!--</mat-checkbox>-->
-              <!--</td>-->
-            <!--</ng-container>-->
+
+             <!--Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                              [checked]="selection.hasValue() && isAllSelected()"
+                              [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="$event ? selection.toggle(row) : null"
+                              [checked]="selection.isSelected(row)"
+                              [value]="row.email">
+                </mat-checkbox>
+              </td>
+            </ng-container>
 
             <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef>Actions</th>

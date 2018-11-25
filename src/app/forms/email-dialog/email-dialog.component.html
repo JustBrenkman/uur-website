@@ -1,0 +1,50 @@
+<!-- Material form login -->
+<h1 mat-dialog-title>Add User</h1>
+<div class="container">
+  <div class="row justify-content-sm-center">
+    <div class="col-sm-">
+      <div mat-dialog-content>
+        <!-- Default form register -->
+        <form class="text-center" autocomplete="off">
+
+          <!--To field-->
+          <div class="form-row mb-4">
+              <mat-form-field class="fullWidth">
+                <input matInput placeholder="To" [formControl]="toFC" [errorStateMatcher]="errorMatcher">
+                <mat-hint></mat-hint>
+              </mat-form-field>
+          </div>
+
+          <!--Subject field-->
+          <div class="form-row mb-4">
+            <mat-form-field class="fullWidth">
+              <input matInput placeholder="Subject" [formControl]="subjectFC" [errorStateMatcher]="errorMatcher">
+              <mat-hint></mat-hint>
+              <mat-error *ngIf="subjectFC.hasError('required')">
+                Subject is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!--Message field-->
+          <mat-form-field class="text-area" appearance="outline">
+            <input name="email" type="hidden">
+            <textarea matInput placeholder="Message" [formControl]="textFC" [errorStateMatcher]="errorMatcher" name="text-entry"></textarea>
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="textFC.hasError('required')">
+              Cannot be <strong>empty</strong>
+            </mat-error>
+          </mat-form-field>
+          <p></p>
+        </form>
+
+        <!-- Default form register -->
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button (click)="cancel()" >Cancel</button>
+        <button mat-stroked-button (click)="sendEmail()" type="submit" color="primary" cdkFocusInitial><mat-icon>send</mat-icon><span class="pl-2">Send</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Material form login -->

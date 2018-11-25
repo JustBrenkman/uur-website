@@ -5,6 +5,7 @@ import {catchError} from 'rxjs/operators';
 import {empty, throwError} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import decode from 'jwt-decode';
+import {Globals} from '../models/globals';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
@@ -14,17 +15,26 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthenticateService {
-  // private serverURL = 'http://127.0.0.1:5000';
+  private readonly serverURL: string = 'https://uur.byu.edu/';
   // private serverURL = 'https://www.timpanogos-tech.com/scripts';
-  private serverURL = 'https://uur.byu.edu';
-  private loginURL = this.serverURL + '/api/login';
-  private registerURL = this.serverURL + '/api/register';
-  private addUserURL = this.serverURL + '/api/add_user';
+  // private serverURL = 'https://uur.byu.edu';
+  private readonly loginURL: string;
+  private readonly registerURL: string;
+  private readonly addUserURL: string;
+
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
   private isLoggedIn = false;
 
   // This constructor sets up some stuff for us
-  constructor(private http: HttpClient, public jwt: JwtHelperService) { }
+  constructor(private http: HttpClient, public jwt: JwtHelperService, private globals: Globals) {
+    if (this.globals.server) {
+      this.serverURL = globals.server;
+    }
+
+    this.loginURL = this.serverURL + 'api/login';
+    this.registerURL = this.serverURL + 'api/register';
+    this.addUserURL = this.serverURL + 'api/add_user';
+  }
 
   // This function will log in the user
   login(user: User, callback: (success: boolean) => void) {

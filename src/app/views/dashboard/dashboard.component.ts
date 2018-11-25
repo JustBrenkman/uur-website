@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ChangeDetectorRef, OnDestroy} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {RolePrivilegeGuard} from '../../services/role-privilege-guard.service';
@@ -6,8 +6,8 @@ import {NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import {MatDialog} from '@angular/material';
 import {AddUserFormComponent} from '../../forms/add-user-form/add-user-form.component';
-import {UsersComponent} from '../users/users.component';
 import {RegisterSchoolDialogComponent} from '../../forms/register-school-dialog/register-school-dialog.component';
+import {EventbusService} from '../../services/eventbus.service';
 
 export enum DASHBOARD {
   V1,
@@ -24,19 +24,22 @@ export enum DASHBOARD {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
   mobileQuery: MediaQueryList;
   _mobileQueryListener: () => void;
   expand: boolean;
   dashboard: DASHBOARD;
   DASHBOARD: any = DASHBOARD;
 
+  @ViewChild('viewSelect') viewSelect;
+  @ViewChild('viewActions') viewActions;
 
   constructor(changeDetectorRef: ChangeDetectorRef,
               media: MediaMatcher,
               public roleGuard: RolePrivilegeGuard,
               public router: Router,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public eventbus: EventbusService) {
 
     this.mobileQuery = media.matchMedia('(max-width: 600px');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -65,6 +68,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.expand = false;
+  }
+
+  ngAfterViewInit() {
+    if (this.viewSelect) {
+      this.eventbus.publish('viewSelect', this.viewSelect.checked);
+    }
+    if (this.viewActions) {
+      this.eventbus.publish('viewActions', this.viewActions.checked);
+    }
   }
 
   ngOnDestroy() {
@@ -103,5 +115,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   openRemoveSchoolDialog() {
 
+  }
+
+  onViewSelectChange() {
+    this.eventbus.publish('viewSelect', this.viewSelect.checked);
+  }
+
+  onViewActionsChange() {
+    this.eventbus.publish('viewActions', this.viewActions.checked);
   }
 }

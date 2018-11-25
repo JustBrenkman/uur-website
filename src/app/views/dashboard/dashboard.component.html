@@ -83,8 +83,22 @@
       <div *ngIf="dashboard === DASHBOARD.USERS">
         <button mat-button [matMenuTriggerFor]="menu" matTooltip="Menu" [matTooltipPosition]="'below'"><mat-icon>group</mat-icon><span> Users</span></button>
         <mat-menu #menu="matMenu">
+          <button mat-menu-item [matMenuTriggerFor]="viewUser"><mat-icon>remove_red_eye</mat-icon>View</button>
+          <mat-divider></mat-divider>
           <button mat-menu-item (click)="openAddUserDialog()"><mat-icon>person_add</mat-icon><span>Add User</span></button>
           <button mat-menu-item (click)="openRemoveUserDialog()"><mat-icon>remove_circle_outline</mat-icon><span>Remove User</span></button>
+        </mat-menu>
+        <mat-menu #viewUser="matMenu">
+          <button mat-menu-item (click)="viewSelect.toggle(); onViewSelectChange();">
+            <mat-checkbox #viewSelect mat-list-icon (change)="onViewSelectChange()" (click)="viewSelect.toggle()" class="pl-1">
+            </mat-checkbox>
+            <span class="pl-4">Select</span>
+          </button>
+          <button mat-menu-item (click)="viewActions.toggle(); onViewActionsChange();">
+            <mat-checkbox #viewActions mat-list-icon (change)="onViewActionsChange()" (click)="viewActions.toggle()" class="pl-1">
+            </mat-checkbox>
+            <span class="pl-4">Actions</span>
+          </button>
         </mat-menu>
       </div>
 

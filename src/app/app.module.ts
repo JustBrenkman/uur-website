@@ -60,6 +60,8 @@ import { TeamsComponent } from './views/teams/teams.component';
 import { TutorialsComponent } from './views/tutorials/tutorials.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { RegisterSchoolDialogComponent } from './forms/register-school-dialog/register-school-dialog.component';
+import { EmailDialogComponent } from './forms/email-dialog/email-dialog.component';
+import {Globals} from './models/globals';
 
 export function getToken() {
   return localStorage.getItem('auth_token');
@@ -85,6 +87,7 @@ export function getToken() {
     TutorialsComponent,
     ChartComponent,
     RegisterSchoolDialogComponent,
+    EmailDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -129,7 +132,7 @@ export function getToken() {
   exports: [],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
-    AuthenticateService,
+    AuthenticateService, Globals,
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
     { provide: MAT_DIALOG_DATA, useValue: {} },
@@ -137,6 +140,6 @@ export function getToken() {
   ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ],
-  entryComponents: [AddUserFormComponent, RegisterSchoolDialogComponent]
+  entryComponents: [AddUserFormComponent, RegisterSchoolDialogComponent, EmailDialogComponent]
 })
 export class AppModule { }

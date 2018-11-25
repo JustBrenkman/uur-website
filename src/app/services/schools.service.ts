@@ -4,6 +4,7 @@ import {School, SchoolFull} from '../models/school';
 import {catchError} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material';
 import {Observable, throwError} from 'rxjs';
+import {Globals} from '../models/globals';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
@@ -13,16 +14,27 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class SchoolsService {
-  // private server = 'https://uur.byu.edu/';
-  private server = 'http://localhost:5000/';
+  private readonly server = 'https://uur.byu.edu/';
+  // private server = 'http://localhost:5000/';
   // private server = 'https://www.timpanogos-tech.com/scripts/';
   // private server = 'http://127.0.0.1:5000/';
-  private schoolsimple = this.server + 'api/schools/simple';
-  private schoolFullURL = this.server + 'api/schools/full';
-  private getUsersSimpleURL = this.server + 'api/users/list';
-  private registerURL = this.server + 'api/register';
-  private registerSchoolURL = this.server + 'api/school/register';
-  constructor(private http: HttpClient, public snackBar: MatSnackBar) { }
+  private readonly schoolsimple: string;
+  private readonly schoolFullURL: string;
+  private readonly getUsersSimpleURL: string;
+  private readonly registerURL: string;
+  private readonly registerSchoolURL: string;
+
+  constructor(private http: HttpClient, public snackBar: MatSnackBar, private globals: Globals) {
+    if (globals.server) {
+      this.server = globals.server;
+    }
+
+    this.schoolsimple = this.server + 'api/schools/simple';
+    this.schoolFullURL = this.server + 'api/schools/full';
+    this.getUsersSimpleURL = this.server + 'api/users/list';
+    this.registerURL = this.server + 'api/register';
+    this.registerSchoolURL = this.server + 'api/school/register';
+  }
 
   getSchools() {
     console.log(this.schoolsimple);
