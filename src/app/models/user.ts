@@ -22,5 +22,6 @@ export class UserFull {
   email: string;
   role: string;
   privilege: string;
-  school: string
+  school: string;
+  status: string;
 }

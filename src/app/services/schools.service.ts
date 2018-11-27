@@ -14,7 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class SchoolsService {
-  private readonly server = 'https://uur.byu.edu/';
+  private readonly server: string = 'https://uur.byu.edu/';
   // private server = 'http://localhost:5000/';
   // private server = 'https://www.timpanogos-tech.com/scripts/';
   // private server = 'http://127.0.0.1:5000/';

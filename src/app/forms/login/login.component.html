@@ -46,29 +46,30 @@
                   </mat-form-field>
                 </div>
 
-                <div class="row">
+                <div class="row pt-3">
                   <div class="d-flex justify-content-around">
+                    <p></p>
                     <div>
                       <!-- Remember me -->
                       <mat-checkbox [default]="true">Remember me</mat-checkbox>
                     </div>
-                    <div>
+                    <div class="pl-2">
                       <!-- Forgot password -->
-                      <a href="">Forgot password?</a>
+                      <a href=""> Forgot password?</a>
                     </div>
                   </div>
                 </div>
 
                 <!-- Sign in button -->
-                <button mat-raised-button color="primary" class="my-4 stretch" type="submit" [disabled]="loggingIn">Sign in</button>
+                <button mat-raised-button color="primary" class="my-4 stretch p-1" type="submit" [disabled]="loggingIn">Sign in</button>
 
                 <!-- Register -->
                 <p>Not a member?
-                  <a (click)="goToRegister()">Register</a>
+                  <a (click)="goToRegister()"> Register</a>
                 </p>
 
-                <!-- Social login -->
-                <p>or sign in with:</p>
+                <!--&lt;!&ndash; Social login &ndash;&gt;-->
+                <!--<p>or sign in with:</p>-->
 
                 <a type="button" class="light-blue-text mx-2">
                   <!-- <i class="fa fa-facebook"></i> -->

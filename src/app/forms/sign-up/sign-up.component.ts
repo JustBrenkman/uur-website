@@ -3,12 +3,13 @@ import {FormControl, Validators, NgForm, FormGroupDirective, FormGroup} from '@a
 
 import {SchoolsService} from '../../services/schools.service';
 import {School} from '../../models/school';
-import {ErrorStateMatcher, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {ErrorStateMatcher, MAT_DIALOG_DATA, MatDialogRef, MatIconRegistry} from '@angular/material';
 
 import {MatSnackBar} from '@angular/material';
 import {AuthenticateService} from '../../services/authenticate.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserAdd} from '../../models/user';
+import {DomSanitizer} from '@angular/platform-browser';
 
 export interface Data {
   abr: string;
@@ -61,7 +62,15 @@ export class SignUpComponent implements OnInit {
     public snackBar: MatSnackBar,
     private authService: AuthenticateService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    public iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon('github', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/github_fade.svg'));
+    iconRegistry.addSvgIcon('instagram', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/instagram_flat.svg'));
+    iconRegistry.addSvgIcon('facebook', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/facebook_flat.svg'));
+    iconRegistry.addSvgIcon('linkedin', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/linkedin_flat.svg'));
+    iconRegistry.addSvgIcon('slack', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/slack_fade.svg'));
+    iconRegistry.addSvgIcon('youtube', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/youtube_flat.svg'));
+  }
 
   emailErrorMatcher = new EmailErrorMatcher();
   returnUrl: string;

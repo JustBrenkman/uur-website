@@ -62,6 +62,7 @@ import { ChartComponent } from './components/chart/chart.component';
 import { RegisterSchoolDialogComponent } from './forms/register-school-dialog/register-school-dialog.component';
 import { EmailDialogComponent } from './forms/email-dialog/email-dialog.component';
 import {Globals} from './models/globals';
+import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
 
 export function getToken() {
   return localStorage.getItem('auth_token');
@@ -88,6 +89,7 @@ export function getToken() {
     ChartComponent,
     RegisterSchoolDialogComponent,
     EmailDialogComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -140,6 +142,6 @@ export function getToken() {
   ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ],
-  entryComponents: [AddUserFormComponent, RegisterSchoolDialogComponent, EmailDialogComponent]
+  entryComponents: [AddUserFormComponent, RegisterSchoolDialogComponent, EmailDialogComponent, ConfirmationDialogComponent]
 })
 export class AppModule { }
