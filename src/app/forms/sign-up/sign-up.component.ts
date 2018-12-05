@@ -1,14 +1,11 @@
-import {Component, Inject, OnInit, Optional} from '@angular/core';
-import {FormControl, Validators, NgForm, FormGroupDirective, FormGroup} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormControl, FormGroupDirective, NgForm, ValidatorFn, Validators} from '@angular/forms';
 
 import {SchoolsService} from '../../services/schools.service';
 import {School} from '../../models/school';
-import {ErrorStateMatcher, MAT_DIALOG_DATA, MatDialogRef, MatIconRegistry} from '@angular/material';
-
-import {MatSnackBar} from '@angular/material';
+import {ErrorStateMatcher, MatIconRegistry, MatSnackBar} from '@angular/material';
 import {AuthenticateService} from '../../services/authenticate.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UserAdd} from '../../models/user';
 import {DomSanitizer} from '@angular/platform-browser';
 
 export interface Data {
@@ -49,6 +46,11 @@ export class SignUpComponent implements OnInit {
     Validators.minLength(8),
     Validators.required
   ]);
+  passworConfirmdFC = new FormControl('', [
+    Validators.minLength(8),
+    Validators.required,
+    // matchingPasswords(this.passwordFC.value, this.passworConfirmdFC.value)
+  ]);
   schoolFC = new FormControl('', [
     Validators.required
   ]);
@@ -77,7 +79,7 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
     this.getSchools();
-    this.roleFC.setValue('Teacher');
+    // this.roleFC.setValue('Teacher');
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
@@ -132,9 +134,15 @@ export class SignUpComponent implements OnInit {
       console.log('School: Invalid');
     }
 
+    if (this.passworConfirmdFC.value !== this.passwordFC.value) {
+      this.snackBar.open('Passwords do not match', 'Ok');
+      this.passworConfirmdFC.setErrors({'mismatch': true});
+      return;
+    }
+
     console.log('Role: ' + this.roleFC.value);
 
-    if (this.emailFormControl.valid && this.passwordFC.valid && this.firtNameFC.valid && this.lastNameFC.valid && this.schoolFC.valid) {
+    if (this.emailFormControl.valid && this.passwordFC.valid && this.firtNameFC.valid && this.lastNameFC.valid && this.schoolFC.valid && this.roleFC.valid) {
       this.register({email: this.emailFormControl.value, password: this.passwordFC.value, firstName: this.firtNameFC.value,
         lastName: this.lastNameFC.value, school: this.schoolFC.value, role: this.roleFC.value});
     }

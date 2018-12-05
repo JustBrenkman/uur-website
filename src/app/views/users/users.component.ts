@@ -7,6 +7,8 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {EmailDialogComponent} from '../../forms/email-dialog/email-dialog.component';
 import {Globals} from '../../models/globals';
 import {ConfirmationDialogComponent} from '../../dialogs/confirmation-dialog/confirmation-dialog.component';
+import {AuthenticateService} from '../../services/authenticate.service';
+import {EditUserDialogComponent} from '../../dialogs/edit-user-dialog/edit-user-dialog.component';
 
 @Component({
   selector: 'app-users',
@@ -66,7 +68,8 @@ export class UsersComponent implements OnInit {
               public eventbus: EventbusService,
               public dialog: MatDialog,
               public globals: Globals,
-              public snackbar: MatSnackBar) {
+              public snackbar: MatSnackBar,
+              public authService: AuthenticateService) {
 
   }
 
@@ -205,11 +208,36 @@ export class UsersComponent implements OnInit {
   }
 
   openRemoveUserConfirmationDialog(id: number) {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: 'Are you sure you want to remove this user?'});
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: 'Are you sure you want to drop this user?'});
     dialogRef.afterClosed().subscribe(confirmation => {
       if (confirmation) {
-        this.snackbar.open('User removed', 'Ok', {
+        this.authService.drop_user(id).subscribe(result => {
+          console.log(result);
+          if (result['result'] === 'success') {
+            this.snackbar.open('User removed', 'Ok', {
+              duration: 2000
+            });
+          } else {
+            this.snackbar.open('Unable to remove user', 'Dismiss', {
+              duration: 3000
+            });
+          }
+        });
+        this.snackbar.open('Removing', 'Ok', {
           duration: 2000
+        });
+      }
+    });
+  }
+
+  openEditUserDialog(row: UserFull) {
+    const dialogRef = this.dialog.open(EditUserDialogComponent, {data: row});
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result['action'] === 'update') {
+        console.log('Updating user');
+        this.authService.updateUser(result['user']).subscribe(response => {
+          console.log(response);
         });
       }
     });

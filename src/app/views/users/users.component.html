@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="height: 100%">
   <div class="row d-flex pt-2">
     <div class="flex-grow-1 p-2">
       <mat-card>
@@ -120,7 +120,7 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let row">
-                  <button mat-icon-button><mat-icon>edit</mat-icon></button>
+                  <button mat-icon-button (click)="openEditUserDialog(row)"><mat-icon>edit</mat-icon></button>
                   <button mat-icon-button (click)="openRemoveUserConfirmationDialog(row.id)"><mat-icon>remove</mat-icon></button>
                 </td>
             </ng-container>
@@ -136,3 +136,149 @@
     </div>
   </div>
 </div>
+
+
+
+<!--Tried to use the gridlayout with material design, it doesnt work well with cardsa -->
+<!--<div class="container">-->
+  <!--<mat-grid-list cols="6" rowHeight="1:1" gutterSize="10px" cdkDropList>-->
+    <!--<mat-grid-tile-->
+      <!--[colspan]="4"-->
+      <!--[rowspan]="2" cdkDrag>-->
+      <!--<mat-card style="width: 100%;">-->
+        <!--<mat-card-header>-->
+          <!--<mat-card-title>-->
+            <!--Users Info:-->
+          <!--</mat-card-title>-->
+        <!--</mat-card-header>-->
+        <!--<mat-card-content>-->
+          <!--<canvas baseChart height="100"-->
+                  <!--[datasets]="userChartData"-->
+                  <!--[labels]="userChartLabels"-->
+                  <!--[options]="userChartOptions"-->
+                  <!--[legend]="userChartLegend"-->
+                  <!--[chartType]="userChartType"-->
+                  <!--(chartHover)="chartHovered($event)"-->
+                  <!--(chartClick)="chartClicked($event)"></canvas>-->
+        <!--</mat-card-content>-->
+        <!--<mat-card-footer>-->
+
+        <!--</mat-card-footer>-->
+      <!--</mat-card>-->
+    <!--</mat-grid-tile>-->
+    <!--<mat-grid-tile-->
+      <!--[colspan]="2"-->
+      <!--[rowspan]="2" cdkDrag>-->
+      <!--<mat-card style="width: 100%;">-->
+        <!--<mat-card-header>-->
+          <!--<mat-card-title>Active Users:</mat-card-title>-->
+        <!--</mat-card-header>-->
+        <!--<mat-card-content>-->
+          <!--<canvas baseChart-->
+                  <!--[datasets]="activeUserChartData"-->
+                  <!--[labels]="pieChartLabels"-->
+                  <!--[chartType]="activeUserChartType"-->
+                  <!--(chartHover)="chartHovered($event)"-->
+                  <!--(chartClick)="chartClicked($event)"></canvas>-->
+        <!--</mat-card-content>-->
+      <!--</mat-card>-->
+    <!--</mat-grid-tile>-->
+    <!--<mat-grid-tile-->
+      <!--[colspan]="6"-->
+      <!--[rowspan]="2" cdkDrag>-->
+      <!--<mat-progress-bar *ngIf="isLoadingIUsers" mode="indeterminate"></mat-progress-bar>-->
+      <!--<mat-card style="width: 100%;">-->
+        <!--<mat-card-header>-->
+          <!--<mat-card-title>-->
+            <!--Users-->
+          <!--</mat-card-title>-->
+          <!--<div class="d-inline justify-content-end">-->
+            <!--<button mat-icon-button (click)="getUsers()"><mat-icon>refresh</mat-icon></button>-->
+          <!--</div>-->
+          <!--&lt;!&ndash;<mat-form-field class="stretch">&ndash;&gt;-->
+          <!--&lt;!&ndash;<input matInput (keyup)="applyFilterSchoolsFull($event.target.value)" placeholder="Filter">&ndash;&gt;-->
+          <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+          <!--<span style="width: 100%;"></span>-->
+          <!--<button mat-icon-button *ngIf="selection.hasValue() || displayActions" [disabled]="!selection.hasValue()" (click)="doanloadSelectionEmail()"><mat-icon>save_alt</mat-icon></button>-->
+          <!--<button mat-icon-button *ngIf="selection.hasValue() || displayActions" [disabled]="!selection.hasValue()" (click)="openEmailDialog()"><mat-icon>email</mat-icon></button>-->
+        <!--</mat-card-header>-->
+        <!--<mat-card-content>-->
+          <!--<table mat-table [dataSource]="usersDataSource" class="mat-elevation-z8" style="width: 100% !important; overflow: auto">-->
+            <!--<ng-container matColumnDef="timestamp">-->
+              <!--<th mat-header-cell *matHeaderCellDef>Time Stamp</th>-->
+              <!--<td mat-cell *matCellDef="let element">{{element.timestamp}}</td>-->
+            <!--</ng-container>-->
+            <!--<ng-container matColumnDef="id">-->
+              <!--<th mat-header-cell *matHeaderCellDef>Id</th>-->
+              <!--<td mat-cell *matCellDef="let element">{{element.id}}</td>-->
+            <!--</ng-container>-->
+            <!--<ng-container matColumnDef="first_name">-->
+              <!--<th mat-header-cell *matHeaderCellDef>First Name</th>-->
+              <!--<td  mat-cell *matCellDef="let element">{{element.first_name}}</td>-->
+            <!--</ng-container>-->
+            <!--<ng-container matColumnDef="last_name">-->
+              <!--<th mat-header-cell *matHeaderCellDef>Last Name</th>-->
+              <!--<td mat-cell *matCellDef="let element">{{element.last_name}}</td>-->
+            <!--</ng-container>-->
+            <!--<ng-container matColumnDef="email">-->
+              <!--<th mat-header-cell *matHeaderCellDef>Email</th>-->
+              <!--<td mat-cell *matCellDef="let element">{{element.email}}</td>-->
+            <!--</ng-container>-->
+            <!--<ng-container matColumnDef="school">-->
+              <!--<th mat-header-cell *matHeaderCellDef>School</th>-->
+              <!--<td mat-cell *matCellDef="let element">{{element.school}}</td>-->
+            <!--</ng-container>-->
+            <!--<ng-container matColumnDef="role">-->
+              <!--<th mat-header-cell *matHeaderCellDef>Role</th>-->
+              <!--<td mat-cell *matCellDef="let element">{{element.role}}</td>-->
+            <!--</ng-container>-->
+            <!--<ng-container matColumnDef="privilege">-->
+              <!--<th mat-header-cell *matHeaderCellDef>Privilege</th>-->
+              <!--<td mat-cell *matCellDef="let element">{{element.privilege}}</td>-->
+            <!--</ng-container>-->
+
+            <!--&lt;!&ndash;<ng-container matColumnDef="actions" *ngIf="displayActions">&ndash;&gt;-->
+            <!--&lt;!&ndash;<th mat-header-cell *matHeaderCellDef>&ndash;&gt;-->
+            <!--&lt;!&ndash;Actions&ndash;&gt;-->
+            <!--&lt;!&ndash;</th>&ndash;&gt;-->
+            <!--&lt;!&ndash;<td mat-cell *matCellDef="let row">&ndash;&gt;-->
+            <!--&lt;!&ndash;<button mat-button><mat-icon>edit</mat-icon></button>&ndash;&gt;-->
+            <!--&lt;!&ndash;</td>&ndash;&gt;-->
+            <!--&lt;!&ndash;</ng-container>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;Checkbox Column &ndash;&gt;-->
+            <!--<ng-container matColumnDef="select">-->
+              <!--<th mat-header-cell *matHeaderCellDef>-->
+                <!--<mat-checkbox (change)="$event ? masterToggle() : null"-->
+                              <!--[checked]="selection.hasValue() && isAllSelected()"-->
+                              <!--[indeterminate]="selection.hasValue() && !isAllSelected()">-->
+                <!--</mat-checkbox>-->
+              <!--</th>-->
+              <!--<td mat-cell *matCellDef="let row">-->
+                <!--<mat-checkbox (click)="$event.stopPropagation()"-->
+                              <!--(change)="$event ? selection.toggle(row) : null"-->
+                              <!--[checked]="selection.isSelected(row)"-->
+                              <!--[value]="row.email">-->
+                <!--</mat-checkbox>-->
+              <!--</td>-->
+            <!--</ng-container>-->
+
+            <!--<ng-container matColumnDef="actions">-->
+              <!--<th mat-header-cell *matHeaderCellDef>Actions</th>-->
+              <!--<td mat-cell *matCellDef="let row">-->
+                <!--<button mat-icon-button><mat-icon>edit</mat-icon></button>-->
+                <!--<button mat-icon-button (click)="openRemoveUserConfirmationDialog(row.id)"><mat-icon>remove</mat-icon></button>-->
+              <!--</td>-->
+            <!--</ng-container>-->
+
+            <!--<tr mat-header-row *matHeaderRowDef="usersDisplayColumn"></tr>-->
+            <!--<tr mat-row *matRowDef="let row; columns: usersDisplayColumn;"></tr>-->
+          <!--</table>-->
+        <!--</mat-card-content>-->
+        <!--<mat-card-footer>-->
+          <!--<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>-->
+        <!--</mat-card-footer>-->
+      <!--</mat-card>-->
+    <!--</mat-grid-tile>-->
+  <!--</mat-grid-list>-->
+<!--</div>-->

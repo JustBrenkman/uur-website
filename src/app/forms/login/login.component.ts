@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
     Validators.minLength(8),
     Validators.required
   ]);
+  rememberFC = new FormControl('', []);
 
   emailErrorMatcher = new EmailErrorMatcher();
   response: JSON;
@@ -48,9 +49,11 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.emailFormControl.valid && this.passwordFC.valid) {
+      console.log(this.rememberFC.value);
       const user: User = {
         email: this.emailFormControl.value,
-        password: this.passwordFC.value
+        password: this.passwordFC.value,
+        remember: this.rememberFC.value
       };
       this.loggingIn = true;
       this.auth.login(user, (success) => {

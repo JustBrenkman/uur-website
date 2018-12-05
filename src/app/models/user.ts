@@ -2,6 +2,7 @@
 export class User {
   email: string;
   password: string;
+  remember: boolean;
 }
 
 export class UserAdd {
@@ -20,6 +21,19 @@ export class UserFull {
   first_name: string;
   last_name: string;
   email: string;
+  role: string;
+  privilege: string;
+  school: string;
+  status: string;
+}
+
+export class UserEdit {
+  timestamp: string;
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
   role: string;
   privilege: string;
   school: string;

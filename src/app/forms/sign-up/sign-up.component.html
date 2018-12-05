@@ -70,12 +70,26 @@
               <!--</div>-->
               <mat-form-field class="fullWidth">
                 <input matInput placeholder="Password" type="password" [formControl]="passwordFC" [errorStateMatcher]="emailErrorMatcher">
-                <mat-hint>At least 8 characters and 1 digit</mat-hint>
+                <mat-hint *ngIf="passwordFC.valid || (passwordFC.untouched)">At least 8 characters and 1 digit</mat-hint>
                 <mat-error *ngIf="passwordFC.hasError('minLength') && !passwordFC.hasError('required')">
                   Please enter a password that is 8 or more characters
                 </mat-error>
                 <mat-error *ngIf="passwordFC.hasError('required')">
                   Password is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="fullWidth">
+                <input matInput placeholder="Confirm password" type="password" [formControl]="passworConfirmdFC" [errorStateMatcher]="emailErrorMatcher">
+                <!--<mat-hint>At least 8 characters and 1 digit</mat-hint>-->
+                <mat-error *ngIf="passworConfirmdFC.hasError('minLength') && !passworConfirmdFC.hasError('required')">
+                  Please enter the same password as above
+                </mat-error>
+                <mat-error *ngIf="passworConfirmdFC.hasError('mismatch')">
+                  Passwords must <strong>match</strong>
+                </mat-error>
+                <mat-error *ngIf="passworConfirmdFC.hasError('required')">
+                  Passwords must <strong>match</strong>
                 </mat-error>
               </mat-form-field>
 
@@ -93,12 +107,20 @@
               </mat-form-field>
 
               <div class="col-stretch">
-                <h5 class="align-baseline">
-                  Role:
-                </h5>
-                <mat-radio-group class="radio-group-vertical" [formControl]="roleFC">
-                  <mat-radio-button *ngFor="let role of roles" [value]="role">{{role}}</mat-radio-button>
-                </mat-radio-group>
+                <!--<h5 class="align-baseline">-->
+                  <!--Role:-->
+                <!--</h5>-->
+                <mat-form-field>
+                  <mat-select placeholder="Role" [formControl]="roleFC">
+                    <mat-option>Select your role</mat-option>
+                    <div *ngIf="roles">
+                      <mat-option *ngFor="let role of roles" [value]="role">{{role}}</mat-option>
+                    </div>
+                  </mat-select>
+                </mat-form-field>
+                <!--<mat-radio-group class="radio-group-vertical" [formControl]="roleFC">-->
+                  <!--<mat-radio-button *ngFor="let role of roles" [value]="role">{{role}}</mat-radio-button>-->
+                <!--</mat-radio-group>-->
               </div>
 
               <!--/Dropdown primary-->

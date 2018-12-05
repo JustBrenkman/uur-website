@@ -42,8 +42,13 @@ import {
   MatProgressBarModule,
   MatTooltipModule,
   MatBadgeModule,
+  MatTabsModule,
   MAT_DIALOG_DEFAULT_OPTIONS, MatDialogRef, MAT_DIALOG_DATA
 } from '@angular/material';
+
+import {
+  DragDropModule
+} from '@angular/cdk/drag-drop';
 
 import {HttpClientModule} from '@angular/common/http';
 import { LoginViewComponent } from './views/login-view/login-view.component';
@@ -63,6 +68,7 @@ import { RegisterSchoolDialogComponent } from './forms/register-school-dialog/re
 import { EmailDialogComponent } from './forms/email-dialog/email-dialog.component';
 import {Globals} from './models/globals';
 import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
+import { EditUserDialogComponent } from './dialogs/edit-user-dialog/edit-user-dialog.component';
 
 export function getToken() {
   return localStorage.getItem('auth_token');
@@ -90,6 +96,7 @@ export function getToken() {
     RegisterSchoolDialogComponent,
     EmailDialogComponent,
     ConfirmationDialogComponent,
+    EditUserDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -118,11 +125,13 @@ export function getToken() {
     MatDialogModule,
     MatTooltipModule,
     MatBadgeModule,
+    MatTabsModule,
     NgxMaskModule.forRoot(),
     A11yModule,
     ChartsModule,
     HttpClientModule,
     AppRoutingModule,
+    DragDropModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,
@@ -142,6 +151,7 @@ export function getToken() {
   ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ],
-  entryComponents: [AddUserFormComponent, RegisterSchoolDialogComponent, EmailDialogComponent, ConfirmationDialogComponent]
+  entryComponents: [AddUserFormComponent, RegisterSchoolDialogComponent, EmailDialogComponent, ConfirmationDialogComponent,
+  EditUserDialogComponent]
 })
 export class AppModule { }

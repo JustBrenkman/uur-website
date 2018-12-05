@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import {User} from '../models/user';
+import {User, UserFull} from '../models/user';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {catchError} from 'rxjs/operators';
+import {catchError, retry} from 'rxjs/operators';
 import {empty, throwError} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import decode from 'jwt-decode';
 import {Globals} from '../models/globals';
+import {MatSnackBar} from '@angular/material';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
@@ -21,12 +22,16 @@ export class AuthenticateService {
   private readonly loginURL: string;
   private readonly registerURL: string;
   private readonly addUserURL: string;
+  private readonly dropUserURL: string;
+  private readonly updateUserURL: string;
+  private readonly changePasswordURL: string;
 
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
   private isLoggedIn = false;
 
   // This constructor sets up some stuff for us
-  constructor(private http: HttpClient, public jwt: JwtHelperService, private globals: Globals) {
+  constructor(private http: HttpClient, public jwt: JwtHelperService, private globals: Globals,
+              public snackBar: MatSnackBar) {
     if (this.globals.server) {
       this.serverURL = globals.server;
     }
@@ -34,12 +39,15 @@ export class AuthenticateService {
     this.loginURL = this.serverURL + 'api/login';
     this.registerURL = this.serverURL + 'api/register';
     this.addUserURL = this.serverURL + 'api/add_user';
+    this.dropUserURL = this.serverURL + 'api/users/drop';
+    this.updateUserURL = this.serverURL + 'api/user/update';
+    this.changePasswordURL = this.serverURL + 'api/user/change_password';
   }
 
   // This function will log in the user
   login(user: User, callback: (success: boolean) => void) {
     let response: JSON;
-    return this.http.post(this.loginURL, JSON.stringify(user)).pipe(catchError(this.handleError)).subscribe((rep: JSON) => {
+    return this.http.post(this.loginURL, JSON.stringify(user)).pipe(retry(3), catchError(this.handleError)).subscribe((rep: JSON) => {
       response = rep;
       console.log(response);
       if (response['result'] === 'Success') {
@@ -86,7 +94,33 @@ export class AuthenticateService {
     return this.http.post(this.addUserURL, JSON.stringify(data)).pipe(catchError(this.handleError));
   }
 
+  private addAuthenticationToken(data): any {
+    console.log('Adding authentication token');
+    const info = JSON.stringify(data);
+    const additional = JSON.parse(info);
+    additional['auth_token'] = localStorage.getItem('auth_token');
+    return additional;
+  }
+
+  drop_user(id: number) {
+    console.log('Atempting to remove user: ' + id);
+    const data = {id: id};
+    return this.http.post(this.dropUserURL, JSON.stringify(this.addAuthenticationToken(data))).pipe(catchError(this.handleError));
+  }
+
+  updateUser(user: UserFull) {
+    console.log('Updating user: ' + user.id);
+    return this.http.post(this.updateUserURL, JSON.stringify(this.addAuthenticationToken(user))).pipe(catchError(this.handleError));
+  }
+
+  changePassword(id: string, password: string) {
+    console.log('Changing password');
+    const data = {password: password, id: id};
+    return this.http.post(this.changePasswordURL, JSON.stringify(this.addAuthenticationToken(data))).pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
+    // this.snackBar.open('Server Error: Try again later :(');
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
