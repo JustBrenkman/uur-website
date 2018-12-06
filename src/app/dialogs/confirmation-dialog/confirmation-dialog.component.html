@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Confirmation</h1>
+<div mat-dialog-content>
+  <h3>{{displayMessage}}</h3>
+  <p></p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">No</button>
+  <button mat-stroked-button color="primary" [mat-dialog-close]="true" cdkFocusInitial><mat-icon>check</mat-icon><span class="pl-2">Yes</span></button>
+</div>

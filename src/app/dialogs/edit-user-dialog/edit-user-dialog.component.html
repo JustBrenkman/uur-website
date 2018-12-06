@@ -1,0 +1,136 @@
+<!-- Material form login -->
+<!--<h1 mat-dialog-title>Edit User - {{id}}</h1>-->
+<div class="container">
+  <div class="row justify-content-sm-center">
+    <div class="col-sm-">
+      <div mat-dialog-content>
+        <!-- Default form register -->
+        <mat-tab-group #tabGroup dynamicHeight>
+          <mat-tab label="Edit User">
+            <form (ngSubmit)="onSubmit()" class="text-center pt-3" autocomplete="off">
+              <div class="form-row mb-4">
+                <div class="col">
+                  <mat-form-field class="fullWidth">
+                    <input matInput placeholder="First Name" [formControl]="firtNameFC" [errorStateMatcher]="emailErrorMatcher">
+                    <mat-hint></mat-hint>
+                    <mat-error *ngIf="firtNameFC.hasError('required')">
+                      First name is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+
+                  <mat-form-field class="fullWidth">
+                    <input matInput placeholder="Last Name" [formControl]="lastNameFC" [errorStateMatcher]="emailErrorMatcher">
+                    <mat-hint></mat-hint>
+                    <mat-error *ngIf="lastNameFC.hasError('required')">
+                      Last name is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <mat-form-field class="fullWidth">
+                <input name="email" type="hidden">
+                <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="emailErrorMatcher" name="email-entry">
+                <mat-hint></mat-hint>
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                  Email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-stretch">
+                <mat-select placeholder="School" [formControl]="schoolFC">
+                  <mat-option>Select a school</mat-option>
+                  <div *ngIf="schools">
+                    <mat-option *ngFor="let on of schools" [value]="on.abr">{{on.name}}</mat-option>
+                  </div>
+                  <!--<mat-option [value]="data.abr">{{data.name}}</mat-option>-->
+                </mat-select>
+                <mat-error *ngIf="schoolFC.hasError('required')">
+                  Please select the school you are representing
+                </mat-error>
+              </mat-form-field>
+
+              <div class="row">
+                <div class="col">
+                  <!--<mat-form-field>-->
+                  <!--<mat-select placeholder="Role" [formControl]="roleFC">-->
+                  <!--<mat-option *ngFor="let role of roles" [value]="role">{{role}}</mat-option>-->
+                  <!--</mat-select>-->
+                  <h5>Role</h5>
+                  <mat-button-toggle-group [formControl]="roleFC" class="fullWidth">
+                    <mat-button-toggle *ngFor="let role of roles" [value]="role" class="fullWidth">{{role}}</mat-button-toggle>
+                  </mat-button-toggle-group>
+                  <!--</mat-form-field>-->
+                </div>
+              </div>
+              <div class="row pt-2">
+                <div class="col">
+                  <!--<mat-form-field>-->
+                  <!--<mat-select placeholder="Privileges" [formControl]="privFC">-->
+                  <!--<mat-option *ngFor="let priv of privileges" [value]="priv">{{priv}}</mat-option>-->
+                  <!--</mat-select>-->
+                  <!--</mat-form-field>-->
+                  <h5>Privileges</h5>
+                  <mat-button-toggle-group [formControl]="privFC" class="fullWidth">
+                    <mat-button-toggle *ngFor="let priv of privileges" [value]="priv" class="fullWidth">{{priv}}</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+              </div>
+              <div class="row pt-2">
+                <div class="col">
+                  <h5>Status</h5>
+                  <mat-button-toggle-group [formControl]="statusFC" class="fullWidth">
+                    <mat-button-toggle [value]="'active'" class="fullWidth">Active</mat-button-toggle>
+                    <mat-button-toggle [value]="'inactive'" class="fullWidth">Inactive</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+              </div>
+              <p></p>
+            </form>
+          </mat-tab>
+
+
+          <mat-tab label="Change password">
+            <form (ngSubmit)="onSubmit()" class="text-center pt-3" autocomplete="off">
+              <mat-form-field class="fullWidth">
+                <input matInput placeholder="Password" type="password" [formControl]="passwordFC" [errorStateMatcher]="emailErrorMatcher">
+                <mat-hint *ngIf="passwordFC.valid || (passwordFC.untouched)">At least 8 characters and 1 digit</mat-hint>
+                <mat-error *ngIf="passwordFC.hasError('minLength') && !passwordFC.hasError('required')">
+                  Please enter a password that is 8 or more characters
+                </mat-error>
+                <mat-error *ngIf="passwordFC.hasError('required')">
+                  Password is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="fullWidth">
+                <input matInput placeholder="Confirm password" type="password" [formControl]="passworConfirmdFC" [errorStateMatcher]="emailErrorMatcher">
+                <!--<mat-hint>At least 8 characters and 1 digit</mat-hint>-->
+                <mat-error *ngIf="passworConfirmdFC.hasError('minLength') && !passworConfirmdFC.hasError('required')">
+                  Please enter the same password as above
+                </mat-error>
+                <mat-error *ngIf="passworConfirmdFC.hasError('mismatch')">
+                  Passwords must <strong>match</strong>
+                </mat-error>
+                <mat-error *ngIf="passworConfirmdFC.hasError('required')">
+                  Passwords must <strong>match</strong>
+                </mat-error>
+              </mat-form-field>
+            </form>
+          </mat-tab>
+        </mat-tab-group>
+        <!-- Default form register -->
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="{'action': 'cancel'}">Cancel</button>
+        <button mat-stroked-button type="submit" color="primary" (click)="(tabGroup.selectedIndex === 0)? update(): changePassword()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Material form login -->
