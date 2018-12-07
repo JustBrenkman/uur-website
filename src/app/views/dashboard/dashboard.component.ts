@@ -8,6 +8,7 @@ import {MatDialog} from '@angular/material';
 import {AddUserFormComponent} from '../../forms/add-user-form/add-user-form.component';
 import {RegisterSchoolDialogComponent} from '../../forms/register-school-dialog/register-school-dialog.component';
 import {EventbusService} from '../../services/eventbus.service';
+import {AddTeamDialogComponent} from '../../dialogs/add-team-dialog/add-team-dialog.component';
 
 export enum DASHBOARD {
   V1,
@@ -123,5 +124,13 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onViewActionsChange() {
     this.eventbus.publish('viewActions', this.viewActions.checked);
+  }
+
+  openAddTeamDialog() {
+    const dialogRef = this.dialog.open(AddTeamDialogComponent, {});
+  }
+
+  openRemoveTeamDialog() {
+
   }
 }

@@ -61,6 +61,8 @@
       <div *ngIf="dashboard === DASHBOARD.TEAMS">
         <button mat-button [matMenuTriggerFor]="menu" matTooltip="Menu" [matTooltipPosition]="'below'"><mat-icon>list</mat-icon><span> Teams</span></button>
         <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openAddTeamDialog()"><mat-icon>add_circle_outline</mat-icon><span>Add Team</span></button>
+          <button mat-menu-item (click)="openRemoveTeamDialog()"><mat-icon>remove_circle_outline</mat-icon><span>Remove Team</span></button>
         </mat-menu>
       </div>
       <div *ngIf="dashboard === DASHBOARD.COMPETITION">

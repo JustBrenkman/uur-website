@@ -43,6 +43,7 @@ import {
   MatTooltipModule,
   MatBadgeModule,
   MatTabsModule,
+  MatStepperModule,
   MAT_DIALOG_DEFAULT_OPTIONS, MatDialogRef, MAT_DIALOG_DATA
 } from '@angular/material';
 
@@ -69,6 +70,8 @@ import { EmailDialogComponent } from './forms/email-dialog/email-dialog.componen
 import {Globals} from './models/globals';
 import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
 import { EditUserDialogComponent } from './dialogs/edit-user-dialog/edit-user-dialog.component';
+import { AddTeamDialogComponent } from './dialogs/add-team-dialog/add-team-dialog.component';
+import {TeamService} from './services/team.service';
 
 export function getToken() {
   return localStorage.getItem('auth_token');
@@ -97,6 +100,7 @@ export function getToken() {
     EmailDialogComponent,
     ConfirmationDialogComponent,
     EditUserDialogComponent,
+    AddTeamDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -126,6 +130,7 @@ export function getToken() {
     MatTooltipModule,
     MatBadgeModule,
     MatTabsModule,
+    MatStepperModule,
     NgxMaskModule.forRoot(),
     A11yModule,
     ChartsModule,
@@ -143,7 +148,7 @@ export function getToken() {
   exports: [],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
-    AuthenticateService, Globals,
+    AuthenticateService, Globals, TeamService,
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
     { provide: MAT_DIALOG_DATA, useValue: {} },
@@ -152,6 +157,6 @@ export function getToken() {
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ],
   entryComponents: [AddUserFormComponent, RegisterSchoolDialogComponent, EmailDialogComponent, ConfirmationDialogComponent,
-  EditUserDialogComponent]
+  EditUserDialogComponent, AddTeamDialogComponent]
 })
 export class AppModule { }
