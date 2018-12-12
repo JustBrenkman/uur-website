@@ -18,6 +18,7 @@ export class TeamService {
   private readonly generateNewTeamNumberURL: string;
   private readonly addTeamURL: string;
   private readonly getTeamListURL: string;
+  private readonly getTeamFullListURL: string;
 
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
 
@@ -29,6 +30,7 @@ export class TeamService {
     this.generateNewTeamNumberURL = this.serverURL + 'api/teams/generate_number';
     this.addTeamURL = this.serverURL + 'api/teams/add_team';
     this.getTeamListURL = this.serverURL + 'api/team/get_list_teams';
+    this.getTeamFullListURL = this.serverURL + 'api/team/get_full_list_teams';
   }
 
   generateTeamNumber(): Observable<any> {
@@ -47,6 +49,10 @@ export class TeamService {
 
   getTeamListUser(): Observable<Team[]> {
     return this.http.post<Team[]>(this.getTeamListURL, {auth_token: localStorage.getItem('auth_token')}).pipe(catchError(this.handleError));
+  }
+
+  getFullTeamList(): Observable<Team[]> {
+    return this.http.post<Team[]>(this.getTeamFullListURL, {auth_token: localStorage.getItem('auth_token')}).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

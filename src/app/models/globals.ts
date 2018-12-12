@@ -6,8 +6,8 @@ import {Team} from './team';
 
 @Injectable()
 export class Globals {
-  // server: string = 'https://uur.byu.edu/';
-  server: string = 'http://localhost:5000/';
+  server: string = 'https://uur.byu.edu/';
+  // server: string = 'http://localhost:5000/';
   users_viewSelect: boolean = false;
 
   // Views component
@@ -16,6 +16,7 @@ export class Globals {
   users: UserFull[];
   schools: SchoolFull[];
   teams: Team[];
+  teamsAdmin: Team[];
 
   static downloadFile(data: any, filename: string) {
     const blob = new Blob([data.toString()], { type: 'text/csv;charset=utf-8' });

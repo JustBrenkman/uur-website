@@ -44,6 +44,7 @@ import {
   MatBadgeModule,
   MatTabsModule,
   MatStepperModule,
+  MatRippleModule,
   MAT_DIALOG_DEFAULT_OPTIONS, MatDialogRef, MAT_DIALOG_DATA
 } from '@angular/material';
 
@@ -131,6 +132,7 @@ export function getToken() {
     MatBadgeModule,
     MatTabsModule,
     MatStepperModule,
+    MatRippleModule,
     NgxMaskModule.forRoot(),
     A11yModule,
     ChartsModule,
