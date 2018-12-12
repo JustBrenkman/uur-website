@@ -105,28 +105,24 @@
                   Please select the school you are representing
                 </mat-error>
               </mat-form-field>
-
-              <div class="col-stretch">
-                <!--<h5 class="align-baseline">-->
-                  <!--Role:-->
-                <!--</h5>-->
-                <mat-form-field>
-                  <mat-select placeholder="Role" [formControl]="roleFC">
-                    <mat-option>Select your role</mat-option>
-                    <div *ngIf="roles">
-                      <mat-option *ngFor="let role of roles" [value]="role">{{role}}</mat-option>
-                    </div>
-                  </mat-select>
-                </mat-form-field>
-                <!--<mat-radio-group class="radio-group-vertical" [formControl]="roleFC">-->
-                  <!--<mat-radio-button *ngFor="let role of roles" [value]="role">{{role}}</mat-radio-button>-->
-                <!--</mat-radio-group>-->
-              </div>
-
-              <!--/Dropdown primary-->
               <small id="defaultRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
                 If you are not with us, send us an email to get your school registered
               </small>
+
+              <div class="col-stretch">
+                <!--<mat-form-field>-->
+                  <!--<mat-select placeholder="Role" [formControl]="roleFC">-->
+                    <!--<mat-option>Select your role</mat-option>-->
+                    <!--<div *ngIf="roles">-->
+                      <!--<mat-option *ngFor="let role of roles" [value]="role">{{role}}</mat-option>-->
+                    <!--</div>-->
+                  <!--</mat-select>-->
+                <!--</mat-form-field>-->
+                <h5>Role</h5>
+                <mat-button-toggle-group [formControl]="roleFC" class="fullWidth">
+                  <mat-button-toggle *ngFor="let role of roles" [value]="role" class="fullWidth">{{role}}</mat-button-toggle>
+                </mat-button-toggle-group>
+              </div>
 
 
               <!-- Sign up button -->

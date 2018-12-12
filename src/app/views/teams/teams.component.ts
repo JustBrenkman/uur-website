@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {log} from 'util';
+import {Team} from '../../models/team';
+import {TeamService} from '../../services/team.service';
+import {Globals} from '../../models/globals';
 
 @Component({
   selector: 'app-teams',
@@ -40,7 +43,12 @@ export class TeamsComponent implements OnInit {
   ];
   public radarChartType = 'radar';
 
-  constructor() { }
+  constructor(public teamService: TeamService, public globals: Globals) {
+    this.teamService.getTeamListUser().subscribe((list) => {
+      console.log(list);
+      this.globals.teams = list;
+    });
+  }
 
   ngOnInit() {
   }

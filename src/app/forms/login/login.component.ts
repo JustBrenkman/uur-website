@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   goToRegister() {
-    this.router.navigate(['register'], {queryParams: {returnUrl: ''}});
+    this.router.navigate(['register'], {queryParams: {returnUrl: this.returnUrl}});
   }
 
   login() {

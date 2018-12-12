@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Add Team</h1>
+<mat-dialog-content>
+  <mat-horizontal-stepper #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Generate Team Number</ng-template>
+        <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+          <div *ngIf="team_number">
+            <h1 class="p-4">Team Number: <strong>{{team_number}}</strong></h1>
+          </div>
+          <div *ngIf="!team_number">
+            <button mat-raised-button color="primary" class="pt-3 pb-2" (click)="generate_number()" [disabled]="isGeneratingTeamNumber"><h5 class="p-2">Generate New Number</h5></button>
+          </div>
+        </div>
+        <div>
+          <button mat-raised-button color="primary" matStepperNext [disabled]="!team_number">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Team Name</ng-template>
+        <mat-form-field style="width: 100%;">
+          <input matInput placeholder="Team Name" formControlName="team_name" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-raised-button color="primary" (click)="addTeam()">Add Team</button>
+        <!--<div class="d-flex justify-content-end">-->
+          <!--<span style="width: 100%;"></span>-->
+          <!--<button mat-raised-button >CANCEL</button>-->
+        <!--</div>-->
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-dialog-content>
+<mat-dialog-actions class="d-flex justify-content-end">
+  <span style="width: 100%;"></span>
+  <button mat-stroked-button [mat-dialog-close] color="warn" >Cancel</button>
+</mat-dialog-actions>

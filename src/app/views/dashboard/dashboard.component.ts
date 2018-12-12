@@ -9,6 +9,8 @@ import {AddUserFormComponent} from '../../forms/add-user-form/add-user-form.comp
 import {RegisterSchoolDialogComponent} from '../../forms/register-school-dialog/register-school-dialog.component';
 import {EventbusService} from '../../services/eventbus.service';
 import {AddTeamDialogComponent} from '../../dialogs/add-team-dialog/add-team-dialog.component';
+import {TeamService} from '../../services/team.service';
+import {Globals} from '../../models/globals';
 
 export enum DASHBOARD {
   V1,
@@ -40,7 +42,9 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
               public roleGuard: RolePrivilegeGuard,
               public router: Router,
               public dialog: MatDialog,
-              public eventbus: EventbusService) {
+              public eventbus: EventbusService,
+              public teamService: TeamService,
+              public globals: Globals) {
 
     this.mobileQuery = media.matchMedia('(max-width: 600px');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -128,6 +132,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
   openAddTeamDialog() {
     const dialogRef = this.dialog.open(AddTeamDialogComponent, {});
+    dialogRef.afterClosed().subscribe((result) => {
+      this.teamService.getTeamListUser().subscribe((list) => {
+        this.globals.teams = list;
+      });
+    });
   }
 
   openRemoveTeamDialog() {
