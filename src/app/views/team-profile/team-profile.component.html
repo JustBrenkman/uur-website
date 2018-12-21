@@ -1,0 +1,75 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button routerLink="/dashboard/teams"><mat-icon>arrow_back</mat-icon></button>
+    <span>Back</span>
+    <div class="ml-auto">
+      <button class="button-res" mat-button><strong>Year: 1</strong></button>
+      <button class="ml-2" mat-icon-button (click)="openEditTeamInfoDialog()"><mat-icon>edit</mat-icon></button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="d-flex flex-column align-items-center">
+  <div class="p-2">
+    <img class="profile_picture p-2" alt="Team picture" src="../../../assets/icons/robot-machine-blue.svg">
+  </div>
+  <div class="pt-2 d-flex align-items-center flex-column">
+    <h1 class="display-1" style="color: dimgrey;">{{id}}</h1>
+    <h1>Cougars</h1>
+  </div>
+  <!--Basic Info-->
+  <div class="p-2 stretch">
+    <mat-card >
+    <mat-card-header>
+      <mat-card-title>
+        Basic info
+      </mat-card-title>
+    </mat-card-header>
+  </mat-card>
+  </div>
+  <div class="stretch d-flex flex-row">
+    <div class="p-2 stretch">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            Stats average
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <canvas baseChart class="stretch"
+                  [datasets]="radarChartData"
+                  [labels]="radarChartLabels"
+                  [chartType]="radarChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="p-2 stretch">
+      <mat-card >
+        <mat-card-header>
+          <mat-card-title>
+            Stats Latest Competition
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <canvas baseChart class="stretch"
+                  [datasets]="radarChartData"
+                  [labels]="radarChartLabels"
+                  [chartType]="radarChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <!--List of compeitions-->
+  <div class="p-2 stretch">
+    <mat-card >
+      <mat-card-header>
+        <mat-card-title>
+          Competitions
+        </mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>

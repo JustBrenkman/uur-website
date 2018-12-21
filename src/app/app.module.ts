@@ -73,6 +73,8 @@ import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confi
 import { EditUserDialogComponent } from './dialogs/edit-user-dialog/edit-user-dialog.component';
 import { AddTeamDialogComponent } from './dialogs/add-team-dialog/add-team-dialog.component';
 import {TeamService} from './services/team.service';
+import { TeamProfileComponent } from './views/team-profile/team-profile.component';
+import { EditTeamInfoDialogComponent } from './dialogs/edit-team-info-dialog/edit-team-info-dialog.component';
 
 export function getToken() {
   return localStorage.getItem('auth_token');
@@ -102,6 +104,8 @@ export function getToken() {
     ConfirmationDialogComponent,
     EditUserDialogComponent,
     AddTeamDialogComponent,
+    TeamProfileComponent,
+    EditTeamInfoDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -159,6 +163,6 @@ export function getToken() {
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ],
   entryComponents: [AddUserFormComponent, RegisterSchoolDialogComponent, EmailDialogComponent, ConfirmationDialogComponent,
-  EditUserDialogComponent, AddTeamDialogComponent]
+  EditUserDialogComponent, AddTeamDialogComponent, EditTeamInfoDialogComponent]
 })
 export class AppModule { }

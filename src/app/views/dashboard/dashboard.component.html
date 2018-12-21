@@ -107,7 +107,13 @@
 
       <span></span>
       <div class="ml-auto">
-        <button mat-icon-button matTooltip="Profile" [matTooltipPosition]="'below'"><mat-icon>person</mat-icon></button>
+        <button mat-icon-button matTooltip="Profile" [matMenuTriggerFor]="profile" [matTooltipPosition]="'below'"><mat-icon>person</mat-icon></button>
+
+        <mat-menu #profile="matMenu" class="p-2">
+          <div class="p-2">This is a test for the profile page</div>
+          <button mat-raised-button>View Profile</button>
+        </mat-menu>
+
         <button mat-icon-button matTooltip="Notifications" [matTooltipPosition]="'below'" [matMenuTriggerFor]="notMenu"><mat-icon matBadge="22" matBadgeColor="accent">notifications</mat-icon></button>
 
         <mat-menu #notMenu="matMenu">

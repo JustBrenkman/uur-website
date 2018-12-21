@@ -6,7 +6,8 @@ body, html {
 }
 
 .stretch {
- width: 100%;
+  width: 100%;
+  max-width: 100%;
 }
 
 .mat-card:hover {

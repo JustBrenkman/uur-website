@@ -1,6 +1,6 @@
 <div *ngIf="privilegeGuard('admin')">
   <div class="d-flex flex-column justify-content-center mx-2">
-    <mat-card class="mt-2" style="width: 100%;" matRipple>
+    <mat-card class="mt-2" style="width: 100%;">
       <mat-card-header>
         <mat-card-title>
           Teams
@@ -85,8 +85,6 @@
   </div>
 </div>
 
-<!--<div class="container">-->
-
 <div class="d-flex m-3 justify-content-center mt-2">
   <h5 class="display-4" style="color: grey;">
     Teams:
@@ -94,7 +92,7 @@
 </div>
 
 <div *ngIf="globals.teams" class="d-flex flex-column justify-content-center mx-2">
-  <mat-card *ngFor="let team of globals.teams" style="width: 100%" class="mt-2" matRipple>
+  <mat-card *ngFor="let team of globals.teams" style="width: 100%" class="mt-2" routerLink="/dashboard/teams/team/{{team.team_number}}">
     <mat-card-content>
       <div class="d-flex flex-row">
         <img alt="team picture" src="../../../assets/icons/robot-machine-blue.svg" class="img rounded">
@@ -105,41 +103,4 @@
       </div>
     </mat-card-content>
   </mat-card>
-
-  <!--<mat-card style="width: 100%" class="mt-2">-->
-  <!--<mat-card-content>-->
-  <!--<div class="d-flex flex-row">-->
-  <!--<img alt="team picture" src="../../../assets/high-res/Standalone-hd.png" class="img rounded">-->
-  <!--<div class="d-flex flex-column align-self-center m-3">-->
-  <!--<h1 class="display-4">BYU-001</h1>-->
-  <!--<h3>Team Name</h3>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</mat-card-content>-->
-  <!--</mat-card>-->
 </div>
-<!--</div>-->
-
-<!--<div class="container">-->
-<!--<div class="row d-flex pt-2">-->
-<!--<mat-card style="width: 100%">-->
-<!--<mat-card-header>-->
-<!--<mat-card-title>-->
-<!--Team Info:-->
-<!--</mat-card-title>-->
-<!--</mat-card-header>-->
-<!--<mat-card-content>-->
-<!--<canvas baseChart-->
-<!--[datasets]="radarChartData"-->
-<!--[labels]="radarChartLabels"-->
-<!--[chartType]="radarChartType"-->
-<!--[options]="options"-->
-<!--(chartHover)="chartHovered($event)"-->
-<!--(chartClick)="chartClicked($event)"></canvas>-->
-<!--</mat-card-content>-->
-<!--<mat-card-footer>-->
-
-<!--</mat-card-footer>-->
-<!--</mat-card>-->
-<!--</div>-->
-<!--</div>-->

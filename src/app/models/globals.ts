@@ -6,8 +6,8 @@ import {Team} from './team';
 
 @Injectable()
 export class Globals {
-  server: string = 'https://uur.byu.edu/';
-  // server: string = 'http://localhost:5000/';
+  // server: string = 'https://uur.byu.edu/';
+  server: string = 'http://localhost:5000/';
   users_viewSelect: boolean = false;
 
   // Views component

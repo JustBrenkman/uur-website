@@ -3,6 +3,7 @@ import {TeamService} from '../../services/team.service';
 import {Globals} from '../../models/globals';
 import {RolePrivilegeGuard} from '../../services/role-privilege-guard.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-teams',
@@ -45,7 +46,7 @@ export class TeamsComponent implements OnInit, AfterViewInit {
   ];
   public radarChartType = 'radar';
 
-  constructor(public teamService: TeamService, public globals: Globals, public roleGuard: RolePrivilegeGuard) {
+  constructor(public teamService: TeamService, public globals: Globals, public roleGuard: RolePrivilegeGuard, public router: Router) {
     this.teamService.getTeamListUser().subscribe((list) => {
       console.log(list);
       this.globals.teams = list;
@@ -88,5 +89,9 @@ export class TeamsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.teamsDataSource.paginator = this.paginator;
+  }
+
+  viewTeamProfile(id: string) {
+    // this.router.navigate(['teams/team'], {id});
   }
 }
