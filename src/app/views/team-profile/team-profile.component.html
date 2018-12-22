@@ -13,8 +13,10 @@
     <img class="profile_picture p-2" alt="Team picture" src="../../../assets/icons/robot-machine-blue.svg">
   </div>
   <div class="pt-2 d-flex align-items-center flex-column">
-    <h1 class="display-1" style="color: dimgrey;">{{id}}</h1>
-    <h1>Cougars</h1>
+    <div *ngIf="team">
+      <h1 class="display-1" style="color: dimgrey;">{{team.team_number}}</h1>
+      <h1>{{team.team_name}}</h1>
+    </div>
   </div>
   <!--Basic Info-->
   <div class="p-2 stretch">

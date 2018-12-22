@@ -58,7 +58,7 @@ export class TeamService {
   }
 
   getTeamInfo(teamnumber: string): Observable<Team> {
-    return this.http.post<Team>(this.getTeamInfoURL, Globals.addAuthenticationToken({team_number: teamnumber}));
+    return this.http.post<Team>(this.getTeamInfoURL, Globals.addAuthenticationToken({team_number: teamnumber})).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
