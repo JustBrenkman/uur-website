@@ -3,6 +3,7 @@ import saveAs from 'file-saver';
 import {UserFull} from './user';
 import {SchoolFull} from './school';
 import {Team} from './team';
+import {Competition} from './competition';
 
 @Injectable()
 export class Globals {
@@ -17,6 +18,7 @@ export class Globals {
   schools: SchoolFull[];
   teams: Team[];
   teamsAdmin: Team[];
+  competitions: Competition[];
 
   static downloadFile(data: any, filename: string) {
     const blob = new Blob([data.toString()], { type: 'text/csv;charset=utf-8' });
