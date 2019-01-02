@@ -32,7 +32,7 @@ export class AddTeamDialogComponent implements OnInit {
     this.teamService.generateTeamNumber().subscribe(result => {
       console.log(result);
       if (result['result'] === 'success') {
-        // this.team_number = result['number'];
+        this.team_number = result['number'];
         this.secondFormGroup.get('team_name').setValue(result['number']);
       }
       this.isGeneratingTeamNumber = false;

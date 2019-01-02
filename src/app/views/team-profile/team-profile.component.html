@@ -15,20 +15,23 @@
   <div class="pt-2 d-flex align-items-center flex-column">
     <div *ngIf="team">
       <h1 class="display-1" style="color: dimgrey;">{{team.team_number}}</h1>
-      <h1>{{team.team_name}}</h1>
+      <!--<h1>{{team.team_name}}</h1>-->
     </div>
   </div>
   <!--Basic Info-->
-  <div class="p-2 stretch">
+  <div *ngIf="team" class="p-2 stretch">
     <mat-card >
     <mat-card-header>
       <mat-card-title>
         Basic info
       </mat-card-title>
     </mat-card-header>
+      <mat-card-content>
+        <h1>Team Name: {{team.team_name}}</h1>
+      </mat-card-content>
   </mat-card>
   </div>
-  <div class="stretch d-flex flex-row">
+  <div *ngIf="team" class="stretch d-flex flex-row">
     <div class="p-2 stretch">
       <mat-card>
         <mat-card-header>

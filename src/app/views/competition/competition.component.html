@@ -31,7 +31,7 @@
     <mat-card style="width: 100%;">
       <mat-card-header>
         <mat-card-title>
-          Teams
+          Competitions
         </mat-card-title>
         <div class="d-inline justify-content-end">
           <button mat-icon-button (click)="getCompetitionListFull()"><mat-icon>refresh</mat-icon></button>
@@ -120,7 +120,15 @@
 
 </div>
 
-<div *ngIf="!privilegeCheck('admin')" class="d-flex flex-column align-items-center">
+<div class="d-flex flex-column align-items-center">
+  <div class="p-2">
+    <h1 class="display-4" style="color: dimgrey">
+      Upcoming Competitions
+    </h1>
+  </div>
+</div>
+
+<div class="d-flex flex-column align-items-center">
   <div class="p-2">
     <h1 class="display-4" style="color: dimgrey">
       Ongoing Competitions
