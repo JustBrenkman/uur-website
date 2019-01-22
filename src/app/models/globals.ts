@@ -23,8 +23,6 @@ export class Globals {
   static downloadFile(data: any, filename: string) {
     const blob = new Blob([data.toString()], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, filename);
-    // const url = window.URL.createObjectURL(blob);
-    // window.open(url);
   }
 
   public static addAuthenticationToken(data): any {
