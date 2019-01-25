@@ -24,7 +24,7 @@ export class AddUserFormComponent implements OnInit {
   data: Data;
   response: JSON;
   roles: string[] = ['Director', 'Teacher', 'Student'];
-  privileges: string[] = ['admin', 'member', 'viewer'];
+  privileges: string[] = ['admin', 'member', 'viewer', 'judge'];
 
   emailFormControl = new FormControl('', [
     Validators.email,

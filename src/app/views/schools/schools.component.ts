@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {School, SchoolFull} from '../../models/school';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {SchoolsService} from '../../services/schools.service';
@@ -14,7 +14,7 @@ import {SelectionModel} from '@angular/cdk/collections';
   templateUrl: './schools.component.html',
   styleUrls: ['./schools.component.scss']
 })
-export class SchoolsComponent implements OnInit {
+export class SchoolsComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['name', 'abr'];
   schoolsFullDisplayedColumns: string[] = ['timestamp', 'id', 'school_name', 'address', 'city', 'state',
@@ -91,5 +91,12 @@ export class SchoolsComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.schoolsSource.data.forEach(row => this.selection.select(row));
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    // this.schoolsSource.paginator = this.paginator;
+    // this.schoolsSource.sort = this.sort;
   }
 }
