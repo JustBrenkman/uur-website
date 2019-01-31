@@ -30,7 +30,7 @@ export class SignUpComponent implements OnInit {
   schools: School[];
   data: Data;
   response: JSON;
-  roles: string[] = ['Teacher', 'Student'];
+  roles: string[] = ['Teacher', 'Student', 'Judge'];
 
   emailFormControl = new FormControl('', [
     Validators.email,

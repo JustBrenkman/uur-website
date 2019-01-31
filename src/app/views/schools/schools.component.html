@@ -1,61 +1,61 @@
 <!--School Abreviations-->
-<div class="d-flex pt-2">
-  <div class="p-2 flex-grow-1">
-    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-    <mat-card>
-      <mat-card-title>
-        School Abbreviation
-        <div class="d-inline justify-content-end">
-          <button mat-icon-button (click)="getSchools()">
-            <mat-icon>refresh</mat-icon>
-          </button>
-        </div>
-      </mat-card-title>
-      <mat-card-content>
-        <mat-form-field class="stretch">
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-        </mat-form-field>
+<!--<div class="d-flex pt-2">-->
+  <!--<div class="p-2 flex-grow-1">-->
+    <!--<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>-->
+    <!--<mat-card>-->
+      <!--<mat-card-title>-->
+        <!--School Abbreviation-->
+        <!--<div class="d-inline justify-content-end">-->
+          <!--<button mat-icon-button (click)="getSchools()">-->
+            <!--<mat-icon>refresh</mat-icon>-->
+          <!--</button>-->
+        <!--</div>-->
+      <!--</mat-card-title>-->
+      <!--<mat-card-content>-->
+        <!--<mat-form-field class="stretch">-->
+          <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">-->
+        <!--</mat-form-field>-->
 
-        <mat-table [dataSource]="schoolsSource" class="mat-elevation-z8">
-          <!-- Name Column -->
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> School Name</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.school_name}} </mat-cell>
-          </ng-container>
+        <!--<mat-table [dataSource]="schoolsSource" class="mat-elevation-z8">-->
+          <!--&lt;!&ndash; Name Column &ndash;&gt;-->
+          <!--<ng-container matColumnDef="name">-->
+            <!--<mat-header-cell *matHeaderCellDef> School Name</mat-header-cell>-->
+            <!--<mat-cell *matCellDef="let element"> {{element.school_name}} </mat-cell>-->
+          <!--</ng-container>-->
 
-          <!-- Weight Column -->
-          <ng-container matColumnDef="abr">
-            <mat-header-cell *matHeaderCellDef> Abbreviation</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.abr}} </mat-cell>
-          </ng-container>
+          <!--&lt;!&ndash; Weight Column &ndash;&gt;-->
+          <!--<ng-container matColumnDef="abr">-->
+            <!--<mat-header-cell *matHeaderCellDef> Abbreviation</mat-header-cell>-->
+            <!--<mat-cell *matCellDef="let element"> {{element.abr}} </mat-cell>-->
+          <!--</ng-container>-->
 
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-      </mat-card-content>
-      <mat-card-footer>
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-      </mat-card-footer>
-    </mat-card>
-  </div>
-  <div class="p-2 ">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>
-          Quick Glance
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <mat-action-list>
-          <button mat-list-item>
-            <mat-icon>schools</mat-icon>
-            <span class="p-2"># of Schools {{SCHOOLSFULL.length}}</span></button>
-        </mat-action-list>
-        <app-chart></app-chart>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
+          <!--<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>-->
+          <!--<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
+        <!--</mat-table>-->
+      <!--</mat-card-content>-->
+      <!--<mat-card-footer>-->
+        <!--<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>-->
+      <!--</mat-card-footer>-->
+    <!--</mat-card>-->
+  <!--</div>-->
+  <!--<div class="p-2 ">-->
+    <!--<mat-card>-->
+      <!--<mat-card-header>-->
+        <!--<mat-card-title>-->
+          <!--Quick Glance-->
+        <!--</mat-card-title>-->
+      <!--</mat-card-header>-->
+      <!--<mat-card-content>-->
+        <!--<mat-action-list>-->
+          <!--<button mat-list-item>-->
+            <!--<mat-icon>schools</mat-icon>-->
+            <!--<span class="p-2"># of Schools {{SCHOOLSFULL.length}}</span></button>-->
+        <!--</mat-action-list>-->
+        <!--<app-chart></app-chart>-->
+      <!--</mat-card-content>-->
+    <!--</mat-card>-->
+  <!--</div>-->
+<!--</div>-->
 <!--List of Schools-->
 <div class="d-flex p-2 stretch">
     <mat-progress-bar *ngIf="isSchoolsFullLoading" mode="indeterminate"></mat-progress-bar>

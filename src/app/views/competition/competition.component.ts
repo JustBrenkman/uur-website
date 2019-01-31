@@ -58,15 +58,6 @@ export class CompetitionComponent implements OnInit, AfterViewInit {
         this.renderer.setProperty(this.counter.nativeElement, 'textContent', formatDate(Date.now(), 'mm:ss.SS', 'en'));
       });
     });
-    // this.socket.initSocketConnection();
-    // this.socket.onEvent(Event.CONNECTED).subscribe(() => {
-    //   console.log('Connected');
-    //   console.log(this.socket.status);
-    // });
-    // this.socket.onMessageRecieved().subscribe((message: string) => {
-    //   console.log('Received message: ' + message);
-    //   this.messages.push(message);
-    // });
   }
 
   disconnect() {

@@ -94,9 +94,9 @@ export class SchoolsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    // this.schoolsSource.paginator = this.paginator;
-    // this.schoolsSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
+    this.schoolsSource.paginator = this.paginator;
+    this.schoolsSource.sort = this.sort;
   }
 }
