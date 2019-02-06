@@ -19,7 +19,7 @@ export class EditUserDialogComponent implements OnInit {
   data: Data;
   response: JSON;
   userInfo: UserFull;
-  roles: string[] = ['Director', 'Teacher', 'Student'];
+  roles: string[] = ['Director', 'Teacher', 'Student', 'Judge'];
   privileges: string[] = ['admin', 'member', 'viewer'];
   id: string;
 
