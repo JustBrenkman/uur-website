@@ -22,9 +22,10 @@ export class UserFull {
   last_name: string;
   email: string;
   role: string;
-  privilege: string;
+  privileges: string;
   school: string;
   status: string;
+  last_log_in: string;
 }
 
 export class UserEdit {

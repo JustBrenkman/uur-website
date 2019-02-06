@@ -1,6 +1,6 @@
 export class School {
   abr: string;
-  name: string;
+  school_name: string;
 }
 
 export class SchoolFull {

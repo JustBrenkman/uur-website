@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
   usersDataSource = new MatTableDataSource(this.globals.users);
   isLoadingIUsers = false;
   showSelect = false;
-  usersDisplayColumn: string[] = ['timestamp', 'id', 'first_name', 'last_name', 'email', 'school', 'role', 'privilege', 'actions'];
+  usersDisplayColumn: string[] = ['timestamp', 'id', 'first_name', 'last_name', 'email', 'school', 'role', 'privileges', 'last_log_in', 'actions'];
   selection = new SelectionModel<UserFull>(true, []);
   displayActions = false;
 
@@ -213,7 +213,7 @@ export class UsersComponent implements OnInit {
       if (confirmation) {
         this.authService.drop_user(id).subscribe(result => {
           console.log(result);
-          if (result['result'] === 'success') {
+          if (result['result'] === true) {
             this.snackbar.open('User removed', 'Ok', {
               duration: 2000
             });

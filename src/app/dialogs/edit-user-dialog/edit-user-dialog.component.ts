@@ -68,7 +68,7 @@ export class EditUserDialogComponent implements OnInit {
     this.lastNameFC.setValue(userData.last_name);
     this.schoolFC.setValue(userData.school);
     this.roleFC.setValue(userData.role);
-    this.privFC.setValue(userData.privilege);
+    this.privFC.setValue(userData.privileges);
     this.id = userData.id;
     this.statusFC.setValue(userData.status);
   }
@@ -135,8 +135,8 @@ export class EditUserDialogComponent implements OnInit {
   update() {
     if (this.isFormValid()) {
       const user: UserFull = {email: this.emailFormControl.value, first_name: this.firtNameFC.value, last_name: this.lastNameFC.value,
-        school: this.schoolFC.value, role: this.roleFC.value, privilege: this.privFC.value, timestamp: null,
-        id: this.id, status: this.statusFC.value};
+        school: this.schoolFC.value, role: this.roleFC.value, privileges: this.privFC.value, timestamp: null,
+        id: this.id, status: this.statusFC.value, last_log_in: null};
       this.dialogRef.close({'action': 'update', 'user': user});
     }
   }

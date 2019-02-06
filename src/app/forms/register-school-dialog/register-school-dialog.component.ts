@@ -118,7 +118,7 @@ export class RegisterSchoolDialogComponent implements OnInit {
 
       this.schoolService.registerSchool(data).subscribe((result) => {
         console.log(result);
-        if (result['result'] === 'success') {
+        if (result['result'] === true) {
           this.snackBar.open('Registered new school', 'Ok', {
             duration: 2000
           });

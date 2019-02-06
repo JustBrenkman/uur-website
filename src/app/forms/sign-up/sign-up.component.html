@@ -97,7 +97,7 @@
                 <mat-select placeholder="School" [formControl]="schoolFC">
                   <mat-option>Select a school</mat-option>
                   <div *ngIf="schools">
-                    <mat-option *ngFor="let on of schools" [value]="on.abr">{{on.name}}</mat-option>
+                    <mat-option *ngFor="let on of schools" [value]="on.abr">{{on.school_name}}</mat-option>
                   </div>
                   <!--<mat-option [value]="data.abr">{{data.name}}</mat-option>-->
                 </mat-select>

@@ -29,8 +29,8 @@ export class SchoolsService {
       this.server = globals.server;
     }
 
-    this.schoolsimple = this.server + 'api/schools/simple';
-    this.schoolFullURL = this.server + 'api/schools/full';
+    this.schoolsimple = this.server + 'api/schools/get_abr_list';
+    this.schoolFullURL = this.server + 'api/schools/get_school_list';
     this.getUsersSimpleURL = this.server + 'api/users/list';
     this.registerURL = this.server + 'api/register';
     this.registerSchoolURL = this.server + 'api/school/register';

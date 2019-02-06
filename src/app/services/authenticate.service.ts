@@ -103,7 +103,7 @@ export class AuthenticateService {
   }
 
   drop_user(id: number) {
-    console.log('Atempting to remove user: ' + id);
+    console.log('Attempting to remove user: ' + id);
     const data = {id: id};
     return this.http.post(this.dropUserURL, JSON.stringify(this.addAuthenticationToken(data))).pipe(catchError(this.handleError));
   }
