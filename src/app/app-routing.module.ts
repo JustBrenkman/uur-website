@@ -6,7 +6,6 @@ import {MatSelectModule} from '@angular/material';
 import {LoginViewComponent} from './views/login-view/login-view.component';
 import {RegisterViewComponent} from './views/register-view/register-view.component';
 import {AuthenticationGuard} from './services/authentication.guard';
-import {SignUpComponent} from './forms/sign-up/sign-up.component';
 import {DashboardMainComponent} from './views/dashboard-main/dashboard-main.component';
 import {UsersComponent} from './views/users/users.component';
 import {JudgesComponent} from './views/judges/judges.component';
@@ -15,8 +14,8 @@ import {SchoolsComponent} from './views/schools/schools.component';
 import {TeamsComponent} from './views/teams/teams.component';
 import {RolePrivilegeGuard} from './services/role-privilege-guard.service';
 import {TutorialsComponent} from './views/tutorials/tutorials.component';
-import {TeamService} from './services/team.service';
 import {TeamProfileComponent} from './views/team-profile/team-profile.component';
+import {CompetitionCreateComponent} from './views/competition-create/competition-create.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -29,6 +28,7 @@ const routes: Routes = [
       {path: 'users', component: UsersComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'admin'}},
       {path: 'judges', component: JudgesComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'admin', role: 'Other'}},
       {path: 'competition', component: CompetitionComponent, canActivate: [AuthenticationGuard]},
+      {path: 'competition/create', component: CompetitionCreateComponent, canActivate: [AuthenticationGuard]},
       {path: 'schools', component: SchoolsComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'admin'}},
       {path: 'teams', component: TeamsComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'member', role: 'Teacher'}},
       {path: 'teams/team/:id', component: TeamProfileComponent, canActivate: [AuthenticationGuard]},

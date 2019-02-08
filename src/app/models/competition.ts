@@ -7,3 +7,16 @@ export class Competition {
   registration_status: string;
   status: string;
 }
+
+export class Task {
+  name: string;
+  description: string;
+  max_value: number;
+}
+
+export class Action {
+  name: string;
+  description: string;
+  task_id: number;
+  increment_value: number;
+}

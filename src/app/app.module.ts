@@ -45,7 +45,9 @@ import {
   MatTabsModule,
   MatStepperModule,
   MatRippleModule,
-  MAT_DIALOG_DEFAULT_OPTIONS, MatDialogRef, MAT_DIALOG_DATA
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MAT_DIALOG_DEFAULT_OPTIONS, MatDialogRef, MAT_DIALOG_DATA, MatDatepicker
 } from '@angular/material';
 
 import {
@@ -75,6 +77,7 @@ import { AddTeamDialogComponent } from './dialogs/add-team-dialog/add-team-dialo
 import {TeamService} from './services/team.service';
 import { TeamProfileComponent } from './views/team-profile/team-profile.component';
 import { EditTeamInfoDialogComponent } from './dialogs/edit-team-info-dialog/edit-team-info-dialog.component';
+import { CompetitionCreateComponent } from './views/competition-create/competition-create.component';
 
 export function getToken() {
   return localStorage.getItem('auth_token');
@@ -106,6 +109,7 @@ export function getToken() {
     AddTeamDialogComponent,
     TeamProfileComponent,
     EditTeamInfoDialogComponent,
+    CompetitionCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -143,6 +147,8 @@ export function getToken() {
     HttpClientModule,
     AppRoutingModule,
     DragDropModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,

@@ -1,0 +1,111 @@
+<div class="p-2">
+  <mat-card>
+    <mat-horizontal-stepper [linear]="false" #stepper>
+
+      <!--This step helps set up the competition detials-->
+      <mat-step [stepControl]="setupFG">
+        <ng-template matStepLabel>Setup</ng-template>
+
+
+        <form [formGroup]="setupFG">
+          <div class="d-flex flex-column">
+            <div class="p-2">
+              <mat-form-field class="stretch">
+                <input matInput placeholder="Name" formControlName="name" required>
+              </mat-form-field>
+            </div>
+            <div class="p-2">
+              <mat-form-field>
+                <input matInput [matDatepicker]="start" placeholder="Start date" formControlName="start_date" required>
+                <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+                <mat-datepicker #start></mat-datepicker>
+              </mat-form-field>
+              :
+              <mat-form-field>
+                <input matInput placeholder="Time" formControlName="start_time" mask="Hh:m0:s0" [showMaskTyped]="true" required>
+              </mat-form-field>
+            </div>
+            <div class="p-2">
+              <mat-form-field>
+                <input matInput [matDatepicker]="end" placeholder="End date" formControlName="end_date" required>
+                <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+                <mat-datepicker #end></mat-datepicker>
+              </mat-form-field>
+              :
+              <mat-form-field>
+                <input matInput placeholder="Time" formControlName="end_time" type="text" mask="Hh:m0:s0" [showMaskTyped]="true" required>
+              </mat-form-field>
+            </div>
+            <div class="p-2">
+              <p class="-italic">
+                * time must be in 24 hour format
+              </p>
+            </div>
+          </div>
+        </form>
+
+
+        <div>
+          <button mat-button color="primary" matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+
+
+      <!--This is the step that handles setting up tasks-->
+      <mat-step [stepControl]="tasksFG">
+        <ng-template matStepLabel>Tasks</ng-template>
+
+
+        <form [formGroup]="setupFG">
+          <div class="d-flex flex-column">
+            <p>
+              Click on the add button to add another task. Make sure you fill everything out.
+            </p>
+            <div *ngFor="let task of tasks; let i = index">
+              <div class="p-2">
+                <div class="d-flex flex-row">
+                  <mat-form-field class="p-2">
+                    <input matInput placeholder="Task Name" [value]="task.name == null ? '': task.name" (input)="task.name = $event.target.value">
+                  </mat-form-field>
+                  <mat-form-field class="p-2 stretch">
+                    <input matInput placeholder="Description" [value]="task.description == null ? '': task.description" (input)="task.description = $event.target.value">
+                  </mat-form-field>
+                  <mat-form-field class="p-2">
+                    <input matInput placeholder="Max Value" [value]="task.max_value == null ? '': task.max_value" (input)="task.max_value = $event.target.value" mask="0000">
+                  </mat-form-field>
+                  <div class="pt-3">
+                    <button (click)="removeTask(i)" mat-icon-button>
+                      <mat-icon color="warn">remove</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-2">
+              <button mat-stroked-button color="primary" class="stretch" (click)="addNewTask()"><mat-icon>add</mat-icon></button>
+            </div>
+          </div>
+        </form>
+
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button color="primary" matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+
+
+
+      <!--This step handles the setup of actions-->
+      <mat-step [stepControl]="setupFG">
+        <ng-template matStepLabel>Actions</ng-template>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button color="primary" matStepperNext>Next</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card>
+</div>

@@ -68,7 +68,7 @@
       <div *ngIf="dashboard === DASHBOARD.COMPETITION">
         <button mat-button [matMenuTriggerFor]="menu" matTooltip="Menu" [matTooltipPosition]="'below'"><mat-icon>timeline</mat-icon><span> Competition</span></button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item><mat-icon>add_circle_outline</mat-icon><span>New Competition</span></button>
+          <button mat-menu-item [routerLink]="['competition/create']"><mat-icon>add_circle_outline</mat-icon><span>New Competition</span></button>
         </mat-menu>
       </div>
       <div *ngIf="dashboard === DASHBOARD.SCHOOLS">
