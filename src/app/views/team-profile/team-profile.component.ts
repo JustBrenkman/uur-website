@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TeamService} from '../../services/team.service';
-import {MatDialog, MatDialogRef} from '@angular/material';
+import {MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {EditTeamInfoDialogComponent} from '../../dialogs/edit-team-info-dialog/edit-team-info-dialog.component';
 import {Team} from '../../models/team';
 
@@ -29,7 +29,8 @@ export class TeamProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public teamService: TeamService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public snackbar: MatSnackBar,
   ) {
     this.id = this.route.snapshot.paramMap.get('id');
   }
@@ -57,9 +58,15 @@ export class TeamProfileComponent implements OnInit {
   openEditTeamInfoDialog() {
     const dialogRef = this.dialog.open(EditTeamInfoDialogComponent, {data: this.team});
     dialogRef.afterClosed().subscribe((team) => {
-      this.teamService.updateTeamInfo(team).subscribe((result) => {
-        console.log(result);
-      });
+      if (team != null) {
+        this.teamService.updateTeamInfo(team).subscribe((result) => {
+          if (result === true) {
+            this.snackbar.open('Successfully updated the team', 'Ok', {
+              duration: 2000
+            });
+          }
+        });
+      }
     });
   }
 }

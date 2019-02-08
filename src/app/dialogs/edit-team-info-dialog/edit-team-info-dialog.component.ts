@@ -26,9 +26,8 @@ export class EditTeamInfoDialogComponent implements OnInit {
 
   updateTeamInfo() {
     const newName = this.team_name.value;
-    const status = this.year.value === 'Year 1' ? 1 : 2;
     this.team.team_name = newName;
-    this.team.status = status;
+    this.team.status = this.status;
     this.dialogRef.close(this.team);
   }
 }
