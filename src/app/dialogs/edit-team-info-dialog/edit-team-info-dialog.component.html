@@ -10,8 +10,8 @@
         </div>
         <div class="row stretch">
           <mat-button-toggle-group [formControl]="year" class="stretch">
-            <mat-button-toggle class="stretch">Year 1</mat-button-toggle>
-            <mat-button-toggle class="stretch">Year 2+</mat-button-toggle>
+            <mat-button-toggle [checked]="status <= 1" class="stretch">Year 1</mat-button-toggle>
+            <mat-button-toggle [checked]="status > 1" class="stretch">Year 2+</mat-button-toggle>
           </mat-button-toggle-group>
         </div>
       </div>
@@ -20,5 +20,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button [matDialogClose]>Close</button>
-  <button mat-raised-button color="primary">Update</button>
+  <button mat-raised-button color="primary" (click)="updateTeamInfo()">Update</button>
 </mat-dialog-actions>

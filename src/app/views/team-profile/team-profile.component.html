@@ -3,7 +3,7 @@
     <button mat-icon-button routerLink="/dashboard/teams"><mat-icon>arrow_back</mat-icon></button>
     <span>Back</span>
     <div class="ml-auto">
-      <button class="button-res" mat-button><strong>Year: 1</strong></button>
+      <button class="button-res" mat-button><strong>Year: {{team.status}}</strong></button>
       <button class="ml-2" mat-icon-button (click)="openEditTeamInfoDialog()"><mat-icon>edit</mat-icon></button>
     </div>
   </mat-toolbar-row>

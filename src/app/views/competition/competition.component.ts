@@ -44,10 +44,8 @@ export class CompetitionComponent implements OnInit, AfterViewInit {
   getCompetitionListFull() {
     this.competitionService.getFullList().subscribe((result) => {
       console.log(result);
-      if (result['result'] === 'success') {
-       this.globals.competitions = result['competitions'];
-       this.competitionsDataSource.data = this.globals.competitions;
-      }
+      this.globals.competitions = result;
+      this.competitionsDataSource.data = this.globals.competitions;
     });
   }
 

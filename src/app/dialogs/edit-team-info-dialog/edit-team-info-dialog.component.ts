@@ -11,12 +11,24 @@ import {FormControl} from '@angular/forms';
 export class EditTeamInfoDialogComponent implements OnInit {
   year = new FormControl('', []);
   team_name = new FormControl('', []);
+  status = 0;
+  team_number = '';
+  team;
 
   constructor(public dialogRef: MatDialogRef<EditTeamInfoDialogComponent>, @Inject(MAT_DIALOG_DATA) public userData: Team) {
-    this.year.setValue(userData.status);
     this.team_name.setValue(userData.team_name);
+    this.status = userData.status;
+    this.team_number = userData.team_number;
+    this.team = userData;
+  }
+  ngOnInit() {
   }
 
-  ngOnInit() {
+  updateTeamInfo() {
+    const newName = this.team_name.value;
+    const status = this.year.value === 'Year 1' ? 1 : 2;
+    this.team.team_name = newName;
+    this.team.status = status;
+    this.dialogRef.close(this.team);
   }
 }

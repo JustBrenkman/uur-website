@@ -43,7 +43,7 @@ export class AddTeamDialogComponent implements OnInit {
     const team_name = this.secondFormGroup.get('team_name').value;
     this.teamService.addTeam(this.team_number, team_name).subscribe(result => {
       console.log(result);
-      if (result['result'] === 'success') {
+      if (result === true) {
         this.snackBar.open('Successfully added new team', 'Ok', {
           duration: 2000
         });

@@ -50,18 +50,16 @@ export class TeamProfileComponent implements OnInit {
 
   getTeamInfo(teamNumber: string) {
     this.teamService.getTeamInfo(teamNumber).subscribe((result) => {
-      // if (result['result'] === 'success') {
-        const message = result['message'];
-        // this.teamNumber = message['team_number'];
-        // this.teamName = message['team_name'];
         this.team = result;
-        console.log(this.team);
-      // }
-      console.log(result);
     });
   }
 
   openEditTeamInfoDialog() {
     const dialogRef = this.dialog.open(EditTeamInfoDialogComponent, {data: this.team});
+    dialogRef.afterClosed().subscribe((team) => {
+      this.teamService.updateTeamInfo(team).subscribe((result) => {
+        console.log(result);
+      });
+    });
   }
 }

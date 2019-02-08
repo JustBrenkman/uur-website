@@ -20,6 +20,7 @@ export class TeamService {
   private readonly getTeamListURL: string;
   private readonly getTeamFullListURL: string;
   private readonly getTeamInfoURL: string;
+  private readonly updateTeamURL: string;
 
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
 
@@ -30,9 +31,10 @@ export class TeamService {
 
     this.generateNewTeamNumberURL = this.serverURL + 'api/teams/generate_number';
     this.addTeamURL = this.serverURL + 'api/teams/add_team';
-    this.getTeamListURL = this.serverURL + 'api/team/get_list_teams';
-    this.getTeamFullListURL = this.serverURL + 'api/team/get_full_list_teams';
+    this.getTeamListURL = this.serverURL + 'api/team/get_team_list_from_school';
+    this.getTeamFullListURL = this.serverURL + 'api/team/get_team_list';
     this.getTeamInfoURL = this.serverURL + 'api/team/get_team_info';
+    this.updateTeamURL = this.serverURL + 'api/team/update_team_info';
   }
 
   generateTeamNumber(): Observable<any> {
@@ -50,15 +52,22 @@ export class TeamService {
   }
 
   getTeamListUser(): Observable<Team[]> {
-    return this.http.post<Team[]>(this.getTeamListURL, {auth_token: localStorage.getItem('auth_token')}).pipe(catchError(this.handleError));
+    return this.http.post<Team[]>(this.getTeamListURL, {auth_token: localStorage.getItem('auth_token')})
+      .pipe(catchError(this.handleError));
   }
 
   getFullTeamList(): Observable<Team[]> {
-    return this.http.post<Team[]>(this.getTeamFullListURL, {auth_token: localStorage.getItem('auth_token')}).pipe(catchError(this.handleError));
+    return this.http.post<Team[]>(this.getTeamFullListURL, {auth_token: localStorage.getItem('auth_token')})
+      .pipe(catchError(this.handleError));
   }
 
   getTeamInfo(teamnumber: string): Observable<Team> {
-    return this.http.post<Team>(this.getTeamInfoURL, Globals.addAuthenticationToken({team_number: teamnumber})).pipe(catchError(this.handleError));
+    return this.http.post<Team>(this.getTeamInfoURL, Globals.addAuthenticationToken({team_number: teamnumber}))
+      .pipe(catchError(this.handleError));
+  }
+
+  updateTeamInfo(team: Team): Observable<any> {
+    return this.http.post(this.updateTeamURL, JSON.stringify(team)).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
