@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Task} from '../../models/competition';
+import {Action, CreateCompetition, Task} from '../../models/competition';
+import {CompetitionService} from '../../services/competition.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-competition-create',
@@ -12,9 +14,9 @@ export class CompetitionCreateComponent implements OnInit {
   tasksFG: FormGroup;
   actionsFG: FormGroup;
   tasks: Array<Task> = [];
-  actions = [];
+  actions: Array<Action> = [];
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, public competitionService: CompetitionService, public snackbar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -32,5 +34,31 @@ export class CompetitionCreateComponent implements OnInit {
   }
   addNewTask() {
     this.tasks.push(new Task());
+  }
+  removeAction(index: number) {
+    this.actions.splice(index, 1);
+  }
+  addNewAction() {
+    this.actions.push(new Action());
+  }
+
+  createCompetition() {
+    const competition = new CreateCompetition();
+    competition.name = this.setupFG.get('name').value;
+    competition.start_date = this.setupFG.get('start_date').value;
+    competition.end_date = this.setupFG.get('end_date').value;
+    competition.start_time = this.setupFG.get('start_time').value;
+    competition.end_time = this.setupFG.get('end_time').value;
+    this.tasks.forEach((task, index) => {task.id = index; });
+    competition.tasks = this.tasks;
+    competition.actions = this.actions;
+    console.log(competition);
+    this.competitionService.createNewCompetition(competition).subscribe((result) => {
+      if (result === true) {
+        this.snackbar.open('Competition created', 'Ok', {
+          duration: 2000,
+        });
+      }
+    });
   }
 }

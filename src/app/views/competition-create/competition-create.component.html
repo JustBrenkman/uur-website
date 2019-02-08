@@ -62,7 +62,7 @@
             <p>
               Click on the add button to add another task. Make sure you fill everything out.
             </p>
-            <div *ngFor="let task of tasks; let i = index">
+            <div *ngFor="let task of tasks; let i = index;">
               <div class="p-2">
                 <div class="d-flex flex-row">
                   <mat-form-field class="p-2">
@@ -101,9 +101,42 @@
       <!--This step handles the setup of actions-->
       <mat-step [stepControl]="setupFG">
         <ng-template matStepLabel>Actions</ng-template>
+
+        <div class="d-flex flex-column">
+          <div *ngFor="let action of actions; let i = index">
+            <div class="d-flex flex-row">
+              <mat-form-field class="p-2">
+                <input matInput placeholder="Action Name" [value]="action.name == null ? '': action.name" (input)="action.name = $event.target.value">
+              </mat-form-field>
+              <mat-form-field class="p-2 stretch">
+                <input matInput placeholder="Description" [value]="action.description == null ? '': action.description" (input)="action.description = $event.target.value">
+              </mat-form-field>
+              <mat-form-field class="p-2">
+                <!--<input matInput placeholder="Task Name" [value]="action.task_id == null ? '': action.task_id" (input)="action.task_id = $event.target.value">-->
+                <mat-select placeholder="Task ID" [(ngModel)]="action.task_id">
+                  <mat-option *ngFor="let task of tasks; let i = index" [value]="i">
+                    {{task.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="p-2">
+                <input matInput placeholder="Increment Value" [value]="action.increment_value == null ? '': action.increment_value" (input)="action.increment_value = $event.target.value" mask="0000">
+              </mat-form-field>
+              <div class="pt-3">
+                <button (click)="removeAction(i)" mat-icon-button>
+                  <mat-icon color="warn">remove</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="p-2">
+            <button mat-stroked-button color="primary" class="stretch" (click)="addNewAction()"><mat-icon>add</mat-icon></button>
+          </div>
+        </div>
+
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button color="primary" matStepperNext>Next</button>
+          <button mat-button color="primary" (click)="createCompetition()">Create</button>
         </div>
       </mat-step>
     </mat-horizontal-stepper>
