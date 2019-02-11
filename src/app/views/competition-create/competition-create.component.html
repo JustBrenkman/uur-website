@@ -11,30 +11,39 @@
           <div class="d-flex flex-column">
             <div class="p-2">
               <mat-form-field class="stretch">
-                <input matInput placeholder="Name" formControlName="name" required>
+                <input matInput placeholder="Competition Name" formControlName="name" required autocomplete="false">
               </mat-form-field>
             </div>
             <div class="p-2">
               <mat-form-field>
-                <input matInput [matDatepicker]="start" placeholder="Start date" formControlName="start_date" required>
-                <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
-                <mat-datepicker #start></mat-datepicker>
+                <!--<input matInput [matDatepicker]="start" placeholder="Start date" formControlName="start_date" required>-->
+                <!--<mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>-->
+                <!--<mat-datepicker #start></mat-datepicker>-->
+                <!--<mat-placeholder>Start DateTime</mat-placeholder>-->
+                <input matInput formControlName="start" [matDatetimepicker]="start" required autocomplete="false">
+                <mat-datetimepicker-toggle [for]="start" matSuffix></mat-datetimepicker-toggle>
+                <mat-datetimepicker #start type="datetime" openOnFocus="true" timeInterval="5"></mat-datetimepicker>
+                <mat-placeholder>Start DateTime</mat-placeholder>
               </mat-form-field>
-              :
-              <mat-form-field>
-                <input matInput placeholder="Time" formControlName="start_time" mask="Hh:m0:s0" [showMaskTyped]="true" required>
-              </mat-form-field>
+              <!--:-->
+              <!--<mat-form-field>-->
+                <!--<input matInput placeholder="Time" formControlName="start_time" mask="Hh:m0:s0" [showMaskTyped]="true" required>-->
+              <!--</mat-form-field>-->
             </div>
             <div class="p-2">
               <mat-form-field>
-                <input matInput [matDatepicker]="end" placeholder="End date" formControlName="end_date" required>
-                <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
-                <mat-datepicker #end></mat-datepicker>
+                <!--<input matInput [matDatepicker]="end" placeholder="End date" formControlName="end_date" required>-->
+                <!--<mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>-->
+                <!--<mat-datepicker #end></mat-datepicker>-->
+                <input matInput formControlName="end" [matDatetimepicker]="end" required autocomplete="false">
+                <mat-datetimepicker-toggle [for]="end" matSuffix></mat-datetimepicker-toggle>
+                <mat-datetimepicker #end type="datetime" openOnFocus="true" timeInterval="5"></mat-datetimepicker>
+                <mat-placeholder>End DateTime</mat-placeholder>
               </mat-form-field>
-              :
-              <mat-form-field>
-                <input matInput placeholder="Time" formControlName="end_time" type="text" mask="Hh:m0:s0" [showMaskTyped]="true" required>
-              </mat-form-field>
+              <!--:-->
+              <!--<mat-form-field>-->
+                <!--<input matInput placeholder="Time" formControlName="end_time" type="text" mask="Hh:m0:s0" [showMaskTyped]="true" required>-->
+              <!--</mat-form-field>-->
             </div>
             <div class="p-2">
               <p class="-italic">
@@ -66,13 +75,13 @@
               <div class="p-2">
                 <div class="d-flex flex-row">
                   <mat-form-field class="p-2">
-                    <input matInput placeholder="Task Name" [value]="task.name == null ? '': task.name" (input)="task.name = $event.target.value">
+                    <input matInput placeholder="Task Name" [value]="task.name == null ? '': task.name" (input)="task.name = $event.target.value" autocomplete="false">
                   </mat-form-field>
                   <mat-form-field class="p-2 stretch">
-                    <input matInput placeholder="Description" [value]="task.description == null ? '': task.description" (input)="task.description = $event.target.value">
+                    <input matInput placeholder="Description" [value]="task.description == null ? '': task.description" (input)="task.description = $event.target.value" autocomplete="false">
                   </mat-form-field>
                   <mat-form-field class="p-2">
-                    <input matInput placeholder="Max Value" [value]="task.max_value == null ? '': task.max_value" (input)="task.max_value = $event.target.value" mask="0000">
+                    <input matInput placeholder="Max Value" [value]="task.max_value == null ? '': task.max_value" (input)="task.max_value = $event.target.value" mask="0000" autocomplete="false">
                   </mat-form-field>
                   <div class="pt-3">
                     <button (click)="removeTask(i)" mat-icon-button>
@@ -106,10 +115,10 @@
           <div *ngFor="let action of actions; let i = index">
             <div class="d-flex flex-row">
               <mat-form-field class="p-2">
-                <input matInput placeholder="Action Name" [value]="action.name == null ? '': action.name" (input)="action.name = $event.target.value">
+                <input matInput placeholder="Action Name" [value]="action.name == null ? '': action.name" (input)="action.name = $event.target.value" autocomplete="false">
               </mat-form-field>
               <mat-form-field class="p-2 stretch">
-                <input matInput placeholder="Description" [value]="action.description == null ? '': action.description" (input)="action.description = $event.target.value">
+                <input matInput placeholder="Description" [value]="action.description == null ? '': action.description" (input)="action.description = $event.target.value" autocomplete="false">
               </mat-form-field>
               <mat-form-field class="p-2">
                 <!--<input matInput placeholder="Task Name" [value]="action.task_id == null ? '': action.task_id" (input)="action.task_id = $event.target.value">-->
@@ -120,7 +129,7 @@
                 </mat-select>
               </mat-form-field>
               <mat-form-field class="p-2">
-                <input matInput placeholder="Increment Value" [value]="action.increment_value == null ? '': action.increment_value" (input)="action.increment_value = $event.target.value" mask="0000">
+                <input matInput placeholder="Increment Value" [value]="action.increment_value == null ? '': action.increment_value" (input)="action.increment_value = $event.target.value" mask="0000" autocomplete="false">
               </mat-form-field>
               <div class="pt-3">
                 <button (click)="removeAction(i)" mat-icon-button>

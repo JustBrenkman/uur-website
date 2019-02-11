@@ -46,7 +46,6 @@ import {
   MatStepperModule,
   MatRippleModule,
   MatDatepickerModule,
-  MatNativeDateModule,
   MAT_DIALOG_DEFAULT_OPTIONS, MatDialogRef, MAT_DIALOG_DATA, MatDatepicker
 } from '@angular/material';
 
@@ -78,6 +77,9 @@ import {TeamService} from './services/team.service';
 import { TeamProfileComponent } from './views/team-profile/team-profile.component';
 import { EditTeamInfoDialogComponent } from './dialogs/edit-team-info-dialog/edit-team-info-dialog.component';
 import { CompetitionCreateComponent } from './views/competition-create/competition-create.component';
+
+import { MatDatetimepickerModule } from '@mat-datetimepicker/core';
+import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
 
 export function getToken() {
   return localStorage.getItem('auth_token');
@@ -148,7 +150,10 @@ export function getToken() {
     AppRoutingModule,
     DragDropModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    MatDatetimepickerModule,
+    // MatNativeDateModule,
+    MatMomentDatetimeModule,
+    MatDatetimepickerModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,

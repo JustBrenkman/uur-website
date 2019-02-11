@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Action, CreateCompetition, Task} from '../../models/competition';
 import {CompetitionService} from '../../services/competition.service';
 import {MatSnackBar} from '@angular/material';
+import {privateEntriesToIndex} from '@angular/compiler-cli/src/metadata/index_writer';
 
 @Component({
   selector: 'app-competition-create',
@@ -22,10 +23,9 @@ export class CompetitionCreateComponent implements OnInit {
   ngOnInit() {
     this.setupFG = this._formBuilder.group({
       name: ['', Validators.required],
-      start_time: ['', Validators.required],
-      end_time: ['', Validators.required],
-      start_date: ['', Validators.required],
-      end_date: ['', Validators.required],
+      start: ['', Validators.required],
+      end: ['', Validators.required],
+      test: ['', Validators.required],
     });
   }
 
@@ -45,10 +45,11 @@ export class CompetitionCreateComponent implements OnInit {
   createCompetition() {
     const competition = new CreateCompetition();
     competition.name = this.setupFG.get('name').value;
-    competition.start_date = this.setupFG.get('start_date').value;
-    competition.end_date = this.setupFG.get('end_date').value;
-    competition.start_time = this.setupFG.get('start_time').value;
-    competition.end_time = this.setupFG.get('end_time').value;
+    const i = this.setupFG.get('start').value._i;
+    console.log(i);
+    competition.start = i.year + '-' + i.month + '-' + i.date + ' ' + i.hour + ':' + i.minute + ':00';
+    const j = this.setupFG.get('end').value._i;
+    competition.end = j.year + '-' + j.month + '-' + j.date + ' ' + j.hour + ':' + j.minute + ':00';
     this.tasks.forEach((task, index) => {task.id = index; });
     competition.tasks = this.tasks;
     competition.actions = this.actions;

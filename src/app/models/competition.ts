@@ -24,10 +24,8 @@ export class Action {
 
 export class CreateCompetition {
   name: string;
-  start_date: string;
-  start_time: string;
-  end_date: string;
-  end_time: string;
+  start: string;
+  end: string;
   tasks: Array<Task>;
   actions: Array<Action>;
 }
