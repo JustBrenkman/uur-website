@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Action, CreateCompetition, Task} from '../../models/competition';
 import {CompetitionService} from '../../services/competition.service';
 import {MatSnackBar} from '@angular/material';
-import {privateEntriesToIndex} from '@angular/compiler-cli/src/metadata/index_writer';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-competition-create',
@@ -17,7 +17,8 @@ export class CompetitionCreateComponent implements OnInit {
   tasks: Array<Task> = [];
   actions: Array<Action> = [];
 
-  constructor(private _formBuilder: FormBuilder, public competitionService: CompetitionService, public snackbar: MatSnackBar) {
+  constructor(private _formBuilder: FormBuilder, public competitionService: CompetitionService, public snackbar: MatSnackBar,
+              public router: Router) {
   }
 
   ngOnInit() {
@@ -59,6 +60,7 @@ export class CompetitionCreateComponent implements OnInit {
         this.snackbar.open('Competition created', 'Ok', {
           duration: 2000,
         });
+        this.router.navigateByUrl('/dashboard/competition');
       }
     });
   }
