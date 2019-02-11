@@ -61,6 +61,10 @@ export class CompetitionCreateComponent implements OnInit {
           duration: 2000,
         });
         this.router.navigateByUrl('/dashboard/competition');
+      } else {
+        this.snackbar.open('Failed to create competition', 'Ok', {
+          duration: 2000
+        });
       }
     });
   }
