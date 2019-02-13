@@ -5,6 +5,8 @@ import {RolePrivilegeGuard} from '../../services/role-privilege-guard.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Globals} from '../../models/globals';
 import {CompetitionService} from '../../services/competition.service';
+import {Router} from '@angular/router';
+import {query} from '@angular/animations';
 
 @Component({
   selector: 'app-competition',
@@ -22,7 +24,7 @@ export class CompetitionComponent implements OnInit, AfterViewInit {
   competitionsDataSource = new MatTableDataSource(this.globals.competitions);
 
   constructor(public socket: SocketService, private zone: NgZone, private renderer: Renderer2, public privilegeGuard: RolePrivilegeGuard,
-              public globals: Globals, public competitionService: CompetitionService) {
+              public globals: Globals, public competitionService: CompetitionService, public router: Router) {
 
   }
 
@@ -67,6 +69,6 @@ export class CompetitionComponent implements OnInit, AfterViewInit {
   }
 
   viewCompetitionProfile(id: number) {
-    console.log(id);
+    this.router.navigate(['dashboard/competition/info', {id}]);
   }
 }

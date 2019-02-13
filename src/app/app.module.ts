@@ -80,6 +80,7 @@ import { CompetitionCreateComponent } from './views/competition-create/competiti
 
 import { MatDatetimepickerModule } from '@mat-datetimepicker/core';
 import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
+import { CompetitionInfoComponent } from './views/competition-info/competition-info.component';
 
 export function getToken() {
   return localStorage.getItem('auth_token');
@@ -112,6 +113,7 @@ export function getToken() {
     TeamProfileComponent,
     EditTeamInfoDialogComponent,
     CompetitionCreateComponent,
+    CompetitionInfoComponent,
   ],
   imports: [
     BrowserModule,

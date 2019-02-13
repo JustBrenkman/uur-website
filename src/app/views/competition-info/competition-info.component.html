@@ -1,0 +1,42 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button routerLink="/dashboard/competition"><mat-icon>arrow_back</mat-icon></button>
+    <span>Back</span>
+    <div class="d-flex flex-row justify-content-center stretch">
+      <h1>Competition Info</h1>
+    </div>
+    <div class="ml-auto">
+      <button mat-icon-button><mat-icon>edit</mat-icon></button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+
+
+<div class="d-flex flex-column p-2">
+  <mat-card *ngIf="competition" class="stretch p-2">
+    <div class="d-flex flex-row justify-content-center">
+      <h1 class="display-4">{{competition.name}}</h1>
+    </div>
+    <div class="d-flex flex-column">
+      <h5>Created: {{competition.timestamp}}</h5>
+      <h5>Starts: {{competition.start}}</h5>
+      <h5>Ends: {{competition.end}}</h5>
+      <h5>Status: {{competition.status}}</h5>
+      <h5>Registration Status: {{competition.registration_status}}</h5>
+    </div>
+  </mat-card>
+  <div class="d-flex flex-row pt-2">
+    <mat-card *ngIf="tasks" class="stretch mr-1">
+      <div *ngFor="let action of actions">
+        {{action.name}}
+      </div>
+    </mat-card>
+    <mat-card *ngIf="actions" class="stretch ml-1">
+      <div *ngFor="let task of tasks">
+        {{task.name}}
+      </div>
+    </mat-card>
+  </div>
+</div>

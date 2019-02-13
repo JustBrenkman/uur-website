@@ -4,7 +4,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {AuthenticateService} from './authenticate.service';
 import {Observable, throwError} from 'rxjs';
-import {Competition, CreateCompetition} from '../models/competition';
+import {Action, Competition, CreateCompetition, Task} from '../models/competition';
 import {catchError} from 'rxjs/operators';
 
 @Injectable({
@@ -15,6 +15,9 @@ export class CompetitionService {
   private readonly serverURL: string = 'https://uur.byu.edu/';
   private readonly getCompetitonListFullURL: string;
   private readonly createCompetitionURL: string;
+  private readonly getCompetitionInfoURL: string;
+  private readonly getTasksURL: string;
+  private readonly getActionsURL: string;
 
   constructor(public globals: Globals, public http: HttpClient, public jwt: JwtHelperService, public authService: AuthenticateService) {
     if (this.globals.server) {
@@ -22,6 +25,9 @@ export class CompetitionService {
     }
     this.getCompetitonListFullURL = this.serverURL + 'api/competition/get_full_list';
     this.createCompetitionURL = this.serverURL + 'api/competition/create_new_competition';
+    this.getCompetitionInfoURL = this.serverURL + 'api/competition/get_info';
+    this.getTasksURL = this.serverURL + 'api/competition/get_tasks';
+    this.getActionsURL = this.serverURL + 'api/competition/get_actions';
   }
 
   getFullList(): Observable<Competition[]> {
@@ -31,6 +37,18 @@ export class CompetitionService {
 
   createNewCompetition(comp: CreateCompetition): Observable<any> {
     return this.http.post(this.createCompetitionURL, JSON.stringify(comp)).pipe(catchError(this.handleError));
+  }
+
+  getCompetitionInfo(id: number): Observable<Competition> {
+    return this.http.post<Competition>(this.getCompetitionInfoURL, {id: id}).pipe(catchError(this.handleError));
+  }
+
+  getTasks(id: number): Observable<Task[]> {
+    return this.http.post<Task[]>(this.getTasksURL, {id: id}).pipe(catchError(this.handleError));
+  }
+
+  getActions(id: number): Observable<Action[]> {
+    return this.http.post<Action[]>(this.getActionsURL, {id: id}).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
