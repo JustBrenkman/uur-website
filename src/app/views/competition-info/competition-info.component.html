@@ -6,6 +6,7 @@
       <h1>Competition Info</h1>
     </div>
     <div class="ml-auto">
+      <button mat-button>OPEN REGISTRATION</button>
       <button mat-icon-button><mat-icon>edit</mat-icon></button>
     </div>
   </mat-toolbar-row>
@@ -19,23 +20,34 @@
     <div class="d-flex flex-row justify-content-center">
       <h1 class="display-4">{{competition.name}}</h1>
     </div>
-    <div class="d-flex flex-column">
-      <h5>Created: {{competition.timestamp}}</h5>
-      <h5>Starts: {{competition.start}}</h5>
-      <h5>Ends: {{competition.end}}</h5>
-      <h5>Status: {{competition.status}}</h5>
-      <h5>Registration Status: {{competition.registration_status}}</h5>
+    <div class="d-flex flex-row">
+      <div class="p-2">
+        <h5>Created: </h5>
+        <h5>Starts: </h5>
+        <h5>Ends: </h5>
+        <h5>Status: </h5>
+        <h5>Registration Status: </h5>
+      </div>
+      <div class="p-2">
+        <h5>{{competition.timestamp}}</h5>
+        <h5>{{competition.start}}</h5>
+        <h5>{{competition.end}}</h5>
+        <h5>{{competition.status}}</h5>
+        <h5>{{competition.registration_status}}</h5>
+      </div>
     </div>
   </mat-card>
   <div class="d-flex flex-row pt-2">
     <mat-card *ngIf="tasks" class="stretch mr-1">
-      <div *ngFor="let action of actions">
-        {{action.name}}
+      <h4>Actions</h4>
+      <div *ngFor="let action of actions; let i = index">
+        {{i}}. Name: {{action.name}}, Task_ID: {{action.task_id}}, Increment Value: {{action.increment_value}}
       </div>
     </mat-card>
     <mat-card *ngIf="actions" class="stretch ml-1">
-      <div *ngFor="let task of tasks">
-        {{task.name}}
+      <h4>Tasks</h4>
+      <div *ngFor="let task of tasks; let i = index">
+        {{i}}. Name: {{task.name}}, Max Value: {{task.max_value}}
       </div>
     </mat-card>
   </div>
