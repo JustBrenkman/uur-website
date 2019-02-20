@@ -120,21 +120,30 @@
 
 </div>
 
-<div class="d-flex flex-column align-items-center">
+<div *ngIf="upcoming" class="d-flex flex-column align-items-center">
   <div class="p-2">
     <h1 class="display-4" style="color: dimgrey">
       Upcoming Competitions
     </h1>
   </div>
+  <div class="stretch p-2" *ngFor="let comp of upcoming">
+    <mat-card class="stretch">
+      <div class="row p-2">
+        <h4>{{comp.name}}</h4>
+        <span class="stretch"></span>
+        <button [color]="comp.registration_status === 'open'? 'primary' : 'warn'" mat-raised-button>{{(comp.registration_status  === 'open' ? 'register' : 'closed') | uppercase}}</button>
+      </div>
+    </mat-card>
+  </div>
 </div>
 
 <div class="d-flex flex-column align-items-center">
-  <div class="p-2">
+  <div *ngIf="onging" class="p-2">
     <h1 class="display-4" style="color: dimgrey">
       Ongoing Competitions
     </h1>
   </div>
-  <div class="p-2">
+  <div *ngIf="open" class="p-2">
     <h1 class="display-4" style="color: dimgrey">
       Competitions Open for Registration
     </h1>

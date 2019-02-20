@@ -44,4 +44,30 @@ export class CompetitionInfoComponent implements OnInit {
       }
     });
   }
+
+  updateRegistration() {
+    if (this.competition.registration_status === 'closed') {
+      this.competitionService.openRegistration(this.competition.id).subscribe((result) => {
+        console.log(result);
+        if (result === true) {
+          if (this.competition.registration_status === 'open') {
+            this.competition.registration_status = 'closed';
+          } else {
+            this.competition.registration_status = 'open';
+          }
+        }
+      });
+    } else {
+      this.competitionService.closeRegistration(this.competition.id).subscribe((result) => {
+        console.log(result);
+        if (result === true) {
+          if (this.competition.registration_status === 'open') {
+            this.competition.registration_status = 'closed';
+          } else {
+            this.competition.registration_status = 'open';
+          }
+        }
+      });
+    }
+  }
 }

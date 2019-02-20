@@ -7,6 +7,7 @@ import {Globals} from '../../models/globals';
 import {CompetitionService} from '../../services/competition.service';
 import {Router} from '@angular/router';
 import {query} from '@angular/animations';
+import {Competition} from '../../models/competition';
 
 @Component({
   selector: 'app-competition',
@@ -17,6 +18,9 @@ export class CompetitionComponent implements OnInit, AfterViewInit {
 
   @ViewChild('counter')
   public counter: ElementRef;
+  private upcoming: Competition[];
+  private open: Competition[];
+  private onging: Competition[];
 
   usersDisplayColumn: string[] = ['timestamp', 'id', 'name', 'start', 'end', 'registration_status', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -37,6 +41,10 @@ export class CompetitionComponent implements OnInit, AfterViewInit {
       this.competitionsDataSource.data = this.globals.competitions;
       this.competitionsDataSource.paginator = this.paginator;
     }
+    this.competitionService.getUpcomingCompetitions().subscribe((result) => {
+     console.log(result);
+     this.upcoming = result;
+    });
   }
 
   privilegeCheck(privilege: string): boolean {

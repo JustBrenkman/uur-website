@@ -3,5 +3,5 @@ export class Team {
   team_number: string;
   team_name: string;
   school_abr: string;
-  status: number;
+  status: string;
 }

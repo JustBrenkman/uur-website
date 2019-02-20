@@ -10,9 +10,9 @@
         </div>
         <div class="row stretch">
           <mat-button-toggle-group [formControl]="year" class="stretch">
-            <mat-button-toggle (click)="this.status = 1" [checked]="this.status <= 1" class="stretch">Year 1
+            <mat-button-toggle (click)="this.status = 'stock'" [checked]="this.status === 'stock'" class="stretch">Stock
             </mat-button-toggle>
-            <mat-button-toggle (click)="this.status = 2" [checked]="this.status > 1" class="stretch">Year 2+
+            <mat-button-toggle (click)="this.status = 'open'" [checked]="this.status === 'open'" class="stretch">Open
             </mat-button-toggle>
           </mat-button-toggle-group>
         </div>

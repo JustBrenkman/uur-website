@@ -18,6 +18,9 @@ export class CompetitionService {
   private readonly getCompetitionInfoURL: string;
   private readonly getTasksURL: string;
   private readonly getActionsURL: string;
+  private readonly getUpcomingCompsURL: string;
+  private readonly openRegURL: string;
+  private readonly closeRegURL: string;
 
   constructor(public globals: Globals, public http: HttpClient, public jwt: JwtHelperService, public authService: AuthenticateService) {
     if (this.globals.server) {
@@ -28,6 +31,9 @@ export class CompetitionService {
     this.getCompetitionInfoURL = this.serverURL + 'api/competition/get_info';
     this.getTasksURL = this.serverURL + 'api/competition/get_tasks';
     this.getActionsURL = this.serverURL + 'api/competition/get_actions';
+    this.getUpcomingCompsURL = this.serverURL + 'api/competition/get_upcoming';
+    this.openRegURL = this.serverURL + 'api/competition/open_for_registration';
+    this.closeRegURL = this.serverURL + 'api/competition/close_registration';
   }
 
   getFullList(): Observable<Competition[]> {
@@ -51,6 +57,10 @@ export class CompetitionService {
     return this.http.post<Action[]>(this.getActionsURL, {id: id}).pipe(catchError(this.handleError));
   }
 
+  getUpcomingCompetitions(): Observable<Competition[]> {
+    return this.http.get<Competition[]>(this.getUpcomingCompsURL).pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     // this.snackBar.open('Server Error: Try again later :(');
     if (error.error instanceof ErrorEvent) {
@@ -66,5 +76,13 @@ export class CompetitionService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
+  }
+
+  openRegistration(id: number): Observable<Boolean> {
+    return this.http.post<Boolean>(this.openRegURL, {id: id}).pipe(catchError(this.handleError));
+  }
+
+  closeRegistration(id: number): Observable<Boolean> {
+    return this.http.post<Boolean>(this.closeRegURL, {id: id}).pipe(catchError(this.handleError));
   }
 }

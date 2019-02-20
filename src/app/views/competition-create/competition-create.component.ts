@@ -48,9 +48,9 @@ export class CompetitionCreateComponent implements OnInit {
     competition.name = this.setupFG.get('name').value;
     const i = this.setupFG.get('start').value._i;
     console.log(i);
-    competition.start = i.year + '-' + i.month + '-' + i.date + ' ' + i.hour + ':' + i.minute + ':00';
+    competition.start = i.year + '-' + (i.month + 1) + '-' + i.date + ' ' + i.hour + ':' + i.minute + ':00';
     const j = this.setupFG.get('end').value._i;
-    competition.end = j.year + '-' + j.month + '-' + j.date + ' ' + j.hour + ':' + j.minute + ':00';
+    competition.end = j.year + '-' + (j.month + 1) + '-' + j.date + ' ' + j.hour + ':' + j.minute + ':00';
     this.tasks.forEach((task, index) => {task.id = index; });
     competition.tasks = this.tasks;
     competition.actions = this.actions;
