@@ -18,9 +18,9 @@ export class CompetitionComponent implements OnInit, AfterViewInit {
 
   @ViewChild('counter')
   public counter: ElementRef;
-  private upcoming: Competition[];
-  private open: Competition[];
-  private onging: Competition[];
+  public upcoming: Competition[];
+  public open: Competition[];
+  public onging: Competition[];
 
   usersDisplayColumn: string[] = ['timestamp', 'id', 'name', 'start', 'end', 'registration_status', 'status', 'actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;

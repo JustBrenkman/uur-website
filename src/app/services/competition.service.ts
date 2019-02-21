@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import {Globals} from '../models/globals';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {AuthenticateService} from './authenticate.service';
 import {Observable, throwError} from 'rxjs';
 import {Action, Competition, CreateCompetition, Task} from '../models/competition';
 import {catchError} from 'rxjs/operators';
+import {Team} from '../models/team';
+import decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,10 @@ export class CompetitionService {
   private readonly getUpcomingCompsURL: string;
   private readonly openRegURL: string;
   private readonly closeRegURL: string;
+  private readonly getRegisteredTeamsURL: string;
+  private readonly getUnregisteredTeamsURL: string;
+  private readonly registerTeamURL: string;
+  private readonly cancelRegistrationURL: string;
 
   constructor(public globals: Globals, public http: HttpClient, public jwt: JwtHelperService, public authService: AuthenticateService) {
     if (this.globals.server) {
@@ -34,6 +40,10 @@ export class CompetitionService {
     this.getUpcomingCompsURL = this.serverURL + 'api/competition/get_upcoming';
     this.openRegURL = this.serverURL + 'api/competition/open_for_registration';
     this.closeRegURL = this.serverURL + 'api/competition/close_registration';
+    this.getRegisteredTeamsURL = this.serverURL + 'api/competition/get_registered_teams';
+    this.getUnregisteredTeamsURL = this.serverURL + 'api/competition/get_unregistered_teams';
+    this.registerTeamURL = this.serverURL + 'api/competition/register_team';
+    this.cancelRegistrationURL = this.serverURL + 'api/competition/cancel_registration';
   }
 
   getFullList(): Observable<Competition[]> {
@@ -84,5 +94,25 @@ export class CompetitionService {
 
   closeRegistration(id: number): Observable<Boolean> {
     return this.http.post<Boolean>(this.closeRegURL, {id: id}).pipe(catchError(this.handleError));
+  }
+
+  getRegisterdTeams(comp_id: number): Observable<Team[]> {
+    // const header = new HttpHeaders().set('auth_token', localStorage.getItem('auth_token'));
+    return this.http.post<Team[]>(this.getRegisteredTeamsURL, {id: comp_id}).pipe(catchError(this.handleError));
+  }
+
+  getUnregisteredTeams(comp_id: number): Observable<Team[]> {
+    const token = localStorage.getItem('auth_token');
+    const payload = decode(token);
+    const school_abr = payload.sub['school'];
+    return this.http.post<Team[]>(this.getUnregisteredTeamsURL, {id: comp_id, school_abr: school_abr}).pipe(catchError(this.handleError));
+  }
+
+  registerTeam(comp_id: number, team_number: string): Observable<Boolean> {
+    return this.http.post<Boolean>(this.registerTeamURL, {id: comp_id, team_number: team_number}).pipe(catchError(this.handleError));
+  }
+
+  cancelRegistration(id: number, team_number: string) {
+    return this.http.post<Boolean>(this.cancelRegistrationURL, {id: id, team_number: team_number}).pipe(catchError(this.handleError));
   }
 }

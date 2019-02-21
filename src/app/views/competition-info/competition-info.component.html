@@ -5,8 +5,9 @@
     <div class="d-flex flex-row justify-content-center stretch">
       <h1>Competition Info</h1>
     </div>
-    <div class="ml-auto">
-      <button *ngIf="competition" (click)="updateRegistration()" mat-button>{{competition.registration_status === 'open' ? 'CLOSE REGISTRATION' : 'OPEN REGISTRATION'}}</button>
+    <div *ngIf="competition" class="ml-auto">
+      <button *ngIf="this.roleGuard.privilegeGuard('admin')" (click)="updateRegistration()" mat-button>{{competition.registration_status === 'open' ? 'CLOSE REGISTRATION' : 'OPEN REGISTRATION'}}</button>
+      <button *ngIf="competition.registration_status === 'open'" (click)="openRegistration()" mat-button>{{'Register Teams' | uppercase}}</button>
       <button mat-icon-button><mat-icon>edit</mat-icon></button>
     </div>
   </mat-toolbar-row>

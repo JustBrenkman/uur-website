@@ -11,7 +11,7 @@ import {FormControl} from '@angular/forms';
 export class EditTeamInfoDialogComponent implements OnInit {
   year = new FormControl('', []);
   team_name = new FormControl('', []);
-  status = 0;
+  status: String;
   team_number = '';
   team;
 

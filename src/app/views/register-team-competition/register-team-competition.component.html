@@ -1,0 +1,75 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="back()"><mat-icon>arrow_back</mat-icon></button>
+    <span>Back</span>
+    <div class="d-flex flex-row justify-content-center stretch">
+      <h1>Register Teams</h1>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+
+
+<div *ngIf="registeredTeams" class="d-flex flex-column align-items-center">
+  <div class="p-2 mt-5">
+    <h1 class="display-4" style="color: dimgrey;">
+      {{registeredTeams.length > 0 ? 'Registered Teams' : 'You have no registered teams'}}
+    </h1>
+  </div>
+</div>
+
+
+
+<div *ngIf="registeredTeams" class="d-flex flex-column justify-content-center mx-2">
+  <mat-card *ngFor="let team of registeredTeams" style="width: 100%" class="mt-2">
+    <mat-card-content>
+      <div class="d-flex flex-row">
+        <img alt="team picture" src="../../../assets/icons/robot-machine-blue.svg" class="img rounded">
+        <div class="d-flex flex-column align-self-center m-3">
+          <h1 class="display-4">{{team.team_number}}</h1>
+          <h3>{{team.team_name}}</h3>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="ml-auto">
+          <button (click)="cancel(team.team_number)" color="warn" mat-raised-button>CANCEL</button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+
+
+
+
+
+<div *ngIf="unregisteredTeams" class="d-flex flex-column align-items-center">
+  <div *ngIf="unregisteredTeams.length > 0" class="p-2 mt-5">
+    <h1 class="display-4" style="color: dimgrey;">
+      Unregistered Teams
+    </h1>
+  </div>
+</div>
+
+
+<div *ngIf="unregisteredTeams" class="d-flex flex-column justify-content-center mx-2">
+  <mat-card *ngFor="let team of unregisteredTeams" style="width: 100%" class="mt-2">
+    <mat-card-content>
+      <div class="d-flex flex-row align-content-center">
+        <img alt="team picture" src="../../../assets/icons/robot-machine-blue.svg" class="img rounded">
+        <div class="d-flex flex-column align-self-center m-3">
+          <h1 class="display-4">{{team.team_number}}</h1>
+          <h3>{{team.team_name}}</h3>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="ml-auto">
+          <button (click)="registerTeam(team.team_number)" color="primary" mat-raised-button>REGISTER</button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

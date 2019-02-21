@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Competition, Task, Action} from '../../models/competition';
 import {CompetitionService} from '../../services/competition.service';
+import {RolePrivilegeGuard} from '../../services/role-privilege-guard.service';
 
 @Component({
   selector: 'app-competition-info',
@@ -13,7 +14,8 @@ export class CompetitionInfoComponent implements OnInit {
   competition: Competition;
   tasks: Task[];
   actions: Action[];
-  constructor(public route: ActivatedRoute, public competitionService: CompetitionService) {
+  constructor(public route: ActivatedRoute, public competitionService: CompetitionService, public roleGuard: RolePrivilegeGuard,
+              public router: Router) {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
   }
 
@@ -69,5 +71,9 @@ export class CompetitionInfoComponent implements OnInit {
         }
       });
     }
+  }
+
+  openRegistration() {
+    this.router.navigate(['dashboard/competition/register', {id: this.competition.id}]);
   }
 }
