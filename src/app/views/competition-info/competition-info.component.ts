@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Competition, Task, Action} from '../../models/competition';
 import {CompetitionService} from '../../services/competition.service';
 import {RolePrivilegeGuard} from '../../services/role-privilege-guard.service';
+import {Team} from '../../models/team';
 
 @Component({
   selector: 'app-competition-info',
@@ -14,6 +15,7 @@ export class CompetitionInfoComponent implements OnInit {
   competition: Competition;
   tasks: Task[];
   actions: Action[];
+  teams: Team[];
   constructor(public route: ActivatedRoute, public competitionService: CompetitionService, public roleGuard: RolePrivilegeGuard,
               public router: Router) {
     this.id = Number(this.route.snapshot.paramMap.get('id'));

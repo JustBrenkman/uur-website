@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="back()"><mat-icon>arrow_back</mat-icon></button>
+    <span>Back</span>
+    <div class="d-flex flex-row justify-content-center stretch">
+      <h1>Judging</h1>
+    </div>
+    <!--<div *ngIf="competition" class="ml-auto">-->
+    <!--</div>-->
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+
+
+
+<div class="d-flex flex-column align-content-center">
+  <mat-card class="m-2" *ngFor="let team of teams">
+    <div class="d-flex flex-row align-content-center">
+      <h1>{{team.team_number}}</h1>
+      <h4 class="align-self-center p-2">{{team.team_name}}</h4>
+      <div class="ml-auto">
+        <button class="display-4" mat-icon-button (click)="judgeTeam(team.team_number)"><mat-icon>gavel</mat-icon></button>
+      </div>
+    </div>
+  </mat-card>
+</div>

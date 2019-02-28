@@ -27,6 +27,7 @@ export class CompetitionService {
   private readonly getUnregisteredTeamsURL: string;
   private readonly registerTeamURL: string;
   private readonly cancelRegistrationURL: string;
+  private readonly getAllRegisteredTeamsURL: string;
 
   constructor(public globals: Globals, public http: HttpClient, public jwt: JwtHelperService, public authService: AuthenticateService) {
     if (this.globals.server) {
@@ -44,6 +45,7 @@ export class CompetitionService {
     this.getUnregisteredTeamsURL = this.serverURL + 'api/competition/get_unregistered_teams';
     this.registerTeamURL = this.serverURL + 'api/competition/register_team';
     this.cancelRegistrationURL = this.serverURL + 'api/competition/cancel_registration';
+    this.getAllRegisteredTeamsURL = this.serverURL + 'api/competition/get_all_registered_teams';
   }
 
   getFullList(): Observable<Competition[]> {
@@ -98,7 +100,10 @@ export class CompetitionService {
 
   getRegisterdTeams(comp_id: number): Observable<Team[]> {
     // const header = new HttpHeaders().set('auth_token', localStorage.getItem('auth_token'));
-    return this.http.post<Team[]>(this.getRegisteredTeamsURL, {id: comp_id}).pipe(catchError(this.handleError));
+    const token = localStorage.getItem('auth_token');
+    const payload = decode(token);
+    const school_abr = payload.sub['school'];
+    return this.http.post<Team[]>(this.getRegisteredTeamsURL, {id: comp_id, school_abr: school_abr}).pipe(catchError(this.handleError));
   }
 
   getUnregisteredTeams(comp_id: number): Observable<Team[]> {
@@ -114,5 +119,9 @@ export class CompetitionService {
 
   cancelRegistration(id: number, team_number: string) {
     return this.http.post<Boolean>(this.cancelRegistrationURL, {id: id, team_number: team_number}).pipe(catchError(this.handleError));
+  }
+
+  getAllRegisteredTeams(id: number): Observable<Team[]> {
+    return this.http.post<Team[]>(this.getAllRegisteredTeamsURL, {id: id}).pipe(catchError(this.handleError));
   }
 }

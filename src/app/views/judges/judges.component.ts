@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-judges',
@@ -6,10 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./judges.component.scss']
 })
 export class JudgesComponent implements OnInit {
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
-
 }

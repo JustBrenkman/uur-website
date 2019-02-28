@@ -18,6 +18,8 @@ import {TeamProfileComponent} from './views/team-profile/team-profile.component'
 import {CompetitionCreateComponent} from './views/competition-create/competition-create.component';
 import {CompetitionInfoComponent} from './views/competition-info/competition-info.component';
 import {RegisterTeamCompetitionComponent} from './views/register-team-competition/register-team-competition.component';
+import {JudgeTeamComponent} from './views/judge-team/judge-team.component';
+import {JudgeTeamViewComponent} from './views/judge-team-view/judge-team-view.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -31,7 +33,9 @@ const routes: Routes = [
       {path: 'judges', component: JudgesComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'admin', role: 'Other'}},
       {path: 'competition', component: CompetitionComponent, canActivate: [AuthenticationGuard]},
       {path: 'competition/create', component: CompetitionCreateComponent, canActivate: [AuthenticationGuard]},
-      {path: 'competition/info', component: CompetitionInfoComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'member', role: 'Director'}},
+      {path: 'competition/info/:id', component: CompetitionInfoComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'member', role: 'Director'}},
+      {path: 'competition/judge/:id', component: JudgeTeamComponent, canActivate: [AuthenticationGuard]},
+      {path: 'competition/team/compete', component: JudgeTeamViewComponent, canActivate: [AuthenticationGuard]},
       {path: 'competition/register', component: RegisterTeamCompetitionComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'member'}},
       {path: 'schools', component: SchoolsComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'admin'}},
       {path: 'teams', component: TeamsComponent, canActivate: [RolePrivilegeGuard], data: {privilege: 'member', role: 'Teacher'}},

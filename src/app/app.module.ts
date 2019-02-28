@@ -82,6 +82,8 @@ import { MatDatetimepickerModule } from '@mat-datetimepicker/core';
 import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
 import { CompetitionInfoComponent } from './views/competition-info/competition-info.component';
 import { RegisterTeamCompetitionComponent } from './views/register-team-competition/register-team-competition.component';
+import { JudgeTeamComponent } from './views/judge-team/judge-team.component';
+import { JudgeTeamViewComponent } from './views/judge-team-view/judge-team-view.component';
 
 export function getToken() {
   return localStorage.getItem('auth_token');
@@ -116,6 +118,8 @@ export function getToken() {
     CompetitionCreateComponent,
     CompetitionInfoComponent,
     RegisterTeamCompetitionComponent,
+    JudgeTeamComponent,
+    JudgeTeamViewComponent,
   ],
   imports: [
     BrowserModule,

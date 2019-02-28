@@ -77,6 +77,6 @@ export class CompetitionComponent implements OnInit, AfterViewInit {
   }
 
   viewCompetitionProfile(id: number) {
-    this.router.navigate(['dashboard/competition/info', {id}]);
+    this.router.navigate(['dashboard/competition/info/' + id]);
   }
 }
