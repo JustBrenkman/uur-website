@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Action, Task} from '../../models/competition';
+import {Action, Score, Task, TaskScores} from '../../models/competition';
 import {CompetitionService} from '../../services/competition.service';
+import {MatSnackBar} from '@angular/material';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-judge-team-view',
@@ -10,7 +12,7 @@ import {CompetitionService} from '../../services/competition.service';
 })
 export class JudgeTeamViewComponent implements OnInit {
 
-  team_number: String;
+  team_number: string;
   comp_id: number;
 
   tasks: Task[];
@@ -18,7 +20,7 @@ export class JudgeTeamViewComponent implements OnInit {
   values = {};
   taskValues = {};
 
-  constructor(public route: ActivatedRoute, public compService: CompetitionService) {
+  constructor(public route: ActivatedRoute, public compService: CompetitionService, public snackBar: MatSnackBar, public location: Location) {
     this.team_number = this.route.snapshot.queryParamMap.get('team_number');
     this.comp_id = Number(this.route.snapshot.queryParamMap.get('comp_id'));
   }
@@ -69,7 +71,19 @@ export class JudgeTeamViewComponent implements OnInit {
       }
     });
   }
-  // isTooMuch(task_id, increment_value): boolean {
-  //   return false;
-  // }
+
+  addScoreToTeam() {
+    const scores = new TaskScores();
+    this.tasks.forEach((task, index) => {
+      scores.addScore(new Score(task.id, this.taskValues[task.id]));
+    });
+    this.compService.addScoreToTeam(this.team_number, this.comp_id, scores).subscribe((result) => {
+      if (result) {
+        this.snackBar.open('Finished round on team', 'Ok', {
+          duration: 2000
+        });
+        this.location.back();
+      }
+    });
+  }
 }

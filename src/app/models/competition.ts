@@ -29,3 +29,23 @@ export class CreateCompetition {
   tasks: Array<Task>;
   actions: Array<Action>;
 }
+
+export class Score {
+  constructor(id: number, taskValue: any) {
+    this.task_id = id;
+    this.score = taskValue;
+  }
+
+  task_id: number;
+  score: number;
+}
+
+export class TaskScores {
+  constructor() {
+    this.scores = [];
+  }
+  scores: Score[];
+  addScore(score: Score) {
+    this.scores.push(score);
+  }
+}

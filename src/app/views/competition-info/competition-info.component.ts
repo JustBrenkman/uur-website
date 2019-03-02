@@ -16,6 +16,7 @@ export class CompetitionInfoComponent implements OnInit {
   tasks: Task[];
   actions: Action[];
   teams: Team[];
+  scoreBoard: {};
   constructor(public route: ActivatedRoute, public competitionService: CompetitionService, public roleGuard: RolePrivilegeGuard,
               public router: Router) {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
@@ -25,6 +26,7 @@ export class CompetitionInfoComponent implements OnInit {
     this.getCompetitionInfo();
     this.getTasks();
     this.getActions();
+    this.getScoreBoard();
   }
 
   getCompetitionInfo() {
@@ -46,6 +48,13 @@ export class CompetitionInfoComponent implements OnInit {
       if (result != null) {
         this.actions = result;
       }
+    });
+  }
+
+  getScoreBoard() {
+    this.competitionService.getScoreBoard(this.id).subscribe((result) => {
+      console.log(result);
+      this.scoreBoard = result;
     });
   }
 

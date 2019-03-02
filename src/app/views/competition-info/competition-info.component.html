@@ -54,3 +54,17 @@
     </mat-card>
   </div>
 </div>
+
+
+
+
+
+<div class="d-flex p-2">
+  <mat-card class="stretch">
+    <div *ngIf="scoreBoard">
+      <div *ngFor="let score of scoreBoard | keyvalue">
+        {{score.key}}: {{score.value}}
+      </div>
+    </div>
+  </mat-card>
+</div>

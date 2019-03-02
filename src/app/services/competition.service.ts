@@ -4,10 +4,11 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {AuthenticateService} from './authenticate.service';
 import {Observable, throwError} from 'rxjs';
-import {Action, Competition, CreateCompetition, Task} from '../models/competition';
+import {Action, Competition, CreateCompetition, Task, TaskScores} from '../models/competition';
 import {catchError} from 'rxjs/operators';
 import {Team} from '../models/team';
 import decode from 'jwt-decode';
+import {strictEqual} from 'assert';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,8 @@ export class CompetitionService {
   private readonly registerTeamURL: string;
   private readonly cancelRegistrationURL: string;
   private readonly getAllRegisteredTeamsURL: string;
+  private readonly addScoreToTeamURL: string;
+  private readonly getScoreBoardURL: string;
 
   constructor(public globals: Globals, public http: HttpClient, public jwt: JwtHelperService, public authService: AuthenticateService) {
     if (this.globals.server) {
@@ -46,6 +49,8 @@ export class CompetitionService {
     this.registerTeamURL = this.serverURL + 'api/competition/register_team';
     this.cancelRegistrationURL = this.serverURL + 'api/competition/cancel_registration';
     this.getAllRegisteredTeamsURL = this.serverURL + 'api/competition/get_all_registered_teams';
+    this.addScoreToTeamURL = this.serverURL + 'api/competition/add_score_to_team';
+    this.getScoreBoardURL = this.serverURL + 'api/competition/get_score_board';
   }
 
   getFullList(): Observable<Competition[]> {
@@ -124,4 +129,13 @@ export class CompetitionService {
   getAllRegisteredTeams(id: number): Observable<Team[]> {
     return this.http.post<Team[]>(this.getAllRegisteredTeamsURL, {id: id}).pipe(catchError(this.handleError));
   }
+
+  addScoreToTeam(team_number: string, comp_id: number, task_scores: TaskScores): Observable<Boolean> {
+    return this.http.post<Boolean>(this.addScoreToTeamURL, {id: comp_id, team_number: team_number, task_scores: task_scores}).pipe(catchError(this.handleError));
+  }
+
+  getScoreBoard(comp_id: number): Observable<Map<string, number>> {
+    return this.http.post<Map<string, number>>(this.getScoreBoardURL, {id: comp_id}).pipe(catchError(this.handleError));
+  }
 }
+

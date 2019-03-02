@@ -29,5 +29,13 @@
         </div>
       </div>
     </div>
+    <mat-card-footer>
+      <div class="d-flex flex-row">
+        <button class="m-2" mat-button color="warn" (click)="this.location.back()">Cancel</button>
+        <div class="ml-auto p-2 mt-2">
+          <button mat-button color="primary" (click)="addScoreToTeam()">Finish</button>
+        </div>
+      </div>
+    </mat-card-footer>
   </mat-card>
 </div>
