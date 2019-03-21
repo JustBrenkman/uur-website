@@ -9,19 +9,19 @@
   <mat-card class="stretch">
     <div class="d-flex m-2 flex-column justify-content-center">
       <div class="clock align-self-center">
-        <h1 class="display-4">00:00:00</h1>
+        <h1 class="display-4">50:00:00</h1>
       </div>
       <h6 class="pb-2">Team: {{team_number}}</h6>
       <div>
         <h4 class="mt-2">Tasks:</h4>
         <div *ngFor="let task of tasks">
-          <h5>{{task.name}}  {{taskValues[task.id]}}/{{task.max_value}}</h5>
+          <h5><strong>{{task.name}}  {{taskValues[task.id]}}/{{task.max_value}}</strong></h5>
           <div *ngFor="let action of actions; let i = index">
             <div class="action p-2 m-1 d-flex flex-row" *ngIf="action.task_id == task.id">
-              <h6>{{action.description}}  {{action.increment_value}} points</h6>
+              <h6>{{action.description}}  {{action.increment_value}} points max: {{action.limit}}</h6>
               <div class="ml-auto d-flex flex-row align-content-center">
                 <button mat-icon-button color="warn" class="align-self-center" (click)="decreaseAction(i)"><mat-icon>remove</mat-icon></button>
-                <h6 class="value-box align-self-center">{{values[i]}}</h6>
+                <h6 class="value-box align-self-center">{{actionTimesCompleted[i]}}</h6>
                 <button mat-icon-button color="primary" class="align-self-center" (click)="increaseAction(i)"><mat-icon>add</mat-icon></button>
               </div>
             </div>

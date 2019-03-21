@@ -19,6 +19,7 @@ export class JudgeTeamViewComponent implements OnInit {
   actions: Action[];
   values = {};
   taskValues = {};
+  actionTimesCompleted = {};
 
   constructor(public route: ActivatedRoute, public compService: CompetitionService, public snackBar: MatSnackBar, public location: Location) {
     this.team_number = this.route.snapshot.queryParamMap.get('team_number');
@@ -36,6 +37,7 @@ export class JudgeTeamViewComponent implements OnInit {
       if (result) {
         this.actions = result;
         this.actions.forEach((action, index) => { this.values[index] = 0; });
+        this.actions.forEach((action, index) => { this.actionTimesCompleted[index] = 0; });
       }
     });
   }
@@ -44,11 +46,14 @@ export class JudgeTeamViewComponent implements OnInit {
     if (this.increaseTaskValue(this.actions[index].task_id, this.actions[index].increment_value)) {
       this.values[index] = this.values[index] + this.actions[index].increment_value;
     }
+    this.actionTimesCompleted[index] = this.actionTimesCompleted[index] < this.actions[index].limit ? this.actionTimesCompleted[index] + 1 : this.actionTimesCompleted[index];
   }
 
   decreaseAction(index: number) {
       this.values[index] = this.values[index] - this.actions[index].increment_value;
       this.decreaseTask(this.actions[index].task_id, this.actions[index].increment_value);
+
+    this.actionTimesCompleted[index] = this.actionTimesCompleted[index] > 0 ? this.actionTimesCompleted[index] - 1 : this.actionTimesCompleted[index];
   }
 
   increaseTaskValue(task_id, increment_value): boolean {
@@ -70,6 +75,10 @@ export class JudgeTeamViewComponent implements OnInit {
         this.taskValues[task_id] = this.taskValues[task_id] - increment;
       }
     });
+  }
+
+  calculateTotalForTask(index: number) {
+    return 0;
   }
 
   addScoreToTeam() {

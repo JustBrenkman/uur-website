@@ -2,14 +2,14 @@
   <mat-toolbar-row>
     <button mat-icon-button routerLink="/dashboard/competition"><mat-icon>arrow_back</mat-icon></button>
     <span>Back</span>
-    <button mat-button routerLink="/dashboard/competition/judge/{{id}}">JUDGE</button>
+    <button *ngIf="this.roleGuard.privilegeGuard('admin')" mat-button routerLink="/dashboard/competition/judge/{{id}}">JUDGE</button>
     <div class="d-flex flex-row justify-content-center stretch">
       <h1>Competition Info</h1>
     </div>
     <div *ngIf="competition" class="ml-auto">
       <button *ngIf="this.roleGuard.privilegeGuard('admin')" (click)="updateRegistration()" mat-button>{{competition.registration_status === 'open' ? 'CLOSE REGISTRATION' : 'OPEN REGISTRATION'}}</button>
       <button *ngIf="competition.registration_status === 'open'" (click)="openRegistration()" mat-button>{{'Register Teams' | uppercase}}</button>
-      <button mat-icon-button><mat-icon>edit</mat-icon></button>
+      <button *ngIf="this.roleGuard.privilegeGuard('admin')" mat-icon-button><mat-icon>edit</mat-icon></button>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -56,6 +56,23 @@
 </div>
 
 
+
+<div id="timer" class="timer d-flex flex-column">
+<mat-card class="d-flex flex-row justify-content-center stretch m-2">
+  <div class="d-flex flex-column">
+    <div class="clock align-self-center">
+      <h1 class="display-4">10:00:00</h1>
+    </div>
+    <div class="align-self-center">
+      <button mat-icon-button><mat-icon>play_arrow</mat-icon></button>
+      <button mat-icon-button><mat-icon>pause</mat-icon></button>
+      <button mat-icon-button><mat-icon>stop</mat-icon></button>
+      <button mat-icon-button><mat-icon>keyboard_arrow_up</mat-icon></button>
+      <button mat-icon-button><mat-icon>keyboard_arrow_down</mat-icon></button>
+    </div>
+  </div>
+</mat-card>
+</div>
 
 
 

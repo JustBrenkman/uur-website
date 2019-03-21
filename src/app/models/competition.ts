@@ -20,6 +20,7 @@ export class Action {
   description: string;
   task_id: number;
   increment_value: number;
+  limit: number;
 }
 
 export class CreateCompetition {
