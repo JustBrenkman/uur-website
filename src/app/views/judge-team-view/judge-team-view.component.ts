@@ -77,14 +77,28 @@ export class JudgeTeamViewComponent implements OnInit {
     });
   }
 
-  calculateTotalForTask(index: number) {
-    return 0;
+  calculateTotalForTask(task_id: number) {
+    let total = 0;
+    this.actions.forEach((action, index) => {
+      if (action.task_id === task_id) {
+        total += this.actionTimesCompleted[index] * action.increment_value;
+      }
+    });
+    return total;
+  }
+
+  calculateTotal() {
+    let total = 0;
+    this.tasks.forEach((task) => {
+      total += this.calculateTotalForTask(task.id);
+    });
+    return total;
   }
 
   addScoreToTeam() {
     const scores = new TaskScores();
     this.tasks.forEach((task, index) => {
-      scores.addScore(new Score(task.id, this.taskValues[task.id]));
+      scores.addScore(new Score(task.id, this.calculateTotalForTask(task.id)));
     });
     this.compService.addScoreToTeam(this.team_number, this.comp_id, scores).subscribe((result) => {
       if (result) {

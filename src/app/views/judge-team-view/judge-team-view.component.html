@@ -15,7 +15,7 @@
       <div>
         <h4 class="mt-2">Tasks:</h4>
         <div *ngFor="let task of tasks">
-          <h5><strong>{{task.name}}  {{taskValues[task.id]}}/{{task.max_value}}</strong></h5>
+          <h5><strong>{{task.name}}  {{calculateTotalForTask(task.id)}}/{{task.max_value}}</strong></h5>
           <div *ngFor="let action of actions; let i = index">
             <div class="action p-2 m-1 d-flex flex-row" *ngIf="action.task_id == task.id">
               <h6>{{action.description}}  {{action.increment_value}} points max: {{action.limit}}</h6>
@@ -27,6 +27,9 @@
             </div>
           </div>
         </div>
+        <h5>
+          Total: {{calculateTotal()}}
+        </h5>
       </div>
     </div>
     <mat-card-footer>

@@ -15,7 +15,10 @@
 
 
 <div class="d-flex flex-column align-content-center">
-  <mat-card class="m-2" *ngFor="let team of teams">
+  <mat-form-field class="m-2">
+    <input matInput placeholder="Team number" [formControl]="formControl">
+  </mat-form-field>
+  <mat-card class="m-2" *ngFor="let team of getListOfTeams()">
     <div class="d-flex flex-row align-content-center">
       <h1>{{team.team_number}}</h1>
       <h4 class="align-self-center p-2">{{team.team_name}}</h4>
