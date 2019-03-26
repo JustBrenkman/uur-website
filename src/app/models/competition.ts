@@ -41,6 +41,11 @@ export class Score {
   score: number;
 }
 
+export class Scoreboard {
+  team_number: String;
+  score: number;
+}
+
 export class TaskScores {
   constructor() {
     this.scores = [];

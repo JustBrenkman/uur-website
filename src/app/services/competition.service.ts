@@ -4,11 +4,10 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {AuthenticateService} from './authenticate.service';
 import {Observable, throwError} from 'rxjs';
-import {Action, Competition, CreateCompetition, Task, TaskScores} from '../models/competition';
+import {Action, Competition, CreateCompetition, Score, Scoreboard, Task, TaskScores} from '../models/competition';
 import {catchError} from 'rxjs/operators';
 import {Team} from '../models/team';
 import decode from 'jwt-decode';
-import {strictEqual} from 'assert';
 
 @Injectable({
   providedIn: 'root'
@@ -134,8 +133,31 @@ export class CompetitionService {
     return this.http.post<Boolean>(this.addScoreToTeamURL, {id: comp_id, team_number: team_number, task_scores: task_scores}).pipe(catchError(this.handleError));
   }
 
-  getScoreBoard(comp_id: number): Observable<Map<string, number>> {
-    return this.http.post<Map<string, number>>(this.getScoreBoardURL, {id: comp_id}).pipe(catchError(this.handleError));
+  getScoreBoard(comp_id: number): Observable<Scoreboard[]> {
+    return this.http.post<Scoreboard[]>(this.getScoreBoardURL, {id: comp_id}).pipe(catchError(this.handleError));
+  }
+
+  startTimer(timer: number): Observable<any> {
+    return this.http.post(this.serverURL + 'competition/start_timer', {timer: timer}).pipe(catchError(this.handleError));
+  }
+
+  connectToEventSource(): EventSource {
+    return new EventSource(this.serverURL + 'competition_events');
+  }
+
+  getEventStream(): Observable<Map<String, any>> {
+    return new Observable<Map<String, any>>(obs => {
+      const es = new EventSource(this.serverURL + 'competition_events');
+      es.onmessage = function(e) {
+        obs.next(JSON.parse(e.data));
+      };
+      // es.addEventListener('data', (event) => {
+      //   console.log(event);
+      //   // obs.next(event);
+      //   obs.next('message');
+      // });
+      return () => es.close();
+    });
   }
 }
 
