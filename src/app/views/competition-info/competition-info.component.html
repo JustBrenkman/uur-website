@@ -61,14 +61,16 @@
 <mat-card class="d-flex flex-row justify-content-center stretch m-2">
   <div class="d-flex flex-column">
     <div class="clock align-self-center">
-      <h1 class="display-4">{{(timeleft / 60) | number:'1.0-0'}}:{{timeleft % 60 | number:'2.0-0'}}</h1>
+      <h1 class="display-4">{{(timeLeft / 60) | floor}}:{{timeLeft % 60 | number:'2.0-0'}}</h1>
     </div>
+    <h5 class="display-5 align-self-center">{{(timer / 60) | floor}}:{{timer % 60 | number:'2.0-0'}}</h5>
     <div class="align-self-center">
       <button mat-icon-button (click)="startTimer()"><mat-icon>play_arrow</mat-icon></button>
       <button mat-icon-button (click)="pauseTimer()"><mat-icon>pause</mat-icon></button>
-      <button mat-icon-button><mat-icon>stop</mat-icon></button>
-      <button mat-icon-button><mat-icon>keyboard_arrow_up</mat-icon></button>
-      <button mat-icon-button><mat-icon>keyboard_arrow_down</mat-icon></button>
+      <button mat-icon-button (click)="stopTimer()"><mat-icon>stop</mat-icon></button>
+      <button mat-icon-button (click)="increaseTimer()"><mat-icon>keyboard_arrow_up</mat-icon></button>
+      <button mat-icon-button (click)="decreaseTimer()"><mat-icon>keyboard_arrow_down</mat-icon></button>
+      <button mat-icon-button (click)="connectToSource()"><mat-icon>insert_link</mat-icon></button>
     </div>
   </div>
 </mat-card>

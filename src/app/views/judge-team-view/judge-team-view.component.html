@@ -1,15 +1,13 @@
-<!--<p>-->
-  <!--judge-team-view works!-->
-  <!--{{team_number}}-->
-  <!--{{comp_id}}-->
-<!--</p>-->
-
-
 <div class="d-flex m-2 flex-row">
   <mat-card class="stretch">
     <div class="d-flex m-2 flex-column justify-content-center">
-      <div class="clock align-self-center">
-        <h1 class="display-4">50:00:00</h1>
+      <div class="d-flex flex-column">
+        <div class="clock align-self-center">
+          <h1 class="display-4">{{(timeLeft / 60) | floor}}:{{timeLeft % 60 | number:'2.0-0'}}</h1>
+        </div>
+        <!--<h5 class="display-5 align-self-center">{{(timer / 60) | floor}}:{{timer % 60 | number:'2.0-0'}}</h5>-->
+        <div class="align-self-center">
+        </div>
       </div>
       <h6 class="pb-2">Team: {{team_number}}</h6>
       <div>

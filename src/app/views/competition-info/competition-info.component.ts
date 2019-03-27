@@ -1,10 +1,22 @@
-import {Component, OnDestroy, OnInit, ViewChild, NgZone} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild, NgZone, PipeTransform, Pipe} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Competition, Task, Action, Scoreboard} from '../../models/competition';
 import {CompetitionService} from '../../services/competition.service';
 import {RolePrivilegeGuard} from '../../services/role-privilege-guard.service';
 import {Team} from '../../models/team';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+
+@Pipe({name: 'floor'})
+export class FloorPipe implements PipeTransform {
+  /**
+   *
+   * @param value
+   * @returns {number}
+   */
+  transform(value: number): number {
+    return Math.floor(value);
+  }
+}
 
 @Component({
   selector: 'app-competition-info',
@@ -19,15 +31,16 @@ export class CompetitionInfoComponent implements OnInit {
   teams: Team[];
   scoreBoard: Scoreboard[];
   source: EventSource;
-  timer: Date;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   scoreboardSrc = new MatTableDataSource(this.scoreBoard);
   usersDisplayColumn: string[] = ['rank', 'team_number', 'score'];
 
-  timeleft = 50;
+  timeLeft = 300;
+  timer = 300;
   interval;
+  lastCommand = null;
 
   constructor(public route: ActivatedRoute, public competitionService: CompetitionService, public roleGuard: RolePrivilegeGuard,
               public router: Router, public zone: NgZone) {
@@ -108,8 +121,12 @@ export class CompetitionInfoComponent implements OnInit {
   }
 
   startTimer() {
-    this.competitionService.startTimer(500).subscribe(() => {
+    this.competitionService.startTimer(this.timer).subscribe(() => {
     });
+  }
+
+  stopTimer() {
+    this.competitionService.stopTimer().subscribe(() => {});
   }
 
   pauseTimer() {
@@ -118,25 +135,41 @@ export class CompetitionInfoComponent implements OnInit {
 
   connectToSource() {
     this.competitionService.getEventStream().subscribe((data) => {
-      if (data['command'] === 'start') {
-        console.log(data);
-        this.timeleft = data['timer'];
-        this.zone.run(() => {
-          this.start();
-        });
+      if (this.lastCommand != null) {
+       if (this.lastCommand['command'] !== data['command']) {
+         if (data['command'] === 'start') {
+           console.log(data);
+           this.timeLeft = data['timer'];
+           this.zone.run(() => {
+             this.start();
+           });
+         } else if (data['command'] === 'stop') {
+           this.pauseTimer();
+         }
+       }
       }
+      this.lastCommand = data;
     });
   }
 
   start() {
+    clearInterval(this.interval);
     this.interval = setInterval(() => {
-      if (this.timeleft > 0) {
-        this.timeleft--;
-        console.log(this.timeleft);
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+        console.log(this.timeLeft);
       } else {
-        this.timeleft = 0;
+        this.timeLeft = 0;
       }
     }, 1000);
+  }
+
+  increaseTimer(time = 60) {
+    this.timer += time;
+  }
+
+  decreaseTimer(time = 60) {
+    this.timer -= time;
   }
 }
 

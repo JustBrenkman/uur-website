@@ -38,7 +38,7 @@
         </div>
       </mat-card-header>
       <mat-card-content>
-        <table mat-table [dataSource]="competitionsDataSource" class="mat-elevation-z8" style="width: 100% !important; overflow: auto">
+        <table mat-table [dataSource]="competitionsDataSource" style="width: 100% !important; overflow: auto">
           <ng-container matColumnDef="timestamp">
             <th mat-header-cell *matHeaderCellDef>Time Stamp</th>
             <td mat-cell *matCellDef="let element">{{element.timestamp}}</td>

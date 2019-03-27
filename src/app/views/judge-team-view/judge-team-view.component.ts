@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, NgZone, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Action, Score, Task, TaskScores} from '../../models/competition';
 import {CompetitionService} from '../../services/competition.service';
 import {MatSnackBar} from '@angular/material';
@@ -21,7 +21,12 @@ export class JudgeTeamViewComponent implements OnInit {
   taskValues = {};
   actionTimesCompleted = {};
 
-  constructor(public route: ActivatedRoute, public compService: CompetitionService, public snackBar: MatSnackBar, public location: Location) {
+  timeLeft = 300;
+  timer = 300;
+  interval;
+  lastCommand = null;
+
+  constructor(public route: ActivatedRoute, public compService: CompetitionService, public snackBar: MatSnackBar, public location: Location, public zone: NgZone) {
     this.team_number = this.route.snapshot.queryParamMap.get('team_number');
     this.comp_id = Number(this.route.snapshot.queryParamMap.get('comp_id'));
   }
@@ -40,6 +45,7 @@ export class JudgeTeamViewComponent implements OnInit {
         this.actions.forEach((action, index) => { this.actionTimesCompleted[index] = 0; });
       }
     });
+    this.connectToSource();
   }
 
   increaseAction(index: number) {
@@ -108,5 +114,40 @@ export class JudgeTeamViewComponent implements OnInit {
         this.location.back();
       }
     });
+  }
+
+  connectToSource() {
+    this.compService.getEventStream().subscribe((data) => {
+      if (this.lastCommand != null) {
+        if (this.lastCommand['command'] !== data['command']) {
+          if (data['command'] === 'start') {
+            console.log(data);
+            this.timeLeft = data['timer'];
+            this.zone.run(() => {
+              this.start();
+            });
+          } else if (data['command'] === 'stop') {
+            this.pauseTimer();
+          }
+        }
+      }
+      this.lastCommand = data;
+    });
+  }
+
+  start() {
+    clearInterval(this.interval);
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+        console.log(this.timeLeft);
+      } else {
+        this.timeLeft = 0;
+      }
+    }, 1000);
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
   }
 }

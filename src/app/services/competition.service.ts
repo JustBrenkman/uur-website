@@ -141,6 +141,10 @@ export class CompetitionService {
     return this.http.post(this.serverURL + 'competition/start_timer', {timer: timer}).pipe(catchError(this.handleError));
   }
 
+  stopTimer(): Observable<any> {
+    return this.http.get(this.serverURL + 'competition/stop_timer').pipe(catchError(this.handleError));
+  }
+
   connectToEventSource(): EventSource {
     return new EventSource(this.serverURL + 'competition_events');
   }
